@@ -36,7 +36,7 @@ mkdir houndoom1 && cd $_
       mkdir rhydon
       mkdir wailord && cd ..
     echo $'Возможности\nOverland=4 Surface=2 Jump=2 Power=1 Intelligence=2\nThreaded=0' > sewaddle 
-    mkdir lubicolo && cd $_
+    mkdir ludicolo && cd $_
       echo $'Живет Forest Rainforest' > shiftry
       mkdir cradily
       mkdir electivire && cd ..
@@ -111,6 +111,31 @@ mkdir tyrogue4 && cd $_
   cd ..
 
 #TODO Part 2
-#TODO Part 3
+
+# Part 3
+ln jumpluff3 tyrogue4/blissey/krabbyjumpluff
+ln -s bronzong3 tyranitar6/numelbronzong
+ln -s Copy_56 tyrogue4
+cp jumpluff3 houndoom1/trapinch/tentacool
+cp jumpluff3 houndoom1/trapinch/nincada/chingling
+cat houndoom1/reuniclus tyrogue4/blissey/leavanny tyrogue4/sentret/rattata/timburr houndoom1/trapinch/nincada/porygon2 >> bronzong3_30
+ln bronzong3 houndoom1/flygon/venipede/loudredbronzong
+rsync -Rr houndoom1 houndoom1/trapinch/nincada  # use rsync because cp can't copy directory into itself
+cp gorebyss7 houndoom1/trapinch/yanmega/phanpygorebyss
+cat houndoom1/trapinch/nincada/growlithe tyranitar6/tentacruel houndoom1/trapinch/nincada/swadloon houndoom1/flygon/ludicolo/shiftry >> gorebyss7_25
+ln -s gorebyss7 houndoom1/trapinch/jolteongorebyss
+cp jumpluff3 houndoom1/trapinch/yanmega/gardevoirjumpluff
+# ln bronzong3 tyranitar6/numelbronzong # symlink already exists (Part 3 second line)
+cp gorebyss7 houndoom1/flygon/venipede/rhydon
+cat houndoom1/conkeldurr/honchkrow/bayleef houndoom1/trapinch/slaking/starly houndoom1/trapinch/yanmega/gardevoir houndoom1/trapinch/nincada/porygon2 >> bronzong3_60
+cp -r tyranitar6 tyrogue4/sentret/floatzel/flaaffy
+ln -s bronzong3 houndoom1/conkeldurr/machoke/tyranitarbronzong
+cp -r tyranitar6 houndoom1/flygon/venipede
+cp gorebyss7 houndoom1/trapinch/yanmega/phanpygorebyss
+ln -s Copy_56 tyranitar6
+ln -s Copy_22 tyranitar6
+
 #TODO Part 4
 #TODO Part 5
+
+exa --tree -l
