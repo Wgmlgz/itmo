@@ -1,9 +1,7 @@
-
 # go to test dir
-cd ..
-rm -rf test
-mkdir test && cd $_
-
+sudo rm -rf test
+mkdir test
+cd test
 
 # Part 1
 echo $'Тип диеты Nullivore' > bronzong3
@@ -29,10 +27,10 @@ mkdir houndoom1 && cd $_
     echo $'Живет\nForest Grassland' > bayleef
     mkdir venipede && cd $_
       mkdir larvesta
-      echo $'Возможности Overland=4 Surface=7\nUnderwater=7 Jump=1 Power=1 Intelligence=2\nGilled=0' > kabute
+      echo $'Возможности Overland=4 Surface=7\nUnderwater=7 Jump=1 Power=1 Intelligence=2\nGilled=0' > kabuto
       mkdir zweilous
       echo $'weigth=283.5 height=79.0 atk=10\ndef=13' > tangrowth
-      echo $'Тип покемона NORMAL NONE' > Loudred
+      echo $'Тип покемона NORMAL NONE' > loudred
       mkdir rhydon
       mkdir wailord && cd ..
     echo $'Возможности\nOverland=4 Surface=2 Jump=2 Power=1 Intelligence=2\nThreaded=0' > sewaddle 
@@ -110,7 +108,107 @@ mkdir tyrogue4 && cd $_
     cd ..
   cd ..
 
-#TODO Part 2
+# Part 2
+chmod u=rw,g=,o=r        bronzong3
+chmod u=r,g=,o=          gorebyss7
+chmod u=wx,g=rw,o=wx     houndoom1
+chmod u=rwx,g=rwx,o=rwx  houndoom1/conkeldurr
+chmod 064                houndoom1/conkeldurr/mankey
+chmod 600                houndoom1/conkeldurr/mandibuzz
+chmod 571                houndoom1/conkeldurr/honchkrow
+chmod 317                houndoom1/conkeldurr/honchkrow/scyther
+chmod u=,g=r,o=rw        houndoom1/conkeldurr/honchkrow/sawsbuck
+chmod u=rx,g=x,o=w       houndoom1/conkeldurr/honchkrow/dewgong
+chmod 444                houndoom1/conkeldurr/honchkrow/bayleef
+chmod u=rwx,g=rx,o=wx    houndoom1/conkeldurr/honchkrow/turtwig
+chmod u=,g=,o=rw         houndoom1/conkeldurr/honchkrow/ludicolo
+chmod u=wx,g=rwx,o=rx    houndoom1/conkeldurr/honchkrow/pansear
+chmod u=rx,g=w,o=r       houndoom1/conkeldurr/machoke
+chmod 440                houndoom1/conkeldurr/machoke/tyranitar
+chmod u=,g=r,o=r         houndoom1/conkeldurr/machoke/cranidos
+chmod u=rw,g=w,o=w       houndoom1/conkeldurr/braviary
+chmod u=rw,g=w,o=r       houndoom1/conkeldurr/jynx
+chmod u=wx,g=wx,o=rx     houndoom1/flygon
+chmod u=r,g=,o=          houndoom1/flygon/bayleef
+chmod u=rx,g=x,o=w       houndoom1/flygon/venipede
+chmod u=rwx,g=rx,o=w     houndoom1/flygon/venipede/larvesta
+chmod 404                houndoom1/flygon/venipede/kabuto
+chmod 770                houndoom1/flygon/venipede/zweilous
+chmod u=r,g=,o=          houndoom1/flygon/venipede/tangrowth
+chmod u=,g=r,o=r         houndoom1/flygon/venipede/loudred
+chmod u=rx,g=rwx,o=wx    houndoom1/flygon/venipede/rhydon
+chmod u=rwx,g=wx,o=rw    houndoom1/flygon/venipede/wailord
+chmod u=,g=r,o=rw        houndoom1/flygon/sewaddle
+chmod u=rx,g=wx,o=rwx    houndoom1/flygon/ludicolo
+chmod 404                houndoom1/flygon/ludicolo/shiftry
+chmod u=rwx,g=rx,o=wx    houndoom1/flygon/ludicolo/cradily
+chmod u=rwx,g=wx,o=wx    houndoom1/flygon/ludicolo/electivire
+chmod 600                houndoom1/reuniclus
+chmod 357                houndoom1/trapinch
+chmod u=r,g=r,o=r        houndoom1/trapinch/shuppet
+chmod 330                houndoom1/trapinch/slaking
+chmod 500                houndoom1/trapinch/slaking/beautifly
+chmod u=rw,g=w,o=        houndoom1/trapinch/slaking/starly
+chmod u=,g=rw,o=         houndoom1/trapinch/slaking/parasect
+chmod u=wx,g=rw,o=x      houndoom1/trapinch/slaking/sharpedo
+chmod u=rx,g=wx,o=rwx    houndoom1/trapinch/slaking/lampent
+chmod 305                houndoom1/trapinch/nincada
+chmod u=,g=rw,o=         houndoom1/trapinch/nincada/porygon2
+chmod u=r,g=r,o=r        houndoom1/trapinch/nincada/growlithe
+chmod u=rw,g=w,o=r       houndoom1/trapinch/nincada/swadloon
+chmod u=wx,g=rwx,o=wx    houndoom1/trapinch/nincada/spoink
+chmod u=rx,g=x,o=wx      houndoom1/trapinch/nincada/chingling
+chmod u=wx,g=rwx,o=rx    houndoom1/trapinch/nincada/crobat
+chmod 664                houndoom1/trapinch/nincada/cacturne
+chmod u=rx,g=x,o=wx      houndoom1/trapinch/yanmega
+chmod u=,g=r,o=r         houndoom1/trapinch/yanmega/gardevoir
+chmod u=rw,g=w,o=r       houndoom1/trapinch/yanmega/phanpy
+chmod 337                houndoom1/trapinch/tentacool
+chmod u=rw,g=,o=         houndoom1/trapinch/tentacool/croagunk
+chmod 771                houndoom1/trapinch/tentacool/tranquill
+chmod u=,g=r,o=r         houndoom1/trapinch/jolteon
+chmod u=r,g=r,o=r        houndoom1/chimchar
+chmod 004                jumpluff3
+chmod 305                tyranitar6
+chmod u=r,g=,o=r         tyranitar6/numel
+chmod u=,g=,o=r          tyranitar6/hippowdon
+chmod u=r,g=,o=          tyranitar6/tentacruel
+chmod u=rx,g=wx,o=rwx    tyrogue4
+chmod u=rx,g=x,o=w       tyrogue4/blissey
+chmod u=rx,g=rwx,o=rwx   tyrogue4/blissey/herdier
+chmod u=rwx,g=rwx,o=rwx  tyrogue4/blissey/herdier/sharpedo
+chmod u=,g=r,o=rw        tyrogue4/blissey/herdier/vileplume
+chmod 755                tyrogue4/blissey/herdier/masquerain
+chmod u=rwx,g=wx,o=wx    tyrogue4/blissey/herdier/electrode
+chmod u=rx,g=rwx,o=wx    tyrogue4/blissey/herdier/grimer
+chmod u=rx,g=rwx,o=wx    tyrogue4/blissey/herdier/foongus
+chmod u=r,g=,o=          tyrogue4/blissey/leavanny
+chmod 600                tyrogue4/blissey/krabby
+chmod u=rw,g=r,o=        tyrogue4/lucario
+chmod 355                tyrogue4/sentret
+chmod u=rx,g=rwx,o=wx    tyrogue4/sentret/golduck
+chmod u=,g=r,o=rw        tyrogue4/sentret/golduck/sawsbuck
+chmod 500                tyrogue4/sentret/golduck/honchkrow
+chmod 771                tyrogue4/sentret/golduck/galvantula
+chmod 555                tyrogue4/sentret/golduck/stunky
+chmod u=rw,g=,o=r        tyrogue4/sentret/golduck/golett
+chmod u=,g=,o=r          tyrogue4/sentret/golduck/monferno
+chmod u=rwx,g=wx,o=rw    tyrogue4/sentret/golduck/gliscor
+chmod u=rx,g=rwx,o=rwx   tyrogue4/sentret/mandibuzz
+chmod u=rwx,g=wx,o=rw    tyrogue4/sentret/mandibuzz/hitmonchan
+chmod u=rwx,g=wx,o=wx    tyrogue4/sentret/mandibuzz/elekid
+chmod u=rw,g=r,o=        tyrogue4/sentret/mandibuzz/electrode
+chmod 640                tyrogue4/sentret/hitmonlee
+chmod 404                tyrogue4/sentret/aggron
+chmod 600                tyrogue4/sentret/piplup
+chmod 555                tyrogue4/sentret/rattata
+chmod 664                tyrogue4/sentret/rattata/timburr
+chmod u=r,g=,o=r         tyrogue4/sentret/rattata/machop
+chmod u=r,g=r,o=r        tyrogue4/sentret/rattata/wobbuffet
+chmod u=r,g=,o=          tyrogue4/sentret/rattata/shinx
+chmod u=rwx,g=rx,o=w     tyrogue4/sentret/floatzel
+chmod 711                tyrogue4/sentret/floatzel/flaaffy
+chmod 570                tyrogue4/sentret/floatzel/metagross
 
 # Part 3
 ln jumpluff3 tyrogue4/blissey/krabbyjumpluff
