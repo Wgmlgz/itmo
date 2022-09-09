@@ -108,6 +108,7 @@ mkdir tyrogue4 && cd $_
     cd ..
   cd ..
 
+
 # Part 2
 chmod u=rw,g=,o=r        bronzong3
 chmod u=r,g=,o=          gorebyss7
@@ -210,6 +211,7 @@ chmod u=rwx,g=rx,o=w     tyrogue4/sentret/floatzel
 chmod 711                tyrogue4/sentret/floatzel/flaaffy
 chmod 570                tyrogue4/sentret/floatzel/metagross
 
+
 # Part 3
 ln jumpluff3 tyrogue4/blissey/krabbyjumpluff
 ln -s bronzong3 tyranitar6/numelbronzong
@@ -233,9 +235,9 @@ cp gorebyss7 houndoom1/trapinch/yanmega/phanpygorebyss
 ln -s Copy_56 tyranitar6
 ln -s Copy_22 tyranitar6
 
+
 # Part 4
 
-pwd 
 #1 Подсчитать количество символов содержимого файлов: numel, hippowdon, tentacruel, vileplume, leavanny, krabby, lucario, sawsbuck, golett, monferno, результат записать в файл в директории /tmp, подавить вывод ошибок доступа
 wc -m ./{,*/,*/*/,*/*/*/,*/*/*/*/}{*numel,hippowdon,tentacruel,vileplume,leavanny,krabby,lucario,sawsbuck,golett,monferno} 2>/dev/null 1>/tmp/task1
 
@@ -290,6 +292,18 @@ wc -l ./{,*/,*/*/,*/*/*/,*/*/*/*/}{*jynx,bayleef,kabuto,tangrowth,loudred,sewadd
 #18 Вывести список имен и атрибутов файлов в директории tyranitar6, список отсортировать по имени z->a, ошибки доступа перенаправить в файл в директории /tmp
 ls -l tyranitar6/ 2>/tmp/task18_err | sort -k9 -r
 
-#TODO Part 5
 
-# exa --tree -l
+# Part 5
+
+# Удалить файл gorebyss7
+rm -f gorebyss7
+# Удалить файл lab0/tyrogue4/sentret/rattata/wobbuffet
+rm -f tyrogue4/sentret/rattata/wobbuffet
+# удалить символические ссылки lab0/houndoom1/conkeldurr/machoke/tyranitarbronzo*
+rm houndoom1/conkeldurr/machoke/tyranitarbronzo*
+# удалить жесткие ссылки lab0/tyranitar6/numelbronzo*
+rm tyranitar6/numelbronzo*
+# Удалить директорию tyranitar6
+rm -Rf tyranitar6
+# Удалить директорию lab0/houndoom1/trapinch/nincada
+rm -Rf houndoom1/trapinch/nincada
