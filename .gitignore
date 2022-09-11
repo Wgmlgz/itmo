@@ -8,7 +8,7 @@
 *.fls
 
 # PDF output - usually a bad idea to keep this in Git
-*.pdf
+# *.pdf 
 
 # Latexmk
 *.fdb_latexmk
