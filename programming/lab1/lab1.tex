@@ -55,6 +55,12 @@
 
 \newpage
 
+\definecolor{od_black}{HTML}{282C34}
+\definecolor{od_red}{HTML}{E06C75}
+\definecolor{od_green}{HTML}{98C379}
+\definecolor{od_blue}{HTML}{61AFEF}
+\definecolor{od_purple}{HTML}{C678DD}
+
 \lstset{
   inputencoding=utf8,
   frame=single,
@@ -64,18 +70,41 @@
   showspaces=false,
   showstringspaces=false,
   basicstyle=\footnotesize\ttfamily,
-  keywordstyle=\bfseries\color{green!40!black},
-  commentstyle=\itshape\color{purple!40!black},
-  identifierstyle=\color{blue},
-  stringstyle=\color{orange},
+  keywordstyle=\bfseries\color{od_purple},
+  commentstyle=\itshape\color{od_purple},
+  identifierstyle=\color{od_blue},
+  stringstyle=\color{od_green},
 }
 
-\section*{Цель работы}
+\section*{Текст задания}
 
-\section*{Ход работы}
+\begin{enumerate}
+  \item Создать одномерный массив a типа short. Заполнить его чётными числами от 4 до 18 включительно в порядке возрастания.
+  \item Создать одномерный массив x типа double. Заполнить его 19-ю случайными числами в диапазоне от -12.0 до 13.0.
+  \item Создать двумерный массив a размером 8x19. Вычислить его элементы по следующей формуле (где $x = x[j]$) \begin{itemize}
+          \item если $a[i] = 16$, то $a[i][j] = ln(|ln(tan^2(x))|)$
+          \item если $a[i] \in \{10, 12, 14, 18\}$, то $
+                  a[i][j] = \left(
+                  \frac{
+                    sin\left(arctan\left(\frac{x+0.5}{25}\right)\right)
+                  }{
+                    \sqrt[3]{x^x}-1
+                  }
+                  \right)^{
+                    sin\left(x^{x\cdot\left(x+\frac{2}{3}\right)}\right)
+                  }
+                $
+          \item для остальных значений $a[i]: a[i][j]=sin(arcsin(cos(tan(cos(x)))))$
+        \end{itemize}
+  \item Напечатать полученный в результате массив в формате с пятью знаками после запятой.
+\end{enumerate}
 
+\section*{Исходный код программы}
 \lstinputlisting{Lab1.java}
 
-\section*{Вывод}
+\section*{Результат работы программы}
+\lstinputlisting{out.txt}
 
+\section*{Вывод}
+Я осознал что обречён писать 4 года лабы на java $( $
 \end{document}
