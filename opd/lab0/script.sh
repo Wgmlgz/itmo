@@ -1,7 +1,6 @@
 # go to lab dir
-sudo rm -rf test
-mkdir test
-cd test
+mkdir lab0
+cd lab0
 
 # Part 1
 echo $'Тип диеты Nullivore' > bronzong3
