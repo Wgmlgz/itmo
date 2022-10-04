@@ -43,10 +43,8 @@ fn main() {
             "{}\n",
             v.iter()
                 .enumerate()
-                .filter_map(|(idx, x)| (idx.count_ones() > 1).then(|| *x as i32))
-                .map(|x| x.to_string())
-                .collect::<Vec<_>>()
-                .join("")
+                .filter_map(|(idx, x)| (idx.count_ones() > 1).then(|| (*x as i32).to_string()))
+                .collect::<String>()
         );
     }
 }
