@@ -9,6 +9,7 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{xlop}
+\usepackage{../../lib/latex/listings-rust}
 
 \geometry{
   a4paper,
@@ -26,7 +27,7 @@
     «Национальный исследовательский университет ИТМО»\\
     Факультет Программной Инженерии и Компьютерной Техники \\
    }
-  \includegraphics[scale=0.2]{../../img/itmo.png}
+  \includegraphics[scale=0.2]{../../lib/img/itmo.png}
 \end{center}
 \vspace{4cm}
 
@@ -59,7 +60,7 @@
 \lstset{
   inputencoding=utf8,
   frame=single,
-  language=Java,
+  language=Rust,
   breaklines=true,
   numbers=left,
   postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
@@ -74,6 +75,8 @@
 }
 
 \section*{Текст задания}
+
+\lstinputlisting{./hamming/src/main.rs}
 
 \begin{enumerate}
   \item 59 0010100
