@@ -30,13 +30,20 @@ fn main() {
             .enumerate()
             .filter_map(|(idx, bit)| bit.then(|| idx))
             .reduce(|a, b| a ^ b)
-            .unwrap();
+            .unwrap_or_else(|| 0);
 
         if err == 0 {
             print!("No error detected! Message: ");
         } else {
             v[err] ^= true;
-            print!("Error at position {err} found and corrected: ");
+            print!(
+                "Error at position {} found and corrected: ",
+                match err.count_ones() {
+                    0 => format!("_"),
+                    1 => format!("r{}", err.trailing_zeros() + 1),
+                    _ => format!("i{}", err - (err as f64).log2().ceil() as usize),
+                }
+            );
         }
 
         println!(
