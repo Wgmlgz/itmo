@@ -1,0 +1,2 @@
+Main-Class: com.wgmlgz.Lab2
+Class-Path: lib/Pokemon.jar
