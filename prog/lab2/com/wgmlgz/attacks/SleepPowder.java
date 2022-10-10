@@ -18,6 +18,6 @@ public class SleepPowder extends StatusMove {
 
   @Override
   protected String describe() {
-    return "использует SleepPowder ";
+    return "uses SleepPowder ";
   }
 }

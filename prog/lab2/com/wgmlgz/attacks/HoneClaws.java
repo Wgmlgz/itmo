@@ -9,15 +9,11 @@ public class HoneClaws extends StatusMove {
 
   @Override
   protected void applySelfEffects(Pokemon p) {
-    Effect eff = new Effect();
-    eff = eff.condition(Status.SLEEP);
-    eff = eff.turns(2);
-    p.restore();
-    p.addEffect(eff);
+    p.addEffect(new Effect().stat(Stat.ATTACK, 1).stat(Stat.ACCURACY, 1));
   }
 
   @Override
   protected String describe() {
-    return "использует HoneClaws ";
+    return "uses HoneClaws";
   }
 }

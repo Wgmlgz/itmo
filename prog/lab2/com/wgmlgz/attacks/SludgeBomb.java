@@ -18,6 +18,6 @@ public class SludgeBomb extends StatusMove {
 
   @Override
   protected String describe() {
-    return "использует SludgeBomb ";
+    return "uses SludgeBomb ";
   }
 }

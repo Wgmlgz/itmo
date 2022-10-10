@@ -9,15 +9,11 @@ public class Rest extends StatusMove {
 
   @Override
   protected void applySelfEffects(Pokemon p) {
-    Effect eff = new Effect();
-    eff = eff.condition(Status.SLEEP);
-    eff = eff.turns(2);
-    p.restore();
-    p.addEffect(eff);
+    new Effect().turns(2).sleep(p);
   }
 
   @Override
   protected String describe() {
-    return "использует Rest ";
+    return "uses Rest";
   }
 }

@@ -18,6 +18,6 @@ public class WillOWisp extends StatusMove {
 
   @Override
   protected String describe() {
-    return "использует WillOWisp ";
+    return "uses WillOWisp ";
   }
 }

@@ -3,11 +3,10 @@ package com.wgmlgz.pokemons;
 import ru.ifmo.se.pokemon.*;
 import com.wgmlgz.attacks.*;
 
-public class Weepinbell extends Pokemon {
+public class Weepinbell extends Bellsprout {
   public Weepinbell(String name, int level) {
     super(name, level);
-    setStats(49, 55, 42, 42, 37, 85);
-    setType(Type.NORMAL);
-    setMove(new SludgeBomb(), new SleepPowder(), new Acid());
+    setStats(65, 90, 50, 85, 45, 55);
+    addMove(new Acid());
   }
 }

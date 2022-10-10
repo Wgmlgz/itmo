@@ -6,8 +6,8 @@ import com.wgmlgz.attacks.*;
 public class Cottonee extends Pokemon {
   public Cottonee(String name, int level) {
     super(name, level);
-    setStats(49, 55, 42, 42, 37, 85);
-    setType(Type.NORMAL);
+    setStats(40, 27, 60, 37, 50, 66);
+    setType(Type.GRASS, Type.FAIRY);
     setMove(new EnergyBall(), new Rest(), new DreamEater());
   }
 }

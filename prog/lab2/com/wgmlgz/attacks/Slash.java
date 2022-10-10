@@ -18,6 +18,6 @@ public class Slash extends StatusMove {
 
   @Override
   protected String describe() {
-    return "использует  Slash ";
+    return "uses  Slash ";
   }
 }

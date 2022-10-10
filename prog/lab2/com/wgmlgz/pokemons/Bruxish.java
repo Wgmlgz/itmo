@@ -6,8 +6,8 @@ import com.wgmlgz.attacks.*;
 public class Bruxish extends Pokemon {
   public Bruxish(String name, int level) {
     super(name, level);
-    setStats(49, 55, 42, 42, 37, 85);
-    setType(Type.NORMAL);
+    setStats(68, 105, 70, 70, 70, 92);
+    setType(Type.WATER, Type.PSYCHIC);
     setMove(new Slash(), new DarkPulse(), new HoneClaws(), new WillOWisp());
   }
 }

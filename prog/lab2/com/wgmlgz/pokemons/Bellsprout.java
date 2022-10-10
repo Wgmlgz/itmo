@@ -7,7 +7,7 @@ public class Bellsprout extends Pokemon {
   public Bellsprout(String name, int level) {
     super(name, level);
     setStats(49, 55, 42, 42, 37, 85);
-    setType(Type.NORMAL);
+    setType(Type.GRASS, Type.POISON);
     setMove(new SludgeBomb(), new SleepPowder());
   }
 }
