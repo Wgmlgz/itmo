@@ -78,8 +78,8 @@
   \item Создать одномерный массив a типа short. Заполнить его чётными числами от 4 до 18 включительно в порядке возрастания.
   \item Создать одномерный массив x типа double. Заполнить его 19-ю случайными числами в диапазоне от -12.0 до 13.0.
   \item Создать двумерный массив a размером 8x19. Вычислить его элементы по следующей формуле (где $x = x[j]$) \begin{itemize}
-          \item если $a[i] = 16$, то $a[i][j] = ln(|ln(tan^2(x))|)$
-          \item если $a[i] \in \{10, 12, 14, 18\}$, то $
+          \item если $a[i] = 16$, то $\displaystyle a[i][j] = ln(|ln(tan^2(x))|)$
+          \item если $a[i] \in \{10, 12, 14, 18\}$, то $\displaystyle
                   a[i][j] = \left(
                   \frac{
                     sin\left(arctan\left(\frac{x+0.5}{25}\right)\right)
@@ -90,7 +90,7 @@
                     sin\left(x^{x\cdot\left(x+\frac{2}{3}\right)}\right)
                   }
                 $
-          \item для остальных значений $a[i]: a[i][j]=sin(arcsin(cos(tan(cos(x)))))$
+          \item для остальных значений $\displaystyle a[i]: a[i][j]=sin(arcsin(cos(tan(cos(x)))))$
         \end{itemize}
   \item Напечатать полученный в результате массив в формате с пятью знаками после запятой.
 \end{enumerate}

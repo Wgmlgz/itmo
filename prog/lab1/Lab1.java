@@ -22,7 +22,7 @@ class Lab1 {
 
   public Lab1() {
     a = new short[8];
-    for (short t = 4, idx = 0; t <= 18; t += 2, ++idx)
+    for (short t = 4, idx = 0; t < 19; t += 2, ++idx)
       a[idx] = t;
 
     x = new Random().doubles(19, -12, 13).toArray();
