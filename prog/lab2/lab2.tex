@@ -1,83 +1,42 @@
-\documentclass{article}
-\usepackage[paper=letterpaper,margin=2cm]{geometry}
-\usepackage[russian]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[]{graphicx}
-\usepackage[usenames]{color}
-\usepackage{colortbl}
-\usepackage{geometry}
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage{hyperref}
-
-\geometry{
-  a4paper,
-  top=25mm, 
-  right=30mm, 
-  bottom=25mm, 
-  left=30mm
-}
+\input{../../lib/latex/wgmlgz.tex}
 
 \begin{document}
 
-\begin{center}
-  \section*{
-    Федеральное государственное автономное образовательное учреждение\\ высшего образования\\
-    «Национальный исследовательский университет ИТМО»\\
-    Факультет Программной Инженерии и Компьютерной Техники \\
-   }
-  \includegraphics[scale=0.2]{../../lib/img/itmo.png}
-\end{center}
-\vspace{4cm}
-
-
-\begin{center}
-  \large \textbf{Вариант \textnumero 371364}\\
-  \textbf{Лабораторная работа \textnumero 2}\\
-  по дисциплине\\
-  \textbf{Программирование}
-\end{center}
-
-\vspace*{\fill}
-
-\begin{flushright}
-  Выполнил Студент группы P3115\\
-  \textbf{Владимир Мацюк}\\
-  Преподаватель: \\
-  \textbf{Сорокин Роман Борисович}\\
-\end{flushright}
-
-\vspace{1cm}
-
-\begin{center}
-  г. Санкт-Петербург\\
-  2022г.
-\end{center}
-
-\newpage
-
-\lstset{
-  inputencoding=utf8,
-  frame=single,
-  language=Java,
-  breaklines=true,
-  numbers=left,
-  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
-  extendedchars=false,
-  showspaces=false,
-  showstringspaces=false,
-  basicstyle=\footnotesize\ttfamily,
-  identifierstyle=\bf\ttfamily\color[HTML]{2a72de},
-  commentstyle=\color[rgb]{0.133,0.545,0.133},
-  stringstyle=\color[rgb]{0.133,0.545,0.133},
-  keywordstyle=\color[HTML]{5804cf}
-}
-
+\itmo[
+  variant=1500235,
+  labn=2,
+  discipline=Программирование,
+  group=P3115,
+  student=Владимир Мацюк,
+  teacher=Сорокин Роман Борисович
+]
 \section*{Текст задания}
 
 \begin{enumerate}
+  \item На основе базового класса Pokemon написать свои классы для заданных видов покемонов. Каждый вид покемона должен иметь один или два типа и стандартные базовые характеристики:
+        \begin{itemize}
+          \item очки здоровья (HP)
+          \item атака (attack)
+          \item защита (defense)
+          \item специальная атака (special attack)
+          \item специальная защита (special defense)
+          \item скорость (speed)
+        \end{itemize}
+  \item Классы покемонов должны наследоваться в соответствии с цепочкой эволюции покемонов. На основе базовых классов PhysicalMove, SpecialMove и StatusMove реализовать свои классы для заданных видов атак.
+        
+  \item Атака должна иметь стандартные тип, силу (power) и точность (accuracy). Должны быть реализованы стандартные эффекты атаки. Назначить каждому виду покемонов атаки в соответствии с вариантом. Уровень покемона выбирается минимально необходимым для всех реализованных атак.
+        
+  \item Используя класс симуляции боя Battle, создать 2 команды покемонов (каждый покемон должен иметь имя) и запустить бой.
+        
+  \item Базовые классы и симулятор сражения находятся в \href{https://se.ifmo.ru/documents/10180/660917/Pokemon.jar/a7ce60af-6ee6-47d0-a95e-e5ed9a697bd2}{jar-архиве} (обновлен 9.10.2018, исправлен баг с добавлением атак и кодировкой). Документация в формате javadoc - \href{https://se.ifmo.ru/~tony/doc/}{здесь}.
+        
+  \item Информацию о покемонах, цепочках эволюции и атаках можно найти на сайтах \url{http://poke-universe.ru}, \url{http://pokemondb.net}, \url{http://veekun.com/dex/pokemon}
+\end{enumerate}
+
+\section*{Комментарии}
+\begin{enumerate}
   \item Ознакомиться с документацией, обращая особое внимание на классы Pokemon и Move. При дальнейшем выполнении лабораторной работы читать документацию еще несколько раз.
-  \itemСкачать файл Pokemon.jar. Его необходимо будет использовать как для компиляции, так и для запуска программы. Распаковывать его не надо! Нужно научиться подключать внешние jar-файлы к своей программе.
+  \item Скачать файл Pokemon.jar. Его необходимо будет использовать как для компиляции, так и для запуска программы. Распаковывать его не надо! Нужно научиться подключать внешние jar-файлы к своей программе.
   \item Написать минимально работающую программу и посмотреть как она работает.
         \begin{lstlisting}
 Battle b = new Battle();
@@ -93,9 +52,48 @@ b.go();
   \item Доделать все необходимые атаки и всех покемонов, распределить покемонов по командам, запустить сражение.
 \end{enumerate}
 
+\section*{Покемоны}
+\begin{center}
+  \includegraphics[scale=0.5]{pokemons.jpg}
+\end{center}
+
+\section*{Диаграмма классов}
+
+\begin{center}
+  \begin{tikzpicture}
+    \begin{umlpackage}{p}
+      \begin{umlpackage}{sp1}
+        \umlclass[template=T]{A}{
+          n : uint \\ t : float
+        }{}
+        \umlclass[y=-3]{B}{
+          d : double
+        }{
+          \umlvirt{setB(b : B) : void} \\ getB() : B}
+      \end{umlpackage}
+      \begin{umlpackage}[x=10,y=-6]{sp2}
+        \umlinterface{C}{
+          n : uint \\ s : string
+        }{}
+      \end{umlpackage}
+      \umlclass[x=2,y=-10]{D}{
+        n : uint
+      }{}
+    \end{umlpackage}
+    
+    \umlassoc[geometry=-|-, arg1=tata, mult1=*, pos1=0.3, arg2=toto, mult2=1, pos2=2.9, align2=left]{C}{B}
+    \umlunicompo[geometry=-|, arg=titi, mult=*, pos=1.7, stereo=vector]{D}{C}
+    \umlimport[geometry=|-, anchors=90 and 50, name=import]{sp2}{sp1}
+    \umlaggreg[arg=tutu, mult=1, pos=0.8, angle1=30, angle2=60, loopsize=2cm]{D}{D}
+    \umlinherit[geometry=-|]{D}{B}
+    \umlnote[x=2.5,y=-6, width=3cm]{B}{Je suis une note qui concerne la classe B}
+    \umlnote[x=7.5,y=-2]{import-2}{Je suis une note qui concerne la relation d'import}
+  \end{tikzpicture}
+\end{center}
+
 \section*{Ссылка на github}
-\url{https://github.com/Wgmlgz/itmo/tree/main/prog/lab1}
+\url{https://github.com/Wgmlgz/itmo/tree/main/prog/lab2}
 
 \section*{Вывод}
-Я ознакомолся с основами Java и изучил базовые инструманты для работы с ней.
+Во время выполнения работы я ознакомился с ООП на языке java. Научился разрабатывать архитектуру проекта и подключать jar архивы к проекту.
 \end{document}

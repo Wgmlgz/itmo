@@ -1,21 +1,15 @@
-JAVAC = javac
-sources = $(wildcard *.java)
-classes = $(sources:.java=.class)
 out = lab2.jar
 
 all: clean run
 
 clean :
-	rm -f *.class *.jar
-
-%.class : %.java
-	$(JAVAC) $<
+	rm -f `find . -name *.class` $(out)
 
 classes:
-	javac -cp lib/Pokemon.jar -d . `find . -name *.java`
+	javac -cp lib/Pokemon.jar -d build `find . -name *.java`
 
 jar: classes
-	jar cfm $(out) manifest.mf `find . -name *.class`
+	cd build; jar cfm ../$(out) ../manifest.mf `find . -name *.class`
 
 run: jar
 	java -jar $(out)
