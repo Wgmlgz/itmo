@@ -10,8 +10,10 @@ My itmo struff 🐸
 
 sudo apt install texlive-full
 
-# font
+# LaTeX monospace font
 
+```
 wget https://download.jetbrains.com/fonts/JetBrainsMono-1.0.0.zip
 unzip JetBrainsMono-1.0.0.zip
 sudo mv JetBrainsMono-\*.ttf /usr/share/fonts/
+```
