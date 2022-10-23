@@ -14,6 +14,7 @@
 \setmonofont{JetBrains Mono}[Contextuals=Alternate,Ligatures = TeX,]
 \usepackage{listings}
 \usepackage{keycommand}
+\usepackage{caption}
 
 \setmainfont[
   Ligatures=TeX,
@@ -43,12 +44,16 @@
   urlcolor=blue!70!black
 }
 
+\captionsetup[lstlisting]{
+  font={tt},
+}
+
 % based on Atom One Light
 \lstset{
-  frame=single,
-  basicstyle=\footnotesize\ttfamily\color[HTML]{383a42},
   language=Java,
-  columns=flexible,
+  frame=single,
+  basicstyle=\ttfamily\color[HTML]{383a42},
+  columns=fullflexible,
   breaklines=true,
   numbers=left,
   frame=tab,
@@ -64,6 +69,17 @@
   rulecolor=\color[HTML]{383a42}
 }
 
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+}
+
+\newcommand{\code}[1]{
+  \lstset{title=#1}
+  \lstinputlisting{#1}
+}
 \newkeycommand{\itmo}[variant=aboba, labn=aboba, discipline=aboba, group=aboba, student=aboba,teacher=aboba, year=2022]{
   \begin{titlepage}
     \begin{center}
