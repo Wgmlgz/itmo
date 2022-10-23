@@ -1,0 +1,20 @@
+
+[glossary]
+title = 'example glossary'
+
+[glossary.GlossDiv]
+title = 'S'
+
+[glossary.GlossDiv.GlossList]
+
+[glossary.GlossDiv.GlossList.GlossEntry]
+ID = 'SGML'
+SortAs = 'SGML'
+GlossTerm = 'Standard Generalized Markup Language'
+Acronym = 'SGML'
+Abbrev = 'ISO 8879:1986'
+GlossSee = 'markup'
+
+[glossary.GlossDiv.GlossList.GlossEntry.GlossDef]
+para = 'A meta-markup language, used to create markup languages such as DocBook.'
+GlossSeeAlso = ['GML', 'XML']
