@@ -114,14 +114,14 @@ def obj2xml(obj, deep=0, parent='root') -> str:
             for (key, val) in obj.items():
                 match val:
                     case list():
-                        res += obj2xml(val, deep+1, key)
+                        res += f'{obj2xml(val, deep, key)}'
                     case str():
                         res += f'{sp}<{key}>{val}</{key}>\n'
                     case _:
                         res += f'{sp}<{key}>\n{obj2xml(val, deep+1, key)}{sp}</{key}>\n'
             return res
         case list():
-            return ''.join(f'{sp}<{parent}>{obj2xml(val, deep+1)}</{parent}>\n' for val in obj)
+            return ''.join(f'{sp}<{parent}>\n{obj2xml(val, deep+1)}{sp}</{parent}>\n' for val in obj)
 
 
 def task1(s: str):

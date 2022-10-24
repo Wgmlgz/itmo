@@ -1,97 +1,69 @@
 <tbody>
   <tr>
     <td>
-      <__class>time</__class>
       <dd>
-        <__text>2306/2 (бывш. 305) ауд.</__text>
-        <__class>rasp_aud_mobile</__class>
+        <text>2306/2 (бывш. 305) ауд.</text>
       </dd>
       <div>2, 4, 6, 8, 10, 12, 14, 16</div>
       <dt>
-        <__class>rasp_corp_mobile</__class>
-        <i>
-          <__class>fa fa-map-marker</__class>
-        </i>
         <span>Кронверкский пр., д.49, лит.А</span>
       </dt>
       <span>11:40-13:10</span>
     </td>
     <td>
-      <__class>room</__class>
       <dl>
         <dd>2306/2 (бывш. 305) ауд.</dd>
         <dt>
-          <i>
-            <__class>fa fa-map-marker</__class>
-          </i>
           <span>Кронверкский пр., д.49, лит.А</span>
         </dt>
       </dl>
     </td>
     <td>
-      <__class>lesson</__class>
       <dl>
-        <__text>четная неделя</__text>
         <dd>Информатика(Лаб)</dd>
         <dt>
           <b>Малышева Татьяна Алексеевна</b>
         </dt>
+        <text>четная неделя</text>
       </dl>
     </td>
     <td>
-      <__text>Очно - дистанционный</__text>
-      <__class>lesson-format</__class>
+      <text>Очно - дистанционный</text>
     </td>
     <th>
-      <__class>day</__class>
       <span>Чт</span>
     </th>
   </tr>
   <tr>
     <td>
-      <__class>time</__class>
       <dd>
-        <__text>2306/2 (бывш. 305) ауд.</__text>
-        <__class>rasp_aud_mobile</__class>
+        <text>2306/2 (бывш. 305) ауд.</text>
       </dd>
       <div>2, 4, 6, 8, 10, 12, 14, 16</div>
       <dt>
-        <__class>rasp_corp_mobile</__class>
-        <i>
-          <__class>fa fa-map-marker</__class>
-        </i>
         <span>Кронверкский пр., д.49, лит.А</span>
       </dt>
       <span>13:30-15:00</span>
     </td>
     <td>
-      <__class>room</__class>
       <dl>
         <dd>2306/2 (бывш. 305) ауд.</dd>
         <dt>
-          <i>
-            <__class>fa fa-map-marker</__class>
-          </i>
           <span>Кронверкский пр., д.49, лит.А</span>
         </dt>
       </dl>
     </td>
     <td>
-      <__class>lesson</__class>
       <dl>
-        <__text>четная неделя</__text>
         <dd>Информатика(Лаб)</dd>
         <dt>
           <b>Малышева Татьяна Алексеевна</b>
         </dt>
+        <text>четная неделя</text>
       </dl>
     </td>
     <td>
-      <__text>Очно - дистанционный</__text>
-      <__class>lesson-format</__class>
+      <text>Очно - дистанционный</text>
     </td>
-    <th>
-      <__class>day</__class>
-    </th>
   </tr>
 </tbody>

@@ -1,87 +1,69 @@
 <tbody>
-    <tr>      <th>
-        <@class>day</@class>
-        <span>Чт</span>
-      </th>
-        <td>          <@class>time</@class>
-          <span>11:40-13:10</span>
-          <div>2, 4, 6, 8, 10, 12, 14, 16</div>
-          <dd>
-            <@class>rasp_aud_mobile</@class>
-            <#text>2306/2 (бывш. 305) ауд.</#text>
-          </dd>
-          <dt>
-            <@class>rasp_corp_mobile</@class>
-            <i>
-              <@class>fa fa-map-marker</@class>
-            </i>
-            <span>Кронверкский пр., д.49, лит.А</span>
-          </dt>
-</td>
-        <td>          <@class>room</@class>
-          <dl>
-            <dd>2306/2 (бывш. 305) ауд.</dd>
-            <dt>
-              <i>
-                <@class>fa fa-map-marker</@class>
-              </i>
-              <span>Кронверкский пр., д.49, лит.А</span>
-            </dt>
-          </dl>
-</td>
-        <td>          <@class>lesson</@class>
-          <dl>
-            <dd>Информатика(Лаб)</dd>
-            <dt>
-              <b>Малышева Татьяна Алексеевна</b>
-            </dt>
-            <#text>четная неделя</#text>
-          </dl>
-</td>
-        <td>          <@class>lesson-format</@class>
-          <#text>Очно - дистанционный</#text>
-</td>
-</tr>
-    <tr>      <th>
-        <@class>day</@class>
-      </th>
-        <td>          <@class>time</@class>
-          <span>13:30-15:00</span>
-          <div>2, 4, 6, 8, 10, 12, 14, 16</div>
-          <dd>
-            <@class>rasp_aud_mobile</@class>
-            <#text>2306/2 (бывш. 305) ауд.</#text>
-          </dd>
-          <dt>
-            <@class>rasp_corp_mobile</@class>
-            <i>
-              <@class>fa fa-map-marker</@class>
-            </i>
-            <span>Кронверкский пр., д.49, лит.А</span>
-          </dt>
-</td>
-        <td>          <@class>room</@class>
-          <dl>
-            <dd>2306/2 (бывш. 305) ауд.</dd>
-            <dt>
-              <i>
-                <@class>fa fa-map-marker</@class>
-              </i>
-              <span>Кронверкский пр., д.49, лит.А</span>
-            </dt>
-          </dl>
-</td>
-        <td>          <@class>lesson</@class>
-          <dl>
-            <dd>Информатика(Лаб)</dd>
-            <dt>
-              <b>Малышева Татьяна Алексеевна</b>
-            </dt>
-            <#text>четная неделя</#text>
-          </dl>
-</td>
-        <td>          <@class>lesson-format</@class>
-          <#text>Очно - дистанционный</#text>
-</td>
-</tr>
+  <tr>
+    <th>
+      <span>Чт</span>
+    </th>
+    <td>
+      <span>11:40-13:10</span>
+      <div>2, 4, 6, 8, 10, 12, 14, 16</div>
+      <dd>
+        <text>2306/2 (бывш. 305) ауд.</text>
+      </dd>
+      <dt>
+        <span>Кронверкский пр., д.49, лит.А</span>
+      </dt>
+    </td>
+    <td>
+      <dl>
+        <dd>2306/2 (бывш. 305) ауд.</dd>
+        <dt>
+          <span>Кронверкский пр., д.49, лит.А</span>
+        </dt>
+      </dl>
+    </td>
+    <td>
+      <dl>
+        <dd>Информатика(Лаб)</dd>
+        <dt>
+          <b>Малышева Татьяна Алексеевна</b>
+        </dt>
+        <text>четная неделя</text>
+      </dl>
+    </td>
+    <td>
+      <text>Очно - дистанционный</text>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span>13:30-15:00</span>
+      <div>2, 4, 6, 8, 10, 12, 14, 16</div>
+      <dd>
+        <text>2306/2 (бывш. 305) ауд.</text>
+      </dd>
+      <dt>
+        <span>Кронверкский пр., д.49, лит.А</span>
+      </dt>
+    </td>
+    <td>
+      <dl>
+        <dd>2306/2 (бывш. 305) ауд.</dd>
+        <dt>
+          <span>Кронверкский пр., д.49, лит.А</span>
+        </dt>
+      </dl>
+    </td>
+    <td>
+      <dl>
+        <dd>Информатика(Лаб)</dd>
+        <dt>
+          <b>Малышева Татьяна Алексеевна</b>
+        </dt>
+        <text>четная неделя</text>
+      </dl>
+    </td>
+    <td>
+      <text>Очно - дистанционный</text>
+    </td>
+  </tr>
 </tbody>
