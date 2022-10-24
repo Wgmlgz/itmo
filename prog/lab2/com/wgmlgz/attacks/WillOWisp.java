@@ -17,3 +17,4 @@ public class WillOWisp extends StatusMove {
     return "uses WillOWisp ";
   }
 }
+
