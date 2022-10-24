@@ -14,4 +14,7 @@ jar: classes
 run: jar
 	java -jar $(out)
 
+dump: jar
+	java -jar $(out) > out.txt
+
 
