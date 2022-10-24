@@ -8,12 +8,8 @@ public class WillOWisp extends StatusMove {
   }
 
   @Override
-  protected void applySelfEffects(Pokemon p) {
-    Effect eff = new Effect();
-    eff = eff.condition(Status.SLEEP);
-    eff = eff.turns(2);
-    p.restore();
-    p.addEffect(eff);
+  protected void applyOppEffects(Pokemon p) {
+    Effect.burn(p);
   }
 
   @Override

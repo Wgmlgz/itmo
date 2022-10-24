@@ -8,12 +8,11 @@ public class SludgeBomb extends StatusMove {
   }
 
   @Override
-  protected void applySelfEffects(Pokemon p) {
-    Effect eff = new Effect();
-    eff = eff.condition(Status.SLEEP);
-    eff = eff.turns(2);
-    p.restore();
-    p.addEffect(eff);
+  protected void applyOppEffects(Pokemon p) {
+    if (!p.hasType(Type.POISON) && !p.hasType(Type.STEEL)) {
+      Effect var1 = (new Effect()).condition(Status.POISON).turns(-1);
+      p.setCondition(var1);
+    }
   }
 
   @Override

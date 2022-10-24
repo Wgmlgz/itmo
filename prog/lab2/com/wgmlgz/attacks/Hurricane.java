@@ -9,8 +9,9 @@ public class Hurricane extends SpecialMove {
 
   @Override
   protected void applySelfEffects(Pokemon p) {
-    new Effect().chance(0.3).confuse(p);
-
+    Effect e = new Effect().chance(0.3);
+    e.confuse(p);
+    p.addEffect(e);
   }
 
   @Override

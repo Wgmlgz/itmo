@@ -8,12 +8,8 @@ public class SleepPowder extends StatusMove {
   }
 
   @Override
-  protected void applySelfEffects(Pokemon p) {
-    Effect eff = new Effect();
-    eff = eff.condition(Status.SLEEP);
-    eff = eff.turns(2);
-    p.restore();
-    p.addEffect(eff);
+  protected void applyOppEffects(Pokemon p) {
+    p.addEffect((new Effect()).condition(Status.SLEEP).turns((int)(Math.random() * 3.0 + 1.0)));
   }
 
   @Override
