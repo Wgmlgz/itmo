@@ -7,14 +7,14 @@ import com.wgmlgz.pokemons.*;
 
 class Lab2 {
   public static void main(String[] args) {
-    Battle battle = new Battle();
+    var battle = new Battle();
 
-    Bellsprout bellsprout = new Bellsprout("Geralt of Rivia", 1);
-    Bruxish bruxish = new Bruxish("Ciri", 1);
-    Cottonee cottonee = new Cottonee("Yennefer of Vengerberg", 1);
-    Victreebel victreebel = new Victreebel("Triss Merigold", 1);
-    Weepinbell weepinbell = new Weepinbell("Dandelion", 1);
-    Whimsicott whimsicott = new Whimsicott("Vesemir", 1);
+    var bellsprout = new Bellsprout("Geralt of Rivia", 1);
+    var bruxish = new Bruxish("Ciri", 1);
+    var cottonee = new Cottonee("Yennefer of Vengerberg", 1);
+    var victreebel = new Victreebel("Triss Merigold", 1);
+    var weepinbell = new Weepinbell("Dandelion", 1);
+    var whimsicott = new Whimsicott("Vesemir", 1);
 
     battle.addAlly(bellsprout);
     battle.addAlly(bruxish);

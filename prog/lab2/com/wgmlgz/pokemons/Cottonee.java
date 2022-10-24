@@ -8,6 +8,6 @@ public class Cottonee extends Pokemon {
     super(name, level);
     setStats(40, 27, 60, 37, 50, 66);
     setType(Type.GRASS, Type.FAIRY);
-    setMove(new EnergyBall(), new Rest(), new DreamEater());
+    setMove(new EnergyBall(), new DreamEater());
   }
 }
