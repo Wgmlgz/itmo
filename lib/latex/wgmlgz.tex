@@ -1,15 +1,14 @@
-\documentclass{article}
 \usepackage[paper=letterpaper,margin=2cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
-\usepackage[]{graphicx}
+\usepackage{graphicx}
 \usepackage[usenames]{color}
 \usepackage{colortbl}
 \usepackage{geometry}
 \usepackage{xcolor}
 \usepackage{hyperref}
-\usepackage{../../lib/latex/listings-rust}
 \usepackage{fontspec}
+\usepackage{listings-rust}
 \setmonofont{JetBrains Mono}[Contextuals=Alternate,Ligatures = TeX,]
 \usepackage{listings}
 \usepackage{keycommand}
@@ -79,7 +78,20 @@
   \lstset{title=#1}
   \lstinputlisting{#1}
 }
-\newkeycommand{\itmo}[variant=aboba, labn=aboba, discipline=aboba, group=aboba, student=aboba,teacher=aboba, year=2022]{
+
+\newcommand{\MM}[1]{\mathchoice{\hbox{#1}}{\hbox{#1}}{\hbox{\scriptsize{#1}}}{\hbox{\tiny{#1}}}}
+
+\newkeycommand{\itmo}[
+  variant=aboba,
+  labn=aboba,
+  worktype=Лабораторная работа,
+  discipline=aboba,
+  group=aboba,
+  student=aboba,
+  teacher=aboba,
+  year=2022,
+  logo=../../lib/img/itmo.png
+]{
   \begin{titlepage}
     \begin{center}
       \section*{
@@ -87,34 +99,34 @@
         «Национальный исследовательский университет ИТМО»\\
         Факультет Программной Инженерии и Компьютерной Техники \\
        }
-      \includegraphics[scale=0.2]{../../lib/img/itmo.png}
+      \includegraphics[scale=0.2]{\commandkey{logo}}
     \end{center}
-
+    
     \vspace{4cm}
-
+    
     \begin{center}
       \large \textbf{Вариант \textnumero \commandkey{variant}}\\
-      \textbf{Лабораторная работа \textnumero \commandkey{labn}}\\
+      \textbf{\commandkey{worktype} \textnumero \commandkey{labn}}\\
       по дисциплине\\
       \textbf{\commandkey{discipline}}
     \end{center}
-
+    
     \vspace*{\fill}
-
+    
     \begin{flushright}
       Выполнил Студент группы \commandkey{group}\\
       \textbf{\commandkey{student}}\\
       Преподаватель: \\
       \textbf{\commandkey{teacher}}\\
     \end{flushright}
-
+    
     \vspace{1cm}
-
+    
     \begin{center}
       г. Санкт-Петербург\\
       \commandkey{year}г.
     \end{center}
-
+    
     \thispagestyle{empty}
   \end{titlepage}
 }
