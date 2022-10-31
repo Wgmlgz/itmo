@@ -1,5 +1,10 @@
 {
   "java.project.sourcePaths": [
     "prog/lab2/lib"
-  ]
+  ],
+  "markdownlint.config": {
+    "MD033": {
+      "allowed_elements": ["nobr", "sup", "a", "br", "center", "div"]
+    }
+  }
 }
