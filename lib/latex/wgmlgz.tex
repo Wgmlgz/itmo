@@ -9,11 +9,15 @@
 \usepackage{hyperref}
 \usepackage{fontspec}
 \usepackage{listings-rust}
-\setmonofont{JetBrains Mono}[Contextuals=Alternate,Ligatures = TeX,]
 \usepackage{listings}
 \usepackage{keycommand}
 \usepackage{caption}
+\usepackage{dingbat}
+\usepackage{array,multirow}
+\usepackage{amssymb}
+\usepackage{spreadtab}
 
+\setmonofont{JetBrains Mono}[Contextuals=Alternate,Ligatures = TeX,]
 \setmainfont[
   Ligatures=TeX,
   Extension=.otf,
@@ -80,6 +84,8 @@
 }
 
 \newcommand{\MM}[1]{\mathchoice{\hbox{#1}}{\hbox{#1}}{\hbox{\scriptsize{#1}}}{\hbox{\tiny{#1}}}}
+
+\def\nl{\\\hline}
 
 \newkeycommand{\itmo}[
   variant=aboba,
