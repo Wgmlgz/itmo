@@ -3,6 +3,8 @@
 \usepackage[russian]{babel}
 \usepackage{fontspec}
 \usepackage{tikz}
+\usepackage{xfrac}
+\usepackage{amsmath}
 \usepackage{wrapfig}
 
 \setmainfont[
@@ -58,24 +60,65 @@
       (0,0)
       rectangle node[anchor=center]{$\displaystyle x^2$}
       (\x,\x);
-
+      
       \draw[orange!60, fill=orange!10, very thick]
       (0,\x)
       rectangle node[anchor=center]{$\displaystyle\frac{\sqrt{2}xdl}{2}$}
       (\x,\x+\dx);
-
+      
       \draw[orange!60, fill=orange!10, very thick]
       (\x,0)
       rectangle node[anchor=center]{$\displaystyle\frac{\sqrt{2}xdl}{2}$}
       (\x+\dx,\x);
-
+      
       \draw[red!60, fill=orange!10, very thick]
       (\x,\x)
       rectangle node[anchor=center]{$\displaystyle\frac{dl^2}{2}$}
       (\x+\dx,\x+\dx);
-
+      
       \draw[blue!60, very thick] (0,\x) -- (\x,\x) ;
     \end{tikzpicture}
   \end{minipage}
 \end{figure}
+
+\begin{figure}
+  В круг радиуса r вписан квадрат, в квадрат вписан круг и так n раз.
+  Найдите предел суммы площадей всех кругов и предел суммы
+  площадей всех квадратов при $n \rightarrow \inf$
+
+
+
+
+
+  \begin{tikzpicture}
+    \def\r{3}
+    \def\cs{0.70710678118 }
+    
+    \draw[blue!60, very thick] (0,0) circle (\r);
+    \draw[blue!60, very thick] (0,0) -- node[anchor=north]{$r_0$} (\cs*\r,\cs*\r) ;
+    \draw[blue!60, very thick] (0,0) -- node[anchor=east]{$l_0$} (0,\cs*\r) ;
+    \draw[blue!60, very thick] (-\cs*\r,-\cs*\r) rectangle (\cs*\r,\cs*\r);
+    
+    \def\r{3*\cs}
+    
+    \draw[red!60, very thick] (0,0) circle (\r);
+    \draw[red!60, very thick] (0,0) -- node[anchor=south]{$r_1$} (-\cs*\r,-\cs*\r) ;
+    \draw[red!60, very thick] (0,0) -- node[anchor=north]{$l_1$} (\cs*\r,0) ;
+    \draw[red!60, very thick] (-\cs*\r,-\cs*\r) rectangle (\cs*\r,\cs*\r);
+  \end{tikzpicture}
+  
+  $$ S(r_i) = \pi {r_i}^2,\ \frac{S(l_i)}{4} = {l_i}^2,\ c = \cos(\sfrac{\pi}{4}) = \frac{\sqrt{2}}{2}$$
+  $$ r_0 = r,\ l_0 = r_0c,\ r_1 = l_0c,\ \ldots\ r_i = rc^{2i},\ l_i = rc^{2i + 1}$$
+  \begin{equation}
+    \begin{split}
+      S_r & = \sum_{i=0}^{\infty} S(r_i) = \sum_{i=0}^{\infty} \pi {r_i}^2= \pi\sum_{i=0}^{\infty} {\left(rc^{2i}\right)}^2= \\
+      & =\pi r^2\sum_{i=0}^{\infty} c^{4i} = \frac{\pi r^2}{1 - c^4} = \frac{\pi r^2}{1 - \sfrac{1}{4}} = \frac{\pi r^2}{\sfrac{3}{4}} = \frac{4\pi r^2}{3} \\
+      \frac{S_l}{4} & = \sum_{i=0}^{\infty} S(l_i) = \sum_{i=0}^{\infty} {l_i}^2=\sum_{i=0}^{\infty} {\left(rc^{2i+1}\right)}^2= \\
+      & =(cr)^2\sum_{i=0}^{\infty} c^{4i} = \frac{(cr)^2}{1 - c^4} = \frac{(cr)^2}{1 - \sfrac{1}{4}} = \frac{(cr)^2}{\sfrac{3}{4}} = \frac{4(cr)^2}{3}\\
+      S_l &= 4\frac{4(cr)^2}{3} = \frac{(cr)^2}{3} = \frac{\frac{1}{2}r^2}{3} = \frac{r^2}{6}
+    \end{split}
+  \end{equation}
+\end{figure}
+
+
 \end{document}
