@@ -6,11 +6,13 @@ My itmo struff 🐸
 
 371364
 
-# latex
+## latex
 
+```
 sudo apt install texlive-full
+```
 
-# LaTeX monospace font
+## LaTeX monospace font
 
 ```
 mkdir font
@@ -20,7 +22,7 @@ unzip JetBrainsMono-1.0.0.zip
 sudo mv *.ttf /usr/share/fonts/
 ```
 
-# helios
+## helios
 
 ```
 ssh s371364@helios.cs.ifmo.ru -p 2222
