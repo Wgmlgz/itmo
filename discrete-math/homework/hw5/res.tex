@@ -1,69 +1,29 @@
 
-  $$\begin{array}{c}(A>0,\ B>0) \\ 
-\left.[A]_{пр.}=1111110;\ [B]_{пр.}=0010111\right. \\ 
- \\ \begin{array}{|c|c|c|c|} \hline \begin{array}{c}\textup{N} \\ \textup{шага}\end{array} & \begin{array}{c}\textup{Операнды\ } \\ \textup{и\ действия}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{старш.\ разряды}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{младш.\ разряды}\end{array} \\ \hline 
-0 & \begin{array}{c} \left[A\right]_{\textup{}} \\  \left[B\right]_{\textup{}} \\  \left[R_1\right]_{\textup{}}\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 1\ 0\ 0 \\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0 \\ 0\ 0\ 0\ 0\ 0\ 1\ 0\ 0\end{array} & \begin{array}{c}0\ 1\ 1\ 1\ 1\ 1\ 1\ 0 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 0\ 0\ 1\ 0\ 1\ 0\ 1\end{array} \\ \hline 
-1 & \begin{array}{c}\overleftarrow{R}_0 \\  \left[B\right]_{\textup{}} \\ R_1\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 1\ 0\ 0\ 1\ 0\end{array} & \begin{array}{c}0\ 0\ 1\ 0\ 1\ 0\ 1\ |\ 0 \\  \\ 0\ 0\ 1\ 0\ 1\ 0\ 1\ |\ \underline{0}\end{array} \\ \hline 
-2 & \begin{array}{c}\overleftarrow{R}_1 \\  \left[B\right]_{\textup{}} \\ R_2\end{array} & \begin{array}{c}1\ 1\ 1\ 0\ 0\ 1\ 0\ 0 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 1\ 1\ 0\ 1\ 1\end{array} & \begin{array}{c}0\ 1\ 0\ 1\ 0\ 1\ |\ 0\ 0 \\  \\ 0\ 1\ 0\ 1\ 0\ 1\ |\ 0\ \underline{0}\end{array} \\ \hline 
-3 & \begin{array}{c}\overleftarrow{R}_2 \\  \left[B\right]_{\textup{}} \\ R_3\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 0\ 1\ 1\ 0 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 1\ 1\ 0\ 1\end{array} & \begin{array}{c}1\ 0\ 1\ 0\ 1\ |\ 0\ 0\ 0 \\  \\ 1\ 0\ 1\ 0\ 1\ |\ 0\ 0\ \underline{1}\end{array} \\ \hline 
-4 & \begin{array}{c}\overleftarrow{R}_3 \\  \left[B\right]_{\textup{}} \\ R_4\end{array} & \begin{array}{c}0\ 0\ 0\ 1\ 1\ 0\ 1\ 1 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 0\ 0\ 1\ 0\ 0\end{array} & \begin{array}{c}0\ 1\ 0\ 1\ |\ 0\ 0\ 1\ 0 \\  \\ 0\ 1\ 0\ 1\ |\ 0\ 0\ 1\ \underline{1}\end{array} \\ \hline 
-5 & \begin{array}{c}\overleftarrow{R}_4 \\  \left[B\right]_{\textup{}} \\ R_5\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 1\ 0\ 0\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 1\ 0\ 0\ 0\ 1\end{array} & \begin{array}{c}1\ 0\ 1\ |\ 0\ 0\ 1\ 1\ 0 \\  \\ 1\ 0\ 1\ |\ 0\ 0\ 1\ 1\ \underline{0}\end{array} \\ \hline 
-6 & \begin{array}{c}\overleftarrow{R}_5 \\  \left[B\right]_{\textup{}} \\ R_6\end{array} & \begin{array}{c}1\ 1\ 1\ 0\ 0\ 0\ 1\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 1\ 1\ 0\ 1\ 0\end{array} & \begin{array}{c}0\ 1\ |\ 0\ 0\ 1\ 1\ 0\ 0 \\  \\ 0\ 1\ |\ 0\ 0\ 1\ 1\ 0\ \underline{0}\end{array} \\ \hline 
-7 & \begin{array}{c}\overleftarrow{R}_6 \\  \left[B\right]_{\textup{}} \\ R_7\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 0\ 1\ 0\ 0 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 1\ 0\ 1\ 1\end{array} & \begin{array}{c}1\ |\ 0\ 0\ 1\ 1\ 0\ 0\ 0 \\  \\ 1\ |\ 0\ 0\ 1\ 1\ 0\ 0\ \underline{1}\end{array} \\ \hline 
-8 & \begin{array}{c}\overleftarrow{R}_7 \\  \left[B\right]_{\textup{}} \\ R_8\end{array} & \begin{array}{c}0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ 0 \\  \\ |\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ \underline{1}\end{array} \\ \hline 
-\textup{Коррекция\ остатка} & \begin{array}{c}R\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ 1\end{array} \\ \hline 
-\textup{Коррекция\ частного} & \begin{array}{c}R\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ 0\end{array} \\ \hline 
- \end{array} \\
- \\ 
- \\  \left[C\right]_{\textup{пр}}=00110010_2=50_{10} \\  \left[R\right]_{\textup{пр}}=00000000_2=0_{10}\end{array}$$
-  $$\begin{array}{c}(A<0,\ B>0) \\ 
-\left.[-A]_{доп.}=0000010;\ [B]_{пр.}=0010111\right. \\ 
- \\ \begin{array}{|c|c|c|c|} \hline \begin{array}{c}\textup{N} \\ \textup{шага}\end{array} & \begin{array}{c}\textup{Операнды\ } \\ \textup{и\ действия}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{старш.\ разряды}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{младш.\ разряды}\end{array} \\ \hline 
-0 & \begin{array}{c} \left[A\right]_{\textup{}} \\  \left[B\right]_{\textup{}} \\  \left[R_1\right]_{\textup{}}\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 1\ 0\ 1\ 1 \\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0 \\ 1\ 1\ 1\ 1\ 1\ 0\ 1\ 1\end{array} & \begin{array}{c}1\ 0\ 0\ 0\ 0\ 0\ 1\ 0 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 0\ 0\ 1\ 1\ 0\ 0\ 1\end{array} \\ \hline 
-1 & \begin{array}{c}\overleftarrow{R}_0 \\  \left[B\right]_{\textup{}} \\ R_1\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 1\ 1\ 1\ 0\end{array} & \begin{array}{c}0\ 0\ 1\ 1\ 0\ 0\ 1\ |\ 0 \\  \\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ |\ \underline{1}\end{array} \\ \hline 
-2 & \begin{array}{c}\overleftarrow{R}_1 \\  \left[B\right]_{\textup{}} \\ R_2\end{array} & \begin{array}{c}0\ 0\ 0\ 1\ 1\ 1\ 0\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 0\ 0\ 1\ 0\ 1\end{array} & \begin{array}{c}0\ 1\ 1\ 0\ 0\ 1\ |\ 1\ 0 \\  \\ 0\ 1\ 1\ 0\ 0\ 1\ |\ 1\ \underline{1}\end{array} \\ \hline 
-3 & \begin{array}{c}\overleftarrow{R}_2 \\  \left[B\right]_{\textup{}} \\ R_3\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 1\ 0\ 1\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 1\ 0\ 0\ 1\ 1\end{array} & \begin{array}{c}1\ 1\ 0\ 0\ 1\ |\ 1\ 1\ 0 \\  \\ 1\ 1\ 0\ 0\ 1\ |\ 1\ 1\ \underline{0}\end{array} \\ \hline 
-4 & \begin{array}{c}\overleftarrow{R}_3 \\  \left[B\right]_{\textup{}} \\ R_4\end{array} & \begin{array}{c}1\ 1\ 1\ 0\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 0\end{array} & \begin{array}{c}1\ 0\ 0\ 1\ |\ 1\ 1\ 0\ 0 \\  \\ 1\ 0\ 0\ 1\ |\ 1\ 1\ 0\ \underline{0}\end{array} \\ \hline 
-5 & \begin{array}{c}\overleftarrow{R}_4 \\  \left[B\right]_{\textup{}} \\ R_5\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 1\ 1\ 0\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 0\ 0\end{array} & \begin{array}{c}0\ 0\ 1\ |\ 1\ 1\ 0\ 0\ 0 \\  \\ 0\ 0\ 1\ |\ 1\ 1\ 0\ 0\ \underline{1}\end{array} \\ \hline 
-6 & \begin{array}{c}\overleftarrow{R}_5 \\  \left[B\right]_{\textup{}} \\ R_6\end{array} & \begin{array}{c}0\ 0\ 1\ 0\ 1\ 0\ 0\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 1\ 0\ 0\ 0\ 1\end{array} & \begin{array}{c}0\ 1\ |\ 1\ 1\ 0\ 0\ 1\ 0 \\  \\ 0\ 1\ |\ 1\ 1\ 0\ 0\ 1\ \underline{1}\end{array} \\ \hline 
-7 & \begin{array}{c}\overleftarrow{R}_6 \\  \left[B\right]_{\textup{}} \\ R_7\end{array} & \begin{array}{c}0\ 0\ 1\ 0\ 0\ 0\ 1\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 0\ 1\ 0\ 1\ 1\end{array} & \begin{array}{c}1\ |\ 1\ 1\ 0\ 0\ 1\ 1\ 0 \\  \\ 1\ |\ 1\ 1\ 0\ 0\ 1\ 1\ \underline{1}\end{array} \\ \hline 
-8 & \begin{array}{c}\overleftarrow{R}_7 \\  \left[B\right]_{\textup{}} \\ R_8\end{array} & \begin{array}{c}0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ 0 \\  \\ |\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ \underline{1}\end{array} \\ \hline 
-\textup{Коррекция\ остатка} & \begin{array}{c}R\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ 1\end{array} \\ \hline 
-\textup{Коррекция\ частного} & \begin{array}{c}R\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ 0\end{array} \\ \hline 
- \end{array} \\
- \\ 
- \\  \left[C\right]_{\textup{доп}}=11001110_2\\ \left[C\right]_{\textup{пр}}=-00110010_2=-50_{10} \\  \left[R\right]_{\textup{пр}}=00000000_2=0_{10}\end{array}$$
-  $$\begin{array}{c}(A>0,\ B<0) \\ 
-\left.[A]_{пр.}=1111110;\ [-B]_{доп.}=1101001\right. \\ 
- \\ \begin{array}{|c|c|c|c|} \hline \begin{array}{c}\textup{N} \\ \textup{шага}\end{array} & \begin{array}{c}\textup{Операнды\ } \\ \textup{и\ действия}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{старш.\ разряды}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{младш.\ разряды}\end{array} \\ \hline 
-0 & \begin{array}{c} \left[A\right]_{\textup{}} \\  \left[B\right]_{\textup{}} \\  \left[R_1\right]_{\textup{}}\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 1\ 0\ 0 \\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 0\ 1\ 0\ 0\end{array} & \begin{array}{c}0\ 1\ 1\ 1\ 1\ 1\ 1\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 1\ 1\ 0\ 0\ 1\ 1\ 1\end{array} \\ \hline 
-1 & \begin{array}{c}\overleftarrow{R}_0 \\  \left[B\right]_{\textup{}} \\ R_1\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 1\ 0\ 0\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 1\ 0\ 0\ 0\ 1\end{array} & \begin{array}{c}1\ 1\ 0\ 0\ 1\ 1\ 1\ |\ 0 \\  \\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ |\ \underline{1}\end{array} \\ \hline 
-2 & \begin{array}{c}\overleftarrow{R}_1 \\  \left[B\right]_{\textup{}} \\ R_2\end{array} & \begin{array}{c}1\ 1\ 1\ 0\ 0\ 0\ 1\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 1\ 1\ 0\ 1\ 0\end{array} & \begin{array}{c}1\ 0\ 0\ 1\ 1\ 1\ |\ 1\ 0 \\  \\ 1\ 0\ 0\ 1\ 1\ 1\ |\ 1\ \underline{1}\end{array} \\ \hline 
-3 & \begin{array}{c}\overleftarrow{R}_2 \\  \left[B\right]_{\textup{}} \\ R_3\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 0\ 1\ 0\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 1\ 1\ 0\ 0\end{array} & \begin{array}{c}0\ 0\ 1\ 1\ 1\ |\ 1\ 1\ 0 \\  \\ 0\ 0\ 1\ 1\ 1\ |\ 1\ 1\ \underline{0}\end{array} \\ \hline 
-4 & \begin{array}{c}\overleftarrow{R}_3 \\  \left[B\right]_{\textup{}} \\ R_4\end{array} & \begin{array}{c}0\ 0\ 0\ 1\ 1\ 0\ 0\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 1\end{array} & \begin{array}{c}0\ 1\ 1\ 1\ |\ 1\ 1\ 0\ 0 \\  \\ 0\ 1\ 1\ 1\ |\ 1\ 1\ 0\ \underline{0}\end{array} \\ \hline 
-5 & \begin{array}{c}\overleftarrow{R}_4 \\  \left[B\right]_{\textup{}} \\ R_5\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 1\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 0\ 1\ 0\ 1\ 1\end{array} & \begin{array}{c}1\ 1\ 1\ |\ 1\ 1\ 0\ 0\ 0 \\  \\ 1\ 1\ 1\ |\ 1\ 1\ 0\ 0\ \underline{1}\end{array} \\ \hline 
-6 & \begin{array}{c}\overleftarrow{R}_5 \\  \left[B\right]_{\textup{}} \\ R_6\end{array} & \begin{array}{c}1\ 1\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 0\ 1\ 1\ 1\ 0\end{array} & \begin{array}{c}1\ 1\ |\ 1\ 1\ 0\ 0\ 1\ 0 \\  \\ 1\ 1\ |\ 1\ 1\ 0\ 0\ 1\ \underline{1}\end{array} \\ \hline 
-7 & \begin{array}{c}\overleftarrow{R}_6 \\  \left[B\right]_{\textup{}} \\ R_7\end{array} & \begin{array}{c}1\ 1\ 0\ 1\ 1\ 1\ 0\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 1\ 0\ 1\ 0\ 0\end{array} & \begin{array}{c}1\ |\ 1\ 1\ 0\ 0\ 1\ 1\ 0 \\  \\ 1\ |\ 1\ 1\ 0\ 0\ 1\ 1\ \underline{1}\end{array} \\ \hline 
-8 & \begin{array}{c}\overleftarrow{R}_7 \\  \left[B\right]_{\textup{}} \\ R_8\end{array} & \begin{array}{c}1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ 0 \\  \\ |\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ \underline{0}\end{array} \\ \hline 
-\textup{Коррекция\ остатка} & \begin{array}{c}R\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ 0\end{array} \\ \hline 
-\textup{Коррекция\ частного} & \begin{array}{c}R\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 1\ 1\ 0\ 0\ 1\ 1\ 1\ 0\end{array} \\ \hline 
- \end{array} \\
- \\ 
- \\  \left[C\right]_{\textup{доп}}=11001110_2\\ \left[C\right]_{\textup{пр}}=-00110010_2=-50_{10} \\  \left[R\right]_{\textup{пр}}=00000000_2=0_{10}\end{array}$$
-  $$\begin{array}{c}(A<0,\ B<0) \\ 
-\left.[-A]_{доп.}=0000010;\ [-B]_{доп.}=1101001\right. \\ 
- \\ \begin{array}{|c|c|c|c|} \hline \begin{array}{c}\textup{N} \\ \textup{шага}\end{array} & \begin{array}{c}\textup{Операнды\ } \\ \textup{и\ действия}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{старш.\ разряды}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{младш.\ разряды}\end{array} \\ \hline 
-0 & \begin{array}{c} \left[A\right]_{\textup{}} \\  \left[B\right]_{\textup{}} \\  \left[R_1\right]_{\textup{}}\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 1\ 0\ 1\ 1 \\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1 \\ 1\ 1\ 1\ 1\ 1\ 0\ 1\ 1\end{array} & \begin{array}{c}1\ 0\ 0\ 0\ 0\ 0\ 1\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 1\ 1\ 0\ 1\ 0\ 1\ 1\end{array} \\ \hline 
-1 & \begin{array}{c}\overleftarrow{R}_0 \\  \left[B\right]_{\textup{}} \\ R_1\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 0\ 1\ 1\ 0 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 1\ 1\ 0\ 1\end{array} & \begin{array}{c}1\ 1\ 0\ 1\ 0\ 1\ 1\ |\ 0 \\  \\ 1\ 1\ 0\ 1\ 0\ 1\ 1\ |\ \underline{0}\end{array} \\ \hline 
-2 & \begin{array}{c}\overleftarrow{R}_1 \\  \left[B\right]_{\textup{}} \\ R_2\end{array} & \begin{array}{c}0\ 0\ 0\ 1\ 1\ 0\ 1\ 1 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 0\ 0\ 1\ 0\ 0\end{array} & \begin{array}{c}1\ 0\ 1\ 0\ 1\ 1\ |\ 0\ 0 \\  \\ 1\ 0\ 1\ 0\ 1\ 1\ |\ 0\ \underline{0}\end{array} \\ \hline 
-3 & \begin{array}{c}\overleftarrow{R}_2 \\  \left[B\right]_{\textup{}} \\ R_3\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 1\ 0\ 0\ 1\ 0\end{array} & \begin{array}{c}0\ 1\ 0\ 1\ 1\ |\ 0\ 0\ 0 \\  \\ 0\ 1\ 0\ 1\ 1\ |\ 0\ 0\ \underline{1}\end{array} \\ \hline 
-4 & \begin{array}{c}\overleftarrow{R}_3 \\  \left[B\right]_{\textup{}} \\ R_4\end{array} & \begin{array}{c}1\ 1\ 1\ 0\ 0\ 1\ 0\ 0 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 1\ 1\ 1\ 1\ 1\ 0\ 1\ 1\end{array} & \begin{array}{c}1\ 0\ 1\ 1\ |\ 0\ 0\ 1\ 0 \\  \\ 1\ 0\ 1\ 1\ |\ 0\ 0\ 1\ \underline{1}\end{array} \\ \hline 
-5 & \begin{array}{c}\overleftarrow{R}_4 \\  \left[B\right]_{\textup{}} \\ R_5\end{array} & \begin{array}{c}1\ 1\ 1\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 1\ 1\ 1\ 0\end{array} & \begin{array}{c}0\ 1\ 1\ |\ 0\ 0\ 1\ 1\ 0 \\  \\ 0\ 1\ 1\ |\ 0\ 0\ 1\ 1\ \underline{0}\end{array} \\ \hline 
-6 & \begin{array}{c}\overleftarrow{R}_5 \\  \left[B\right]_{\textup{}} \\ R_6\end{array} & \begin{array}{c}0\ 0\ 0\ 1\ 1\ 1\ 0\ 0 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 0\ 0\ 1\ 0\ 1\end{array} & \begin{array}{c}1\ 1\ |\ 0\ 0\ 1\ 1\ 0\ 0 \\  \\ 1\ 1\ |\ 0\ 0\ 1\ 1\ 0\ \underline{0}\end{array} \\ \hline 
-7 & \begin{array}{c}\overleftarrow{R}_6 \\  \left[B\right]_{\textup{}} \\ R_7\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 1\ 0\ 1\ 1 \\ 1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 1\ 1\ 1\ 1\ 0\ 1\ 0\ 0\end{array} & \begin{array}{c}1\ |\ 0\ 0\ 1\ 1\ 0\ 0\ 0 \\  \\ 1\ |\ 0\ 0\ 1\ 1\ 0\ 0\ \underline{1}\end{array} \\ \hline 
-8 & \begin{array}{c}\overleftarrow{R}_7 \\  \left[B\right]_{\textup{}} \\ R_8\end{array} & \begin{array}{c}1\ 1\ 1\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ 1\ 0\ 1\ 1\ 1 \\ 0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ 0 \\  \\ |\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ \underline{0}\end{array} \\ \hline 
-\textup{Коррекция\ остатка} & \begin{array}{c}R\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ 0\end{array} \\ \hline 
-\textup{Коррекция\ частного} & \begin{array}{c}R\end{array} & \begin{array}{c}0\ 0\ 0\ 0\ 0\ 0\ 0\ 0\end{array} & \begin{array}{c}|\ 0\ 0\ 1\ 1\ 0\ 0\ 1\ 0\end{array} \\ \hline 
- \end{array} \\
- \\ 
- \\  \left[C\right]_{\textup{пр}}=00110010_2=50_{10} \\  \left[R\right]_{\textup{пр}}=00000000_2=0_{10}\end{array}$$
+$$\begin{array}{c}(A>0,\ B>0)                                     \\
+    \left.[A]_{пр.}=0111000;\ [B]_{пр.}=1011011\right. \\
+    \\ \begin{array}{|c|c|c|c|p{5cm}|} \hline N шага & Операнды     & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{старш.\ разряды}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{младш.\ разряды}\end{array} & \begin{array}{c}\textup{Знак} \\ \textup{остатка}\end{array} & \begin{array}{c}\textup{Знак} \\ \textup{частного}\end{array} \\ \hline
+             0                                & \textup{СЧП} & 0\ 0\ 0\ 0\ 0\ 0\ 0                                                             & 1\ 0\ 0\ 0\ 0\ 1\ \underline{0}                                                 & \textup{Обнуление\ старших\ разрядов\ СЧП}                                                                                                             \\ \hline
+    \end{array} \\
+    \\
+    \\  \left[C\right]_{\textup{пр.}}=01001111101000_2 = 5096_{10}\end{array}$$
+$$\begin{array}{c}(A<0,\ B>0)                                       \\
+    \left.[-A]_{доп.}=1001000;\ [B]_{пр.}=1011011\right. \\
+    \\ \begin{array}{|c|c|c|c|p{5cm}|} \hline N шага & Операнды     & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{старш.\ разряды}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{младш.\ разряды}\end{array} & \begin{array}{c}\textup{Знак} \\ \textup{остатка}\end{array} & \begin{array}{c}\textup{Знак} \\ \textup{частного}\end{array} \\ \hline
+             0                                & \textup{СЧП} & 0\ 0\ 0\ 0\ 0\ 0\ 0                                                             & 1\ 0\ 0\ 0\ 0\ 1\ \underline{0}                                                 & \textup{Обнуление\ старших\ разрядов\ СЧП}                                                                                                             \\ \hline
+    \end{array} \\
+    \\
+    \\  \left[C\right]_{\textup{доп}.}=10110000011000_2 = -5096_{10}\end{array}$$
+$$\begin{array}{c}(A>0,\ B<0)                                       \\
+    \left.[A]_{пр.}=0111000;\ [-B]_{доп.}=0100101\right. \\
+    \\ \begin{array}{|c|c|c|c|p{5cm}|} \hline N шага & Операнды     & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{старш.\ разряды}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{младш.\ разряды}\end{array} & \begin{array}{c}\textup{Знак} \\ \textup{остатка}\end{array} & \begin{array}{c}\textup{Знак} \\ \textup{частного}\end{array} \\ \hline
+             0                                & \textup{СЧП} & 0\ 0\ 0\ 0\ 0\ 0\ 0                                                             & 1\ 0\ 0\ 0\ 0\ 1\ \underline{0}                                                 & \textup{Обнуление\ старших\ разрядов\ СЧП}                                                                                                             \\ \hline
+    \end{array} \\
+    \\
+    \\  \left[C\right]_{\textup{пр.}}=10110000011000_2 = -5096_{10}\end{array}$$
+$$\begin{array}{c}(A<0,\ B<0)                                         \\
+    \left.[-A]_{доп.}=1001000;\ [-B]_{доп.}=0100101\right. \\
+    \\ \begin{array}{|c|c|c|c|p{5cm}|} \hline N шага & Операнды     & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{старш.\ разряды}\end{array} & \begin{array}{c}\textup{Делимое/остаток} \\ \textup{младш.\ разряды}\end{array} & \begin{array}{c}\textup{Знак} \\ \textup{остатка}\end{array} & \begin{array}{c}\textup{Знак} \\ \textup{частного}\end{array} \\ \hline
+             0                                & \textup{СЧП} & 0\ 0\ 0\ 0\ 0\ 0\ 0                                                             & 1\ 0\ 0\ 0\ 0\ 1\ \underline{0}                                                 & \textup{Обнуление\ старших\ разрядов\ СЧП}                                                                                                             \\ \hline
+    \end{array} \\
+    \\
+    \\  \left[C\right]_{\textup{доп}.}=01001111101000_2 = 5096_{10}\end{array}$$

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{import}
+\import{../../../lib/latex/}{wgmlgz}
+
+\begin{document}
+
+\itmo[
+       variant=111,
+       labn=5,
+       worktype=Домашняя работа,
+       discipline=Дискретная математика,
+       group=P3115,
+       student=Владимир Мацюк,
+       teacher=Поляков Владимир Иванович,
+       logo=../../../lib/img/itmo.png
+]
+
+\newcommand{\car}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{\curvearrowleft}}}{}}
+\newcommand{\rcar}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{\curvearrowright}}}{}}
+\newcommand{\ncar}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{}}}{}}
+\newcommand{\SPACE}{\multicolumn{12}{c}{}}
+\newcommand{\INT}{\multicolumn{5}{c}{\MM{Интерпретации}}}
+\newcommand{\PLUS}{\multirow{2}{*}{+}}
+\newcommand{\MINUS}{\multirow{2}{*}{-}}
+\newcommand{\SIGN}{\multicolumn{2}{c}{\MM{Знаковая}}}
+\newcommand{\USIGN}{\multicolumn{2}{c}{\MM{Беззнаковая}}}
+
+\section{Числа}
+$$
+       \begin{array}{|c|c|}
+              \hline
+              A & 1150 \nl
+              B & 23 \nl
+       \end{array}
+$$
+\section{Задание}
+
+\begin{center}
+
+       \begin{enumerate}
+              \begin{enumerate}
+                     \item Выполнить операцию деления заданных целых чисел A и B со всеми комбинациями знаков, используя метод деления в дополнительных кодах. Для представления делимого (A) использовать 16 двоичных разрядов (один –знаковый и 15 – цифровых), для представления делителя (B) – 8 разрядов (один – знаковый и 7 – цифровых). Остаток от деления и частное представляются в той же разрядной сетке, что и делитель.
+                     \item Результаты операции представить в десятичной системе счисления и проверить их правильность.
+              \end{enumerate}
+                    \input{res.tex}
+       \end{enumerate}
+\end{center}
+\end{document}
