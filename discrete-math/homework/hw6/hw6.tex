@@ -1,0 +1,238 @@
+\documentclass{article}
+\usepackage{import}
+\import{../../../lib/latex/}{wgmlgz}
+
+\begin{document}
+
+\itmo[
+       variant=108,
+       labn=6,
+       worktype=Домашняя работа,
+       discipline=Дискретная математика,
+       group=P3115,
+       student=Владимир Мацюк,
+       teacher=Поляков Владимир Иванович,
+       logo=../../../lib/img/itmo.png
+]
+
+\newcommand{\car}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{\curvearrowleft}}}{}}
+\newcommand{\rcar}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{\curvearrowright}}}{}}
+\newcommand{\ncar}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{}}}{}}
+\newcommand{\SPACE}{\multicolumn{12}{c}{}}
+\newcommand{\INT}{\multicolumn{5}{c}{\MM{Интерпретации}}}
+\newcommand{\PLUS}{\multirow{2}{*}{+}}
+\newcommand{\MINUS}{\multirow{2}{*}{-}}
+\newcommand{\SIGN}{\multicolumn{2}{c}{\MM{Знаковая}}}
+\newcommand{\USIGN}{\multicolumn{2}{c}{\MM{Беззнаковая}}}
+
+\section{Числа}
+$$
+       \begin{array}{|c|c|}
+              \hline
+              A & 78,84 \nl
+              B & 82,39 \nl
+       \end{array}
+$$
+\section{Задание}
+
+\begin{enumerate}
+       \item Заданные числа А и В представить в форме с плавающей запятой в разрядных сетках форматов Ф1 и Ф2 с укороченной мантиссой (12 двоичных разрядов).
+             Примечание: общее число разрядов в формате – 20.
+       \item Выполнить операцию сложения заданных чисел со следующими комбинациями знаков операндов: “++”, “+-”, “-+” в разрядных сетках форматов Ф1 и Ф2.
+       \item Результаты представить в форматах операндов, перевести в десятичную систему счисления и проверить их правильность.
+       \item Определить абсолютную и относительную погрешности результатов и обосновать их причину.
+       \item Сравнить погрешности результатов аналогичных операций для форматов Ф1 и Ф2 и объяснить причины их сходства или различия.
+\end{enumerate}
+\section{Решение}
+\begin{enumerate}
+       \item Формат Ф1 (число разрядов мантисы = 12):
+             $$ A = 78,84_{10} = \textmd{4E.D70A3D70A3D8}_{16} = \textmd{0.4ED70A3D70A3D8}_{16} * 16^2 $$
+             $$
+                    \begin{array}{|c|c|c|}
+                           \hline
+                           0 & 1000010 & 10011101101 \nl
+                           0 & 1 - 7   & 8 - 19 \nl
+                    \end{array}
+             $$
+             
+             $$ B = 82,39_{10} = \textmd{52.63D70A3D70A4}_{16} = \textmd{0.5263D70A3D70A4}_{16} * 16^2 $$
+             $$
+                    \begin{array}{|c|c|c|}
+                           \hline
+                           0 & 1000010 & 10100100110 \nl
+                           0 & 1 - 7   & 8 - 19 \nl
+                    \end{array}
+             $$
+             
+             $$
+                    \begin{array}{rcl}
+                           X_A                        = & \MINUS & 1000010     \\
+                           X_B                        = &        & 1000010 \nl
+                           (X_A - X_B)_{\textit{доп}} = &        & 0000000     \\
+                           (X_A - X_B)                = &        & 0           \\
+                           X_C = X_B                  = &        & 0
+                    \end{array}
+             $$
+             \begin{enumerate}
+                    \item $$ A > 0,\ B > 0 $$
+                          $$ 
+                                 \begin{array}{rcr}
+                                        M_A = & \PLUS & 010011101101     \\
+                                        M_B = &       & 010100100110 \nl
+                                        M_C = &       & 101000010011     \\
+                                 \end{array}
+                          $$
+                          $$
+                                 \begin{array}{|c|c|c|}
+                                        \hline
+                                        0 & 1000010 & 000101000010 \nl
+                                        0 & 1 - 7   & 8 - 19 \nl
+                                 \end{array}
+                          $$
+                          $$
+                                 \begin{array}{c}
+                                        C^*      = M_C * 16^{Pc} = 0.A13_{16} * 16^2 = A13_{16}  = 161.1875                                               \\
+                                        \Delta C = C_T - C^* = 161.23 - 161.1875 = 0.0425                                                                 \\
+                                        \delta C = \left|\frac{\Delta C}{C_T}\right| \cdot 100\% = \left|\frac{0.0425}{161.23}\right| \cdot 100\% = 0.026 \\
+                                 \end{array}
+                          $$
+                    \item $$ A > 0,\ B < 0 $$
+                          $$ 
+                                 \begin{array}{rcr}
+                                        M_B = & \MINUS & 010100100110         \\
+                                        M_A = &        & 010011101101     \nl
+                                        M_C = &        & 000000111001         \\
+                                 \end{array}
+                          $$
+                          $$
+                                 \begin{array}{|c|c|c|}
+                                        \hline
+                                        1 & 1000001 & 001110010000 \nl
+                                        0 & 1 - 7   & 8 - 19 \nl
+                                 \end{array}
+                          $$
+                          $$
+                                 \begin{array}{c}
+                                        C^*      = -M_C * 16^{Pc} = -0.390_{16} * 16^1 = -3.9_{16}  = -3.5625                                             \\
+                                        \Delta C = C_T - C^* = -3.55 - (-3.5625) = 0.012                                                                  \\
+                                        \delta C = \left|\frac{\Delta C}{C_T}\right| \cdot 100\% = \left|\frac{0.012}{3.5625 }\right| \cdot 100\% = 0.003 \\
+                                 \end{array}
+                          $$
+                    \item $$ A < 0,\ B > 0 $$
+                          $$ 
+                                 \begin{array}{rcr}
+                                        M_B = & \MINUS & 010100100110         \\
+                                        M_A = &        & 010011101101     \nl
+                                        M_C = &        & 000000111001         \\
+                                 \end{array}
+                          $$
+                          $$
+                                 \begin{array}{|c|c|c|}
+                                        \hline
+                                        0 & 1000001 & 001110010000 \nl
+                                        0 & 1 - 7   & 8 - 19 \nl
+                                 \end{array}
+                          $$
+                          $$
+                                 \begin{array}{c}
+                                        C^*      = M_C * 16^{Pc} = 0.390_{16} * 16^1 = 3.9_{16}  = 3.5625                                                  \\
+                                        \Delta C = C_T - C^* = 3.55 - 3.5625 = -0.012                                                                      \\
+                                        \delta C = \left|\frac{\Delta C}{C_T}\right| \cdot 100\% = \left|\frac{-0.012}{3.5625 }\right| \cdot 100\% = 0.003 \\
+                                 \end{array}
+                          $$
+             \end{enumerate}
+       \item Формат Ф2
+             $$ A = 78,84_{10} = 1001110.11010111_{2} = 0.100111011010111_{2} * 2^{7} $$
+             $$
+                    \begin{array}{|c|c|c|}
+                           \hline
+                           0  & 10000111 & 00111011010 \nl
+                           19 & 18-11    & 10-0 \nl
+                    \end{array}
+             $$
+             
+             $$ B = 82,39_{10} = 1010010.01100011111_{2} = 0.101001001100011111_{2} * 2^{7} $$
+             $$
+                    \begin{array}{|c|c|c|}
+                           \hline
+                           0  & 10000111 & 01001001100 \nl
+                           19 & 18-11    & 10-0 \nl
+                    \end{array}
+             $$
+             
+             $$
+                    \begin{array}{rcl}
+                           X_A                        = & \MINUS & 10000111     \\
+                           X_B                        = &        & 10000111 \nl
+                           (X_A - X_B)_{\textit{доп}} = &        & 0000000      \\
+                           (X_A - X_B)                = &        & 0            \\
+                           X_C = X_B                  = &        & 0
+                    \end{array}
+             $$
+             \begin{enumerate}
+                    \item $$ A > 0,\ B > 0 $$
+                          $$ 
+                                 \begin{array}{rcr}
+                                        M_A = & \PLUS & 100111011010         \\
+                                        M_B = &       & 101001001100     \nl
+                                        M_C = &       & 1010000100110        \\
+                                 \end{array}
+                          $$$$
+                                 \begin{array}{|c|c|c|}
+                                        \hline
+                                        0  & 10001000 & 01000010011 \nl
+                                        19 & 18-11    & 10-0 \nl
+                                 \end{array}
+                          $$$$
+                                 \begin{array}{c}
+                                        C^*      = M_C * 2^{Pc} = 0.101000010011_{2} * 2^{8} = 10100001.0011_{2}  = 161.1875                              \\
+                                        \Delta C = C_T - C^* = 161.23 - 161.1875 = 0.0425                                                                 \\
+                                        \delta C = \left|\frac{\Delta C}{C_T}\right| \cdot 100\% = \left|\frac{0.0425}{161.23}\right| \cdot 100\% = 0.026 \\
+                                 \end{array}
+                          $$
+                    \item $$ A > 0,\ B < 0 $$
+                          $$ 
+                                 \begin{array}{rcr}
+                                        M_B = & \MINUS & 101001001100     \\
+                                        M_A = &        & 100111011010 \nl
+                                        M_C = &        & 000001110010    \\
+                                 \end{array}
+                          $$$$
+                                 \begin{array}{|c|c|c|}
+                                        \hline
+                                        1  & 10000010 & 11001000000 \nl
+                                        19 & 18-11    & 10-0 \nl
+                                 \end{array}
+                          $$$$
+                                 \begin{array}{c}
+                                        C^*      = -M_C * 2^{Pc} = -0.11100100000{2} * 2^{2} = -11.100100000_{2}  = -3.5625                              \\
+                                        \Delta C = C_T - C^* = -3.55 - (-3.5625) = 0.012                                                                  \\
+                                        \delta C = \left|\frac{\Delta C}{C_T}\right| \cdot 100\% = \left|\frac{0.012}{3.5625 }\right| \cdot 100\% = 0.003 \\
+                                 \end{array}
+                          $$
+                     \item $$ A > 0,\ B < 0 $$
+                          $$ 
+                                 \begin{array}{rcr}
+                                        M_B = & \MINUS & 101001001100     \\
+                                        M_A = &        & 100111011010 \nl
+                                        M_C = &        & 000001110010    \\
+                                 \end{array}
+                          $$$$
+                                 \begin{array}{|c|c|c|}
+                                        \hline
+                                        0  & 10000010 & 11001000000 \nl
+                                        19 & 18-11    & 10-0 \nl
+                                 \end{array}
+                          $$$$
+                                 \begin{array}{c}
+                                        C^*      = M_C * 2^{Pc} = 0.11100100000{2} * 2^{2} = 11.100100000_{2}  = 3.5625                              \\
+                                        \Delta C = C_T - C^* = 3.55 - 3.5625 = -0.012                                                                  \\
+                                        \delta C = \left|\frac{\Delta C}{C_T}\right| \cdot 100\% = \left|\frac{-0.012}{3.5625 }\right| \cdot 100\% = 0.003 \\
+                                 \end{array}
+                          $$
+             \end{enumerate}
+\end{enumerate}
+
+\input{res.tex}
+
+\end{document}
