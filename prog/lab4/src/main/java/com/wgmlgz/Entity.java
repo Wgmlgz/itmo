@@ -17,6 +17,22 @@ abstract class Entity {
     }
   }
 
+  public void Eat() {
+    class Food {
+      double calories;
+
+      Food(double calories) {
+        this.calories = calories;
+      }
+    }
+
+    var dinner = new Food(20) {
+      String name = "dinner";
+    };
+
+    System.out.println("Eating" + dinner.name + dinner.calories);
+  }
+
   @Override
   public String toString() {
     return name;

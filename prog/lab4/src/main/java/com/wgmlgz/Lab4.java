@@ -7,9 +7,9 @@ public class Lab4 {
     var moominpappa = new Troll("Moominpappa", "rewriting the play", 0.1);
 
     List<Entity> beavers = new ArrayList<>();
-    beavers.add(new Beaver("Beaver 1", "unconfiden", 0.1));
-    beavers.add(new Beaver("Beaver 2", "unconfiden", 0.1));
-    beavers.add(new Beaver("Beaver 666", "unconfiden", 0.1));
+    beavers.add(new Beaver("Beaver 1", "uncertain", 0.1));
+    beavers.add(new Beaver("Beaver 2", "uncertain", 0.1));
+    beavers.add(new Beaver("Beaver 666", "uncertain", 0.1));
 
     var repetition = new Show("Moominpappa's play repetition");
     var theater = new Theater(moominpappa, beavers);
@@ -18,6 +18,10 @@ public class Lab4 {
     theater.move(MoteTarget.DeepWater);
     theater.perform(repetition);
     theater.rotate(10);
+
+    theater.curtain.describe();
+    var sun = new Theater.Sun();
+    sun.printState();
 
     try {
       moominpappa.isReady();

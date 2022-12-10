@@ -9,6 +9,37 @@ class Theater extends Stage implements Movable {
 
   List<Lamp> lamps = new ArrayList<>();
 
+  public static class Sun {
+    double angle = 0;
+
+    public void setAngle(double angle) {
+      this.angle = angle;
+    }
+    public void printState() {
+      if (angle < 12) {
+        System.out.println("The sun is rising");
+      } else {
+        System.out.println("The sun is setting");
+      }
+    }
+  }
+
+  public class Curtain {
+    String color;
+    String description;
+
+    Curtain(String color, String description) {
+      this.color = color;
+      this.description = description;
+    }
+
+    public void describe() {
+      System.out.format("Curtain is %s and %s\n", color, description);
+    }
+  }
+
+  public Curtain curtain = new Curtain("red", "mysterious");
+
   Theater(Entity director, List<Entity> actors) {
     super(director, actors);
 
