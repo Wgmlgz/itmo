@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Lab4 {
   public static void main(String[] args) {
+    var sus = new Integer(2);
+    sus += 2;
     var moominpappa = new Troll("Moominpappa", "rewriting the play", 0.1);
 
     List<Entity> beavers = new ArrayList<>();
@@ -20,9 +22,7 @@ public class Lab4 {
     theater.rotate(10);
 
     theater.curtain.describe();
-    var sun = new Theater.Sun();
-    sun.printState();
-
+    Theater.Sun.printState();
     try {
       moominpappa.isReady();
     } catch (ReadyError e) {
@@ -32,7 +32,8 @@ public class Lab4 {
     for (var i : beavers) {
       try {
         i.confidenceCheck();
-      } catch (ConfidenceError e) {
+      } catch (ConfidenceError | ArithmeticException e) {
+      
         System.out.println(e.toString());
       }
     }

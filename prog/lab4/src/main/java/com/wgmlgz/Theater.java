@@ -10,12 +10,12 @@ class Theater extends Stage implements Movable {
   List<Lamp> lamps = new ArrayList<>();
 
   public static class Sun {
-    double angle = 0;
+    static double angle = 0;
 
-    public void setAngle(double angle) {
-      this.angle = angle;
+    public static void setAngle(double angle) {
+      Sun.angle = angle;
     }
-    public void printState() {
+    public static void printState() {
       if (angle < 12) {
         System.out.println("The sun is rising");
       } else {
