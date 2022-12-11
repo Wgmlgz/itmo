@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{import}
+\import{../../../lib/latex/}{wgmlgz}
+
+\begin{document}
+
+\itmo[
+       variant=112,
+       labn=1,
+       worktype=Курсовая работа часть,
+       discipline=Дискретная математика,
+       group=P3115,
+       student=Владимир Мацюк,
+       teacher=Поляков Владимир Иванович,
+       logo=../../../lib/img/itmo.png
+]
+
+\newcommand{\car}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{\curvearrowleft}}}{}}
+\newcommand{\rcar}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{\curvearrowright}}}{}}
+\newcommand{\ncar}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{}}}{}}
+\newcommand{\SPACE}{\multicolumn{12}{c}{}}
+\newcommand{\INT}{\multicolumn{5}{c}{\MM{Интерпретации}}}
+\newcommand{\PLUS}{\multirow{2}{*}{+}}
+\newcommand{\MINUS}{\multirow{2}{*}{-}}
+\newcommand{\SIGN}{\multicolumn{2}{c}{\MM{Знаковая}}}
+\newcommand{\USIGN}{\multicolumn{2}{c}{\MM{Беззнаковая}}}
+
+\section{Вариант}
+$$
+       \begin{tabular}{|c|c|}
+              \hline
+              Условия, при которых $f=1$ & $3 \le |x_4 1 x_5 - x_1x_2x_3| < 6$ \nl
+              Условия, при которых $f=d$ & $|x_4 1 x_5 - x_1x_2x_3| = 0$ \nl
+       \end{tabular}
+$$
+\section{Задание}
+
+\begin{enumerate}
+       \item Составить таблицу истинности заданной булевой функции.
+       \item Представить булеву функцию в аналитическом виде с помощью КДНФ и ККНФ.
+       \item Найти МДНФ и/или МКНФ методом Квайна – Мак-Класки.
+       \item Найти МДНФ и МКНФ на картах Карно.
+       \item Преобразовать МДНФ и МКНФ к форме, обеспечивающей минимум цены схемы.
+       \item По полученной форме построить комбинационную схему в булевом базисе. Определить задержку схемы.
+       \item Построить схемы с минимальной ценой в универсальных базисах и сокращенных булевых базисах. Определить задержку каждой из схем.
+       \item Построить схему в базисе Жегалкина. Определить цену и задержку.
+       \item Построить схему в универсальном базисе с учетом заданного коэффициента объединения по входам. Определить цену и задержку схемы.
+       \item Выполнить анализ построенных схем, определив их реакцию на заданные комбинации входных сигналов.
+\end{enumerate}
+\section{Решение}
+\end{document}
