@@ -23,11 +23,15 @@ public class Lab4 {
 
     theater.curtain.describe();
     Theater.Sun.printState();
+
     try {
       moominpappa.isReady();
     } catch (ReadyError e) {
       System.out.println(e.toString());
+    } finally {
+      System.out.println("test");
     }
+    System.out.println("test");
 
     for (var i : beavers) {
       try {
