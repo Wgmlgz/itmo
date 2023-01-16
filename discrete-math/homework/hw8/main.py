@@ -437,6 +437,7 @@ if len(sys.argv) == 3:
         divident_fix, private_fix = divident, private
         divident = shift(divident_fix, private_fix, 1, False)[0]
         private = shift(divident_fix, private_fix, 1, False)[1]
+        print("^^", divident_fix)
         print("   " + str(i + 1) + "   |   <-R" + str(i) + "   |  " + divident + "  |   " + private)
         if operand == mantiss_b:
             print("       |  [Mb]пр  |  " + mantiss_b + "  |")
