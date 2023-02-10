@@ -27,3 +27,9 @@ sudo mv *.ttf /usr/share/fonts/
 ```
 ssh s371364@helios.cs.ifmo.ru -p 2222
 ```
+
+
+## random setup scripts
+```
+sdk install kotlin
+```
