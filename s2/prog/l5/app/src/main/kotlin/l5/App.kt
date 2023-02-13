@@ -75,19 +75,15 @@ public class Product(
           output.print("$prompt: ")
           if (!input.hasNextLine()) throw Exception("unexpected end of input")
           try {
-            val line = input.nextLine()
-            return parser(line)
+            return parser(input.nextLine())
           } catch (e: Exception) {
-            val msg = e.message
-            output.println("error: $msg")
+            output.println("error: ${e.message}}")
           }
         }
       }
 
-      fun <T> readNested(prompt: String, parser: () -> T): T {
-        output.println("$prompt: ")
-        return parser()
-      }
+      fun <T> readNested(prompt: String, parser: () -> T) =
+          output.println("$prompt: ").let { parser() }
 
       return Product(
           readVal("name", { (if (it == "") throw Exception("can't be empty") else it) }),
