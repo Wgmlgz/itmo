@@ -17,10 +17,9 @@ class CsvInput(s: String) : Input {
   override fun nextLine() = splitted.next()
 }
 
-class ScannerInput(f: File) : Input {
-  var s = Scanner(f)
-  override fun hasNextLine() = s.hasNext()
-  override fun nextLine() = s.next()
+class ScannerInput(val s: Scanner) : Input {
+  override fun hasNextLine() = s.hasNextLine()
+  override fun nextLine() = s.nextLine()
 }
 
 interface Output {
@@ -28,123 +27,125 @@ interface Output {
   fun print(s: String) {}
 }
 
+class PrintWriterOutput(val p: PrintWriter) : Output {
+  override fun println(s: String) {
+    p.println(s)
+    p.flush()
+  }
+  override fun print(s: String) {
+    p.print(s)
+    p.flush()
+  }
+}
+
 class NullPrinter : Output {}
 
 interface Io {
-  abstract var scanner: Input
-  abstract var printer: Output
+  val scanner: Input
+  val printer: Output
 }
 
 class ConsoleIo : Io {
-  override var scanner = Scanner(System.`in`)
-  override var printer = PrintWriter(System.out)
+  override val scanner = ScannerInput(Scanner(System.`in`))
+  override val printer = PrintWriterOutput(PrintWriter(System.out))
 }
 
 class FileIo(file: String) : Io {
-  var scanner = Scanner(File(file))
-  var printer = NullPrinter()
+  override var scanner = ScannerInput(Scanner(File(file)))
+  override var printer = NullPrinter()
 }
 
-// class Io(val input: Input, val output: Output) {
-//   companion object {
-//     fun fromStdIo(): Io = Io(Scanner(System.`in`), PrintWriter(System.out));
-//   }
-// }
-
 public class Product(
-    name: String,
-    coordinates: Coordinates,
-    price: Double,
-    manufactureCost: Float,
-    unitOfMeasure: UnitOfMeasure,
-    owner: Person
+    val name: String,
+    val coordinates: Coordinates,
+    val price: Double,
+    val manufactureCost: Float,
+    val unitOfMeasure: UnitOfMeasure?,
+    val owner: Person
 ) {
   companion object {
     var last_id: Long = 1
     fun getId() = last_id++
 
-    fun read(io: Io): Product {
+    fun read(input: Input, output: Output): Product {
       val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
 
       fun <T> readVal(prompt: String, parser: (s: String) -> T): T {
-        var res: T? = null
-        io.printer.print("$prompt: ")
-        while (res == null) {
-          if (!io.scanner.hasNextLine()) throw Exception("unexpected end of input")
+        while (true) {
+          output.print("$prompt: ")
+          if (!input.hasNextLine()) throw Exception("unexpected end of input")
           try {
-            val line = io.scanner.nextLine()
-            if (line != null) {
-              res = parser(line)
-            }
+            val line = input.nextLine()
+            return parser(line)
           } catch (e: Exception) {
             val msg = e.message
-            io.printer.println("invalid value: $msg")
+            output.println("error: $msg")
           }
         }
-        return res
       }
 
       fun <T> readNested(prompt: String, parser: () -> T): T {
-        io.printer.println("$prompt: ")
+        output.println("$prompt: ")
         return parser()
       }
 
       return Product(
-          readVal("name", { s -> s }),
+          readVal("name", { (if (it == "") throw Exception("can't be empty") else it) }),
           readNested(
               "coordinates",
               {
                 Coordinates(
-                    readVal("coordinates.x", { s -> s.toFloat() }),
-                    readVal("coordinates.y", { s -> s.toLong() })
+                    readVal("coordinates.x", { it.toFloat() }),
+                    readVal("coordinates.y", { it.toLong() })
                 )
               }
           ),
-          readVal("price", { s -> s.toDouble() }),
-          readVal("manufactureCost", { s -> s.toFloat() }),
-          readVal("unitOfMeasure", { s -> UnitOfMeasure.valueOf(s) }),
+          readVal(
+              "price",
+              { (if (it.toDouble() > 0) it.toDouble() else throw Exception("must be > 0")) }
+          ),
+          readVal(
+              "manufactureCost",
+              { (if (it.toFloat() > 0) it.toFloat() else throw Exception("must be > 0")) }
+          ),
+          readVal(
+              "unitOfMeasure (${enumValues<UnitOfMeasure>().joinToString { it.name }})",
+              { (if (it == "") null else UnitOfMeasure.valueOf(it.uppercase())) }
+          ),
           readNested(
               "owner",
               {
                 Person(
-                    readVal("owner.name", { s -> s }),
-                    readVal("owner.birthday", { s -> LocalDateTime.parse(s, formatter) }),
-                    readVal("owner.nationality", { s -> Country.valueOf(s) }),
+                    readVal(
+                        "owner.name",
+                        { (if (it == "") throw Exception("can't be empty") else it) }
+                    ),
+                    readVal(
+                        "owner.birthday (yyyy-MM-dd HH:mm)",
+                        { (if (it == "") null else LocalDateTime.parse(it, formatter)) }
+                    ),
+                    readVal(
+                        "owner.nationality (${enumValues<Country>().joinToString { it.name }})",
+                        { Country.valueOf(it.uppercase()) }
+                    ),
                 )
               }
           ),
       )
     }
 
-    // fun fromCsv(s: String): Product {}
+    fun getCsvHeader() =
+        "id name coordinates.x coordinates.y price manufactureCost unitOfMeasure owner.name owner.birthday owner.nationality"
   }
   val id = getId()
   val creationDate = ZonedDateTime.now()
+  override fun toString() =
+      "$id $name ${coordinates.x} ${coordinates.y} $price $manufactureCost $unitOfMeasure ${owner.name} ${owner.birthday} ${owner.nationality}"
 }
 
-// fun input(): Product {
-//   val res = Product(
+public class Coordinates(val x: Float, val y: Long)
 
-//   )
-//   return res
-// }
-//     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение
-// этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-//     private String name; //Поле не может быть null, Строка не может быть пустой
-//     private Coordinates coordinates; //Поле не может быть null
-//     private java.time.ZonedDateTime creationDate; //Поле не может быть null, Значение этого поля
-// должно генерироваться автоматически
-//     private double price; //Значение поля должно быть больше 0
-//     private float manufactureCost;
-//     private UnitOfMeasure unitOfMeasure; //Поле может быть null
-//     private Person owner; //Поле не может быть null
-public class Coordinates(x: Float, y: Long) {
-  // companion object {
-  //   fun parse(input: String): Coordinates?
-  // }
-}
-
-public class Person(name: String, birthday: LocalDateTime?, nationality: Country) {}
+public class Person(val name: String, val birthday: LocalDateTime?, val nationality: Country)
 
 public enum class UnitOfMeasure {
   SQUARE_METERS,
@@ -152,50 +153,38 @@ public enum class UnitOfMeasure {
   GRAMS
 }
 
-// inline fun <reified T : Enum<T>> parseEnum(type: String): T? {
-//   return try {
-//     java.lang.Enum.valueOf(T::class.java, type)
-//   } catch (e: IllegalArgumentException) {
-//     null
-//   }
-// }
-
 public enum class Country {
   CHINA,
   SOUTH_KOREA,
   JAPAN
 }
 
-// class RegexWhenArgument(val whenArgument: CharSequence) {
-//   operator fun equals(other: String) = other is String && Regex(other).matches(whenArgument)
-
-//   override operator fun equals(whenEntry: Any?) = (whenArgument == whenEntry)
-// }
-
 class Cmd(val save: String) {
   var io: Io = ConsoleIo()
-
+  var alive = true
   val q = PriorityQueue<Product>()
 
   init {
-    val file = File(save)
-    file.readLines().forEach { s ->
-      io.scanner = CsvReader(s)
-      val product = Product.parse(io)
-      q.push(product)
+    try {
+      File(save).readLines().forEach {
+        val product = Product.read(CsvInput(it), NullPrinter())
+        q.add(product)
+      }
+    } catch (e: FileNotFoundException) {
+      io.printer.println("file was'n found, skipping initialization")
     }
   }
+
   companion object {
     val id = "(\\d+)"
     val item = "(.+)"
   }
 
-  fun help() {
-    io.printer.println(commands.joinToString("\n") { (a, b, c) -> b })
-  }
+  fun help() = io.printer.println(commands.joinToString("\n") { (a, b, c) -> b })
+
   val commands: Array<Triple<String, String, (m: MatchResult) -> Unit>> =
       arrayOf(
-          Triple("help", "help : вывести справку по доступным командам", { m -> help() }),
+          Triple("help", "help : вывести справку по доступным командам", { help() }),
           Triple(
               "info",
               "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)",
@@ -204,9 +193,16 @@ class Cmd(val save: String) {
           Triple(
               "show",
               "show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении",
-              { m -> true }
+              {
+                io.printer.println(Product.getCsvHeader())
+                q.forEach { item -> io.printer.println(item.toString()) }
+              }
           ),
-          Triple("add", "add {element} : добавить новый элемент в коллекцию", { m -> true }),
+          Triple(
+              "add",
+              "add {element} : добавить новый элемент в коллекцию",
+              { q.add(Product.read(io.scanner, io.printer)) }
+          ),
           Triple(
               "update $id",
               "update id {element} : обновить значение элемента коллекции, id которого равен заданному",
@@ -224,7 +220,14 @@ class Cmd(val save: String) {
               "execute_script file_name : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.",
               { m -> true }
           ),
-          Triple("exit", "exit : завершить программу (без сохранения в файл)", { m -> true }),
+          Triple(
+              "exit",
+              "exit : завершить программу (без сохранения в файл)",
+              {
+                io.printer.println("finishing...")
+                alive = false
+              }
+          ),
           Triple(
               "remove_first",
               "remove_first : удалить первый элемент из коллекции",
@@ -264,20 +267,29 @@ class Cmd(val save: String) {
     cb(c)
     return true
   }
-  fun cmd(input: String) {
 
+  fun cmd(input: String) {
     for ((r, help, cb) in commands) if (runCmd(r, input, cb)) break
   }
 
   fun start() {
-    while (io.scanner.hasNextLine()) {
+    if (alive) io.printer.print("-> ")
+    while (alive && io.scanner.hasNextLine()) {
       cmd(io.scanner.nextLine())
+      if (alive) io.printer.print("-> ")
     }
   }
 }
 
-fun main() {
-  val cmd = Cmd()
+fun main(args: Array<String>) {
+  val file = "save.csv"
+  if (args.size < 1) {
+    println("no save file provided using default: $file")
+  } else {
+    println("using file path: $file")
+  }
+
+  val cmd = Cmd(file)
   cmd.cmd("help")
   cmd.cmd("update id 666")
   cmd.cmd("update id")
