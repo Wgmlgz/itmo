@@ -30,20 +30,21 @@
 \section{Список сущностей и их классификация}
 
 Стержневвые:
-\begin{enumerate}
-  \item Incedent: type, message, datetime, location, description
-  \item Location: address, desctiption
-  \item Endpoint: name, location
-  \item Person: name
-\end{enumerate}
+\begin{itemize}
+  \item Incedent: incedent type, message, datetime, location, description
+  \item Person: full name
+  \item Area: postition, info
+  \item Endpoint: info, area
+\end{itemize}
 Характеристические:
-\begin{enumerate}
-  \item Message: from endpoint, to endpoint
-\end{enumerate}
+\begin{itemize}
+  \item Report: from endpoint, to endpoint, arrive date, content
+  \item Incications: incedent, person, info
+\end{itemize}
 Ассоциативные:
-\begin{enumerate}
-  \item Victim: person, incedent
-\end{enumerate}
+\begin{itemize}
+  \item Victim: person, incedent, victim type
+\end{itemize}
 \section{Инфологическая модель}
 
 \section{Даталогическая модель}
@@ -52,7 +53,7 @@
 \section{Реализация даталогической модели на SQL}
 
 \lstset{language=SQL}
-\code{l1.sql}
+\code{create.psql}
 
 \section{Вывод}
 Во время выполнения работы я узнал что такое инфологическая и даталогическая модели.
