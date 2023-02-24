@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{import}
+\import{../../../lib/latex/}{wgmlgz}
+
+\begin{document}
+
+\itmo[
+       variant=110,
+       labn=4,
+       worktype=Домашняя работа,
+       discipline=Дискретная математика,
+       group=P3115,
+       student=Владимир Мацюк,
+       teacher=Поляков Владимир Иванович,
+       logo=../../../lib/img/itmo.png
+]
+
+\newcommand{\car}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{\curvearrowleft}}}{}}
+\newcommand{\rcar}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{\curvearrowright}}}{}}
+\newcommand{\ncar}{\multicolumn{1}{c@{\hspace*{\tabcolsep}\makebox[0pt]{}}}{}}
+\newcommand{\SPACE}{\multicolumn{12}{c}{}}
+\newcommand{\INT}{\multicolumn{5}{c}{\MM{Интерпретации}}}
+\newcommand{\PLUS}{\multirow{2}{*}{+}}
+\newcommand{\MINUS}{\multirow{2}{*}{-}}
+\newcommand{\SIGN}{\multicolumn{2}{c}{\MM{Знаковая}}}
+\newcommand{\USIGN}{\multicolumn{2}{c}{\MM{Беззнаковая}}}
+
+\section{Числа}
+$$
+       \begin{array}{|c|c|}
+              \hline
+              A & 56 \nl
+              B & 91 \nl
+       \end{array}
+$$
+\section{Задание}
+
+\begin{center}
+
+       \begin{enumerate}
+              \item В разрядной сетке длиной в байт (один разряд знаковый и семь – цифровых) выполнить операцию умножения заданных чисел А и В со всеми комбинациями знаков, используя метод умножения в дополнительных кодах с применением коррекции. При выполнении операции использовать способ умножения с поразрядным анализом множителя, начиная от его младших разрядов со сдвигом СЧП вправо. Результаты представить в десятичной системе и проверить их правильность.
+                    \input{res1.tex}
+                    
+                    
+              \item В разрядной сетке длиной в байт (один разряд знаковый и семь – цифровых) выполнить операцию умножения заданных чисел А и В со всеми комбинациями знаков, используя метод умножения в дополнительных кодах без применения коррекции. При выполнении операции использовать способ умножения с поразрядным анализом множителя, начиная от его младших разрядов со сдвигом СЧП вправо. Результаты представить в десятичной системе и проверить их правильность.
+                    \input{res2.tex}
+                     
+       \end{enumerate}
+\end{center}
+\end{document}

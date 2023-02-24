@@ -1,0 +1,61 @@
+
+  $$\begin{array}{c}(A>0,\ B>0) \\ 
+\left.[A]_{пр.}=0111000;\ [B]_{пр.}=1011011\right. \\ 
+ \\ \begin{array}{|c|c|c|c|p{5cm}|} \hline N\ \textup{шага} & \textup{Операнды\ и\ действия} & \begin{array}{c}\textup{СЧП}\ (\textup{старшие}\\\textup{разряды})\end{array} & \begin{array}{c}\textup{Множитель}\ и\\\textup{СЧП}\ (\textup{младшие}\\\textup{разряды})\end{array} & \textup{Пояснения} \\ \hline 
+0 & \textup{СЧП} & 0\ 0\ 0\ 0\ 0\ 0\ 0 & 1\ 0\ 1\ 1\ 0\ 1\ \underline{1} & \textup{Обнуление\ старших\ разрядов\ СЧП} \\ \hline 
+1 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ 0\ 0\ 1\ 1\ 1\ 0\ 0 \end{array} & \begin{array}{c}  \\ |\ 1\ 0\ 1\ 1\ 0\ 1\ 1 \\ 0\ |\ 1\ 0\ 1\ 1\ 0\ \underline{1} \end{array} & \begin{array}{p{3cm}}\textup{Сложение\ СЧП\ с\ множимым}\\\ \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+2 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 1\ 0\ 1\ 0\ 0 \\ 0\ 1\ 0\ 1\ 0\ 1\ 0 \end{array} & \begin{array}{c}  \\ 0\ |\ 1\ 0\ 1\ 1\ 0\ 1 \\ 0\ 0\ |\ 1\ 0\ 1\ 1\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Сложение\ СЧП\ с\ множимым}\\\ \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+3 & \textup{СЧП} \rightarrow & 0\ 0\ 1\ 0\ 1\ 0\ 1 & 0\ 0\ 0\ |\ 1\ 0\ 1\ \underline{1} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+4 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 0\ 1\ 1\ 0\ 1 \\ 0\ 1\ 0\ 0\ 1\ 1\ 0 \end{array} & \begin{array}{c}  \\ 0\ 0\ 0\ |\ 1\ 0\ 1\ 1 \\ 1\ 0\ 0\ 0\ |\ 1\ 0\ \underline{1} \end{array} & \begin{array}{p{3cm}}\textup{Сложение\ СЧП\ с\ множимым}\\\ \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+5 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 1\ 1\ 1\ 1\ 0 \\ 0\ 1\ 0\ 1\ 1\ 1\ 1 \end{array} & \begin{array}{c}  \\ 1\ 0\ 0\ 0\ |\ 1\ 0\ 1 \\ 0\ 1\ 0\ 0\ 0\ |\ 1\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Сложение\ СЧП\ с\ множимым}\\\ \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+6 & \textup{СЧП} \rightarrow & 0\ 0\ 1\ 0\ 1\ 1\ 1 & 1\ 0\ 1\ 0\ 0\ 0\ |\ \underline{1} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+7 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 0\ 1\ 1\ 1\ 1 \\ 0\ 1\ 0\ 0\ 1\ 1\ 1 \end{array} & \begin{array}{c}  \\ 1\ 0\ 1\ 0\ 0\ 0\ |\ 1 \\ 1\ 1\ 0\ 1\ 0\ 0\ \underline{0}\ | \end{array} & \begin{array}{p{3cm}}\textup{Сложение\ СЧП\ с\ множимым}\\\ \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+ \end{array} \\
+ \\ 
+ \\  \left[C\right]_{\textup{пр.}}=01001111101000_2 = 5096_{10}\end{array}$$
+  $$\begin{array}{c}(A<0,\ B>0) \\ 
+\left.[-A]_{доп.}=1001000;\ [B]_{пр.}=1011011\right. \\ 
+ \\ \begin{array}{|c|c|c|c|p{5cm}|} \hline N\ \textup{шага} & \textup{Операнды\ и\ действия} & \begin{array}{c}\textup{СЧП}\ (\textup{старшие}\\\textup{разряды})\end{array} & \begin{array}{c}\textup{Множитель}\ и\\\textup{СЧП}\ (\textup{младшие}\\\textup{разряды})\end{array} & \textup{Пояснения} \\ \hline 
+0 & \textup{СЧП} & 0\ 0\ 0\ 0\ 0\ 0\ 0 & 1\ 0\ 1\ 1\ 0\ 1\ \underline{1} & \textup{Обнуление\ старших\ разрядов\ СЧП} \\ \hline 
+1 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ 1\ 1\ 0\ 0\ 1\ 0\ 0 \end{array} & \begin{array}{c}  \\ |\ 1\ 0\ 1\ 1\ 0\ 1\ 1 \\ 0\ |\ 1\ 0\ 1\ 1\ 0\ \underline{1} \end{array} & \begin{array}{p{3cm}}\textup{Вычитание\ из\ СЧП\ множимого}\\\textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+2 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 0\ 1\ 1\ 0\ 0 \\ 1\ 0\ 1\ 0\ 1\ 1\ 0 \end{array} & \begin{array}{c}  \\ 0\ |\ 1\ 0\ 1\ 1\ 0\ 1 \\ 0\ 0\ |\ 1\ 0\ 1\ 1\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Вычитание\ из\ СЧП\ множимого}\\\textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+3 & \textup{СЧП} \rightarrow & 1\ 1\ 0\ 1\ 0\ 1\ 1 & 0\ 0\ 0\ |\ 1\ 0\ 1\ \underline{1} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+4 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 1\ 0\ 0\ 1\ 1 \\ 1\ 0\ 1\ 1\ 0\ 0\ 1 \end{array} & \begin{array}{c}  \\ 0\ 0\ 0\ |\ 1\ 0\ 1\ 1 \\ 1\ 0\ 0\ 0\ |\ 1\ 0\ \underline{1} \end{array} & \begin{array}{p{3cm}}\textup{Вычитание\ из\ СЧП\ множимого}\\\textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+5 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 0\ 0\ 0\ 0\ 1 \\ 1\ 0\ 1\ 0\ 0\ 0\ 0 \end{array} & \begin{array}{c}  \\ 1\ 0\ 0\ 0\ |\ 1\ 0\ 1 \\ 1\ 1\ 0\ 0\ 0\ |\ 1\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Вычитание\ из\ СЧП\ множимого}\\\textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+6 & \textup{СЧП} \rightarrow & 1\ 1\ 0\ 1\ 0\ 0\ 0 & 0\ 1\ 1\ 0\ 0\ 0\ |\ \underline{1} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+7 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 1\ 0\ 0\ 0\ 0 \\ 1\ 0\ 1\ 1\ 0\ 0\ 0 \end{array} & \begin{array}{c}  \\ 0\ 1\ 1\ 0\ 0\ 0\ |\ 1 \\ 0\ 0\ 1\ 1\ 0\ 0\ \underline{0}\ | \end{array} & \begin{array}{p{3cm}}\textup{Вычитание\ из\ СЧП\ множимого}\\\textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+ \end{array} \\
+ \\ 
+ \\  \left[C\right]_{\textup{доп}.}=10110000011000_2  \\
+  \left[C\right]_{\textup{пр}.}= -01001111101000_2 = -5096_{10}\end{array}$$
+  $$\begin{array}{c}(A>0,\ B<0) \\ 
+\left.[A]_{пр.}=0111000;\ [-B]_{доп.}=0100101\right. \\ 
+ \\ \begin{array}{|c|c|c|c|p{5cm}|} \hline N\ \textup{шага} & \textup{Операнды\ и\ действия} & \begin{array}{c}\textup{СЧП}\ (\textup{старшие}\\\textup{разряды})\end{array} & \begin{array}{c}\textup{Множитель}\ и\\\textup{СЧП}\ (\textup{младшие}\\\textup{разряды})\end{array} & \textup{Пояснения} \\ \hline 
+0 & \textup{СЧП} & 0\ 0\ 0\ 0\ 0\ 0\ 0 & 0\ 1\ 0\ 0\ 1\ 0\ \underline{1} & \textup{Обнуление\ старших\ разрядов\ СЧП} \\ \hline 
+1 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ 0\ 0\ 1\ 1\ 1\ 0\ 0 \end{array} & \begin{array}{c}  \\ |\ 0\ 1\ 0\ 0\ 1\ 0\ 1 \\ 0\ |\ 0\ 1\ 0\ 0\ 1\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Сложение\ СЧП\ с\ множимым}\\\ \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+2 & \textup{СЧП} \rightarrow & 0\ 0\ 0\ 1\ 1\ 1\ 0 & 0\ 0\ |\ 0\ 1\ 0\ 0\ \underline{1} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+3 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 0\ 0\ 1\ 1\ 0 \\ 0\ 1\ 0\ 0\ 0\ 1\ 1 \end{array} & \begin{array}{c}  \\ 0\ 0\ |\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ |\ 0\ 1\ 0\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Сложение\ СЧП\ с\ множимым}\\\ \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+4 & \textup{СЧП} \rightarrow & 0\ 0\ 1\ 0\ 0\ 0\ 1 & 1\ 0\ 0\ 0\ |\ 0\ 1\ \underline{0} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+5 & \textup{СЧП} \rightarrow & 0\ 0\ 0\ 1\ 0\ 0\ 0 & 1\ 1\ 0\ 0\ 0\ |\ 0\ \underline{1} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+6 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 0\ 0\ 0\ 0\ 0 \\ 0\ 1\ 0\ 0\ 0\ 0\ 0 \end{array} & \begin{array}{c}  \\ 1\ 1\ 0\ 0\ 0\ |\ 0\ 1 \\ 0\ 1\ 1\ 0\ 0\ 0\ |\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Сложение\ СЧП\ с\ множимым}\\\ \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+7 & \textup{СЧП} \rightarrow & 0\ 0\ 1\ 0\ 0\ 0\ 0 & 0\ 0\ 1\ 1\ 0\ 0\ \underline{0}\ | & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+8 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\end{array} & \begin{array}{c} 0\ 1\ 1\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 1\ 1\ 0\ 0\ 0 \end{array} & \begin{array}{c}  \\ 0\ 0\ 1\ 1\ 0\ 0\ 0\ | \end{array} & \textup{Коррекция\ СЧП} \\ \hline 
+ \end{array} \\
+ \\ 
+ \\  \left[C\right]_{\textup{доп}.}=10110000011000_2  \\
+  \left[C\right]_{\textup{пр}.}= -01001111101000_2 = -5096_{10}\end{array}$$
+  $$\begin{array}{c}(A<0,\ B<0) \\ 
+\left.[-A]_{доп.}=1001000;\ [-B]_{доп.}=0100101\right. \\ 
+ \\ \begin{array}{|c|c|c|c|p{5cm}|} \hline N\ \textup{шага} & \textup{Операнды\ и\ действия} & \begin{array}{c}\textup{СЧП}\ (\textup{старшие}\\\textup{разряды})\end{array} & \begin{array}{c}\textup{Множитель}\ и\\\textup{СЧП}\ (\textup{младшие}\\\textup{разряды})\end{array} & \textup{Пояснения} \\ \hline 
+0 & \textup{СЧП} & 0\ 0\ 0\ 0\ 0\ 0\ 0 & 0\ 1\ 0\ 0\ 1\ 0\ \underline{1} & \textup{Обнуление\ старших\ разрядов\ СЧП} \\ \hline 
+1 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ 1\ 1\ 0\ 0\ 1\ 0\ 0 \end{array} & \begin{array}{c}  \\ |\ 0\ 1\ 0\ 0\ 1\ 0\ 1 \\ 0\ |\ 0\ 1\ 0\ 0\ 1\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Вычитание\ из\ СЧП\ множимого}\\\textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+2 & \textup{СЧП} \rightarrow & 1\ 1\ 1\ 0\ 0\ 1\ 0 & 0\ 0\ |\ 0\ 1\ 0\ 0\ \underline{1} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+3 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 1\ 1\ 0\ 1\ 0 \\ 1\ 0\ 1\ 1\ 1\ 0\ 1 \end{array} & \begin{array}{c}  \\ 0\ 0\ |\ 0\ 1\ 0\ 0\ 1 \\ 0\ 0\ 0\ |\ 0\ 1\ 0\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Вычитание\ из\ СЧП\ множимого}\\\textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+4 & \textup{СЧП} \rightarrow & 1\ 1\ 0\ 1\ 1\ 1\ 0 & 1\ 0\ 0\ 0\ |\ 0\ 1\ \underline{0} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+5 & \textup{СЧП} \rightarrow & 1\ 1\ 1\ 0\ 1\ 1\ 1 & 0\ 1\ 0\ 0\ 0\ |\ 0\ \underline{1} & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+6 & \begin{array}{c} [-A]_{\textup{доп.}}\\ \textup{СЧП}\\\textup{СЧП}\rightarrow\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 1\ 1\ 1\ 1\ 1 \\ 1\ 0\ 1\ 1\ 1\ 1\ 1 \end{array} & \begin{array}{c}  \\ 0\ 1\ 0\ 0\ 0\ |\ 0\ 1 \\ 1\ 0\ 1\ 0\ 0\ 0\ |\ \underline{0} \end{array} & \begin{array}{p{3cm}}\textup{Вычитание\ из\ СЧП\ множимого}\\\textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо}\end{array} \\ \hline 
+7 & \textup{СЧП} \rightarrow & 1\ 1\ 0\ 1\ 1\ 1\ 1 & 1\ 1\ 0\ 1\ 0\ 0\ \underline{0}\ | & \textup{Модифицированный\ сдвиг\ СЧП\ и\ множителя\ вправо} \\ \hline 
+8 & \begin{array}{c} [A]_{\textup{пр.}}\\ \textup{СЧП}\end{array} & \begin{array}{c} 1\ 0\ 0\ 1\ 0\ 0\ 0 \\ \hline 0\ 1\ 0\ 0\ 1\ 1\ 1 \end{array} & \begin{array}{c}  \\ 1\ 1\ 0\ 1\ 0\ 0\ 0\ | \end{array} & \textup{Коррекция\ СЧП} \\ \hline 
+ \end{array} \\
+ \\ 
+ \\  \left[C\right]_{\textup{пр.}}=01001111101000_2 = 5096_{10}\end{array}$$

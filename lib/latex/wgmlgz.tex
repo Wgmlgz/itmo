@@ -1,0 +1,146 @@
+% \usepackage{draculatheme}
+
+% \usepackage{colortbl}
+% \usepackage[usenames]{color}
+
+
+\usepackage[paper=letterpaper,margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fontspec}
+% \usepackage{listings-rust}
+\usepackage{listings}
+\usepackage{keycommand}
+\usepackage{caption}
+\usepackage{dingbat}
+\usepackage{array,multirow}
+\usepackage{amssymb}
+\usepackage{spreadtab}
+\usepackage{unicode-math}
+
+\setmonofont{JetBrains Mono}[Contextuals=Alternate,Ligatures = TeX,]
+\setmainfont[
+  Ligatures=TeX,
+  Extension=.otf,
+  BoldFont=cmunbx,
+  ItalicFont=cmunti,
+  BoldItalicFont=cmunbi,
+]{cmunrm}
+\setsansfont[
+  Ligatures=TeX,
+  Extension=.otf,
+  BoldFont=cmunsx,
+  ItalicFont=cmunsi,
+]{cmunss}
+
+% \geometry{
+%   a4paper,
+%   top=25mm,
+%   right=0mm,
+%   bottom=25mm,
+%   left=0mm
+% }
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!red,
+  urlcolor=blue!70!black
+}
+
+\captionsetup[lstlisting]{
+  font={tt},
+}
+
+% based on Atom One Light
+\lstset{
+  frame=single,
+  basicstyle=\ttfamily\color[HTML]{383a42},
+  columns=fullflexible,
+  breaklines=true,
+  numbers=left,
+  frame=tab,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  extendedchars=false,
+  showspaces=false,
+  showstringspaces=false,
+  identifierstyle=\ttfamily\color[HTML]{4078f2},
+  commentstyle=\color[HTML]{a0a1a7},
+  stringstyle=\color[HTML]{50a14f},
+  keywordstyle=\color[HTML]{a626a4},
+  numberstyle=\ttfamily\color[HTML]{2c91af},
+  rulecolor=\color[HTML]{383a42}
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+}
+
+\newcommand{\code}[1]{
+  \lstset{title=#1}
+  \lstinputlisting{#1}
+}
+
+\newcommand{\MM}[1]{\mathchoice{\hbox{#1}}{\hbox{#1}}{\hbox{\scriptsize{#1}}}{\hbox{\tiny{#1}}}}
+\newcommand*\BitAnd{\mathbin{\&}}
+\newcommand*\BitOr{\mathbin{|}}
+\newcommand*\ShiftLeft{\ll}
+\newcommand*\ShiftRight{\gg}
+\newcommand*\BitNeg{\ensuremath{\mathord{\sim}}}
+\def\nl{\\\hline}
+
+\newkeycommand{\itmo}[
+  variant=aboba,
+  labn=aboba,
+  worktype=Лабораторная работа,
+  discipline=aboba,
+  group=aboba,
+  student=aboba,
+  teacher=aboba,
+  year=2023,
+  logo=../../lib/img/itmo.png
+]{
+  \begin{titlepage}
+    \begin{center}
+      \section*{
+        Федеральное государственное автономное образовательное учреждение\\ высшего образования\\
+        «Национальный исследовательский университет ИТМО»\\
+        Факультет Программной Инженерии и Компьютерной Техники \\
+       }
+      \includegraphics[scale=0.2]{\commandkey{logo}}
+    \end{center}
+    
+    \vspace{4cm}
+    
+    \begin{center}
+      \large \textbf{Вариант \textnumero \commandkey{variant}}\\
+      \textbf{\commandkey{worktype} \textnumero \commandkey{labn}}\\
+      по дисциплине\\
+      \textbf{\commandkey{discipline}}
+    \end{center}
+    
+    \vspace*{\fill}
+    
+    \begin{flushright}
+      Выполнил Студент группы \commandkey{group}\\
+      \textbf{\commandkey{student}}\\
+      Преподаватель: \\
+      \textbf{\commandkey{teacher}}\\
+    \end{flushright}
+    
+    \vspace{1cm}
+    
+    \begin{center}
+      Санкт-Петербург\\
+      \commandkey{year}г.
+    \end{center}
+    
+    \thispagestyle{empty}
+  \end{titlepage}
+}
