@@ -21,21 +21,58 @@ utils.latex(arr)
 print('Исходная таблица соединений R:')
 print(utils.latex(arr))
 
-def purge(s, idx: int):
-  del s[idx]
-  for line in s:
-    del line[2][idx]
 
 def sus(g):
-    step = 1
-    print(f'{step}. Положим j = {step}')
+    step = 0
+    colors = [0 for i in range(len(g))]
+    ignore = []
 
-    s = [(f'e{i + 1}', sum(line), line) for i, line in enumerate(g)]
-    s = sorted(s, key=lambda x: x[1], reverse=True)
-    
-    step += 1
-    print(f'{step}. Упорядочим вершины графа в порядке не возрастания ri')
-    print(', '.join([x[0] for x in s]))
-    pprint(s)
+    def susm(line):
+        s = 0
+        for x, val in enumerate(line):
+            if x not in ignore:
+                s += val
+        return s
+    while 0 in colors:
+        step += 1
+        print(f'{step}. Положим j = {step}')
+        s = [(i, susm(line), line) for i, line in enumerate(g)]
+        
+        for i, sumed, line in s:
+          if (i not in ignore):
+              print(i, sumed)
+                
+        s = sorted(s, key=lambda x: x[1], reverse=True)
+
+        def can(idx, step):
+            for i, e in enumerate(g):
+                if i == idx:
+                    continue
+                if e[idx] == 1:
+                    if colors[i] == step:
+                        return False
+
+            return True
+
+        for i, sumed, line in s:
+            if (i not in ignore):
+                print(i + 1, end=',')
+                
+        print('')
+        for i, sumed, line in s:
+            if (i not in ignore) and can(i, step):
+                colors[i] = step
+                print(i + 1, end=',')
+
+        print('')
+        ignore = []
+        for i, color in enumerate(colors):
+            if color != 0:
+                ignore.append(i)
+        # step += 1
+        # print(f'{step}. Упорядочим вершины графа в порядке не возрастания ri')
+        # print(', '.join([x[0] for x in s]))
+        # pprint(s)
+
 
 print(sus(g))

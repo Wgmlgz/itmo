@@ -1,14 +1,15 @@
 from pprint import pprint
+from typing import List, Optional
 
 
-Graph = list[list[int | None]]
+Graph = List[List[Optional[int]]]
 
 
-def normalize(g: Graph) -> list[list[int]]:
+def normalize(g: Graph) -> List[List[int]]:
     return [[0 if x == None or x == 0 else 1 for x in line] for line in g]
 
 
-def as_str(g: Graph) -> list[list[str]]:
+def as_str(g: Graph) -> List[List[str]]:
     return [['' if x == None else str(x) for x in line] for line in g]
 
 
