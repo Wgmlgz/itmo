@@ -11,7 +11,7 @@ CREATE TABLE
     info varchar,
     area_id int REFERENCES area(id)
   );
-Т
+
 CREATE TABLE
   entity (
     id serial PRIMARY KEY,
