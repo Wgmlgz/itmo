@@ -2,6 +2,7 @@ import sys
 import time
 import csv
 
+
 def hex_to_binary(s):
     hex_list = list(s)
     for i in range(0, len(hex_list)):
@@ -121,12 +122,12 @@ def vet_com(x):
     if offset[0] != '-':
         offset = '+' + offset
     m = 'IP%s' % offset
-    temp = v.get(x[0:2]) 
+    temp = v.get(x[0:2])
     return temp[0] % m, temp[1]
 
 
 def parse_code_to_line(code):
-    template = "{0[0]:<15} | {0[1]}"
+    template = "{0[0]:<15} & {0[1]}"
     try:
         if code[0] == "0":  # безадресная
             return template.format(bez_adr_com(code))
@@ -136,10 +137,9 @@ def parse_code_to_line(code):
             return "Команды ввода-вывода не поддерживаются!"
         elif ("2" <= code[0] <= "9") or ("A" <= code[0] <= "E"):  # адресная
             return template.format(adr_com(code))
-        else:
-            return "Переменная/ошибка"
     except:
-        return "Константа/ошибка"
+        pass
+    return template.format(["", ""])
 
 
 # Аргументы
@@ -147,8 +147,10 @@ show_disclaimer = True
 export_to_csv = False
 
 for arg in sys.argv:
-    if arg == '-nodisc': show_disclaimer = False
-    if arg == '-csv': export_to_csv = True
+    if arg == '-nodisc':
+        show_disclaimer = False
+    if arg == '-csv':
+        export_to_csv = True
 
 if show_disclaimer:
     print("""
@@ -165,13 +167,18 @@ if show_disclaimer:
 with open('input.txt', 'r', encoding='utf-8') as lines:
     data = []
     for c in lines:
-        c = c.replace('\n', '').replace('+', '').strip()
+        addr, c = c.split(':')
+        addr = addr.strip()
+        
+        c = c.replace('\n', '')
+        orig = c
+        c = c.replace('+', '').strip()
         if len(c) != 4:  # не обрабатываем строки с длиной != 4
             print(c)
             continue
         if export_to_csv:
-            data.append(c + ' | ' + parse_code_to_line(c))
-        print(c + ' | ' + parse_code_to_line(c))
+            data.append(c + ' & ' + parse_code_to_line(c))
+        print(f'{addr} & {orig} & {parse_code_to_line(c)}')
     if export_to_csv:
         print('\nЭкспортировано в result.csv')
 
@@ -182,8 +189,9 @@ if export_to_csv:
         csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         csv_writer.writeheader()
         for row in data:
-            splitted = [x.strip() for x in row.split('|')]
+            splitted = [x.strip() for x in row.split('&')]
             if len(splitted) == 2 and 'ошибка' in splitted[1]:  # костыль
                 splitted.append(splitted[1])
                 splitted[1] = ""
-            csv_writer.writerow({'Код команды': splitted[0], 'Мнемоника': splitted[1], 'Информация': splitted[2]})
+            csv_writer.writerow(
+                {'Код команды': splitted[0], 'Мнемоника': splitted[1], 'Информация': splitted[2]})
