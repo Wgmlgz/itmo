@@ -21,6 +21,8 @@ CREATE TABLE
     info varchar
   );
 
+ALTER TABLE table1 ALTER COLUMN sus int NOT NULL;
+
 CREATE TABLE
   incedent (
     id serial PRIMARY KEY,
