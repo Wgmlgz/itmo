@@ -1,0 +1,36 @@
+ORG 0x495
+
+res:	WORD 0x616
+terminator: WORD 0x00
+tmp:	WORD ?
+
+START:
+  CLA
+s1:
+  IN 5
+  AND #0x40
+  BEQ s1
+  IN 4
+  ST (res)
+  ST tmp
+  CMP terminator
+  BEQ exit
+  CLA
+s2:
+  IN 5
+  AND #0x40
+  BEQ s2
+  IN 4
+  SWAB
+  OR tmp
+  ST (res)
+  SUB tmp
+  SWAB
+  CMP terminator
+  BEQ exit
+  LD (res)+
+  CLA
+  JUMP s1
+exit:
+  LD (res)+
+  HLT
