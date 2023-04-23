@@ -222,3 +222,7 @@ def parse():
 
     pprint(arr)
     return arr
+
+
+if __name__ == '__main__': 
+    parse()
