@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{import}
+\usepackage{tikz} 
+\import{../../lib/latex/}{wgmlgz}
+\begin{document}
+
+\itmo[
+  variant=-,
+  labn=6,
+  worktype=Домашняя работа,
+  discipline=Дискретная математика,
+  group=P3115,
+  student=Владимир Мацюк,
+  teacher=Поляков Владимир Иванович,
+  logo=../../lib/img/itmo.png
+]
+
+
+
+
+
+Исходная таблица соединений R:
+
+
+
+
+Построить знаковый граф.
+
+Построим знаковый ориентированный граф, который будет показывать отношение различных процессов во время организации оплачиваемой стажировки в IT компании. Вершины графа – это сущности, связанные с метрополитеном, и процессы, проходящие в нем. Есть ребро $(u, v) \Rightarrow u $ влияет на v («+» если положительно, «–» если отрицательно).
+
+
+\begin{center}
+  \begin{tikzpicture}[ ->, thick, node distance={40mm}, main/.style = {draw, circle}]
+    
+\node[main,text width=2cm, align=center] (1) {Организация стажировки};
+\node[main,text width=2cm, align=center] (2) [above of=1] {Затраты на проведение};
+\node[main,text width=2.5cm, align=center] (9) [right of=1] {Количество проектов для стажеров};
+\node[main,text width=2cm, align=center] (8) [right of=9] {Мотивированные стажеры };
+\node[main,text width=2cm, align=center] (7) [below of=8] {Гранты на развитие IT индустрии};
+\node[main,text width=2cm, align=center] (10) [right of=7] {Выделение бюджета на оплату стажировки};
+\node[main,text width=2cm, align=center] (6) [above of=10] {Траты на подготовку};
+\node[main,text width=2cm, align=center] (12) [below left of=10] {Удобные офисы для обучения};
+\node[main,text width=2cm, align=center] (3) [above of=9] {Отставания от графика сотрудников};
+\node[main,text width=2cm, align=center] (5) [above of=3] {Политическая обстановка в регионе};
+\node[main,text width=2cm, align=center] (11) [right of=5] {Рекламная компания стажировки};
+\node[main,text width=2cm, align=center] (4) [below of=11] {Возможность получить стажера в штат };
+
+
+\path[every node/.style={sloped,anchor=south,auto=false}]
+        (1) edge node {+} (2)            
+        (1) edge node {-} (3)            
+        (1) edge node {+} (9)             
+        (3) edge node {+} (5)            
+        (3) edge node {-} (4)            
+        (5) edge node {-} (11)            
+        (6) edge node {+} (10)            
+        (6) edge node {+} (11)            
+        (7) edge node {+} (1)            
+        (7) edge node {+} (6)            
+        (7) edge node {+} (10)            
+        (8) edge node {+} (4)            
+        (8) edge node {+} (7)            
+        (9) edge node {+} (8)            
+        (10) edge node {+} (12)            
+        (11) edge node {+} (4)            
+        (12) edge node {+} (1);
+  \end{tikzpicture}
+\end{center}
+
+\end{document}
