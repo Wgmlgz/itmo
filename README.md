@@ -27,6 +27,9 @@ sudo mv *.ttf /usr/share/fonts/
 ```
 ssh s371364@helios.cs.ifmo.ru -p 2222
 ```
+```
+ssh -p 2222 s371364@se.ifmo.ru -L 5432:pg:5432
+```
 
 
 ## random setup scripts

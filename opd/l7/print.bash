@@ -1,0 +1,1 @@
+python -c "print('\n'.join(f'ma {i:02X}'for i in range(1, 0xE0)))" | java -Dmode=cli -jar ../bcomp-ng-ex.jar;

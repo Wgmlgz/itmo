@@ -1,0 +1,6 @@
+SHR X
+
+AC -> BR            
+5B 80C4041040   BEQ SHRLOOP     if BR(7, 6, 5, 4, 3, 2, 1, 0) = 0 then GOTO INT @ C4
+94 0010E80010   ASR             ASR(AC) → AC, N, Z, V, C // remove NZVC + 0 -> 15
+BA 8051101040                   GOTO SHRLOOP @ 51 // fix addres
