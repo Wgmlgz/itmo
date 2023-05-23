@@ -1,4 +1,4 @@
-ORG  0x1D0
+mv 6666ORG  0x1D0
 
 RESULT: WORD 0x0
 

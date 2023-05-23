@@ -1,3 +1,2 @@
 #!/bin/bash
-cat input | java -Dmode=cli -jar ../bcomp-ng-ex.jar;
-echo 'sus'
+cat microcode code.bcomp > start; start | java -Dmode=cli -jar ../bcomp-ng-ex.jar
