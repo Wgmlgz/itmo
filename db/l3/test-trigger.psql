@@ -1,0 +1,16 @@
+INSERT INTO
+  report (
+    from_id,
+    to_id,
+    incedent_id,
+    entity_id,
+    content
+  )
+VALUES
+  (
+    1,
+    2,
+    1,
+    6,
+    'were seized with horror as a result of an incomprehensible phenomenon'
+  );
