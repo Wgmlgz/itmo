@@ -61,5 +61,9 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp"
-  }
+  },
+  "cSpell.words": [
+    "Мацюк"
+  ],
+  "liveServer.settings.port": 5501
 }
