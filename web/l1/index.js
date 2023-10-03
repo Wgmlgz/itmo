@@ -1,4 +1,6 @@
 let canvas, ctx, form, table;
+let old_values = [];
+
 const validateForm = (e) => {
   console.log(form);
   const x = parseFloat(form.elements.x.value);
@@ -24,6 +26,15 @@ const setX = (e) => {
   const x = parseFloat(e.innerHTML);
   console.log(x);
   document.getElementById('x').value = x;
+
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach((btn) => {
+    if (btn.innerHTML === String(x)) {
+      btn.classList.add('btn-selected');
+    } else {
+      btn.classList.remove('btn-selected');
+    }
+  });
   updatePlot();
 };
 
@@ -113,9 +124,17 @@ const updatePlot = () => {
   ctx.fillText(`-${r / 2}`, fix(-0.5), fixY(0.1));
   ctx.fillText(`-${r}`, fix(-1), fixY(0.1));
 
+  
+
+  ctx.fillStyle = '#006600';
+  old_values.forEach(({ x, y }) => {
+    ctx.fillRect(fix(x / r), fixY(y / r), 5, 5);
+  });
+
+
   ctx.fillStyle = '#ff5555';
 
-  ctx.fillRect(fix(x / r), fixY(y / r), 3, 3);
+  ctx.fillRect(fix(x / r), fixY(y / r), 5, 5);
 };
 
 window.onload = () => {
@@ -131,7 +150,7 @@ window.onload = () => {
       method: 'post',
       body: new FormData(form),
     }).then((res) => res.json());
-
+    old_values.push({ x: Number(x), y: Number(y) });
     row = table.insertRow(1);
     row.insertCell(0).innerHTML = x;
     row.insertCell(1).innerHTML = y;

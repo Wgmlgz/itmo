@@ -35,24 +35,22 @@
       <div class="ig">
         <div class="ct">
           <label for="x">X:</label>
-          <input value=0 readonly id="x" type="number" min="-5" max="5" step="1" name="x" />
-        </div>
-        <div class="ct">
-          <button type="button" onclick="setX(this)">-5</button>
-          <button type="button" onclick="setX(this)">-4</button>
-          <button type="button" onclick="setX(this)">-3</button>
-          <button type="button" onclick="setX(this)">-2</button>
-          <button type="button" onclick="setX(this)">-1</button>
-          <button type="button" onclick="setX(this)">0</button>
-          <button type="button" onclick="setX(this)">1</button>
-          <button type="button" onclick="setX(this)">2</button>
-          <button type="button" onclick="setX(this)">3</button>
+          <input hidden value=0 readonly id="x" type="number" min="-5" max="5" step="1" name="x" />
+          <button class="btn" type="button" onclick="setX(this)">-5</button>
+          <button class="btn" type="button" onclick="setX(this)">-4</button>
+          <button class="btn" type="button" onclick="setX(this)">-3</button>
+          <button class="btn" type="button" onclick="setX(this)">-2</button>
+          <button class="btn" type="button" onclick="setX(this)">-1</button>
+          <button class="btn" type="button" onclick="setX(this)">0</button>
+          <button class="btn" type="button" onclick="setX(this)">1</button>
+          <button class="btn" type="button" onclick="setX(this)">2</button>
+          <button class="btn" type="button" onclick="setX(this)">3</button>
         </div>
       </div>
       <div class="ig">
         <div class="ct">
           <label for="y">Y:</label>
-          <input value=0 type="number" id="y" name="y" step="any" min="-5" max="5" required>
+          <input placeholder="-5...5" type="number" id="y" name="y" step="0.0001" min="-5" max="5" required>
         </div>
       </div>
 

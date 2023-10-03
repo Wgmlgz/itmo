@@ -41,6 +41,10 @@ input[type='number'] {
   padding: 4%;
 }
 
+input::placeholder {
+  opacity: 0.5;
+}
+
 /* #canvas {
   width: 100px;
   height: 100px;
@@ -94,4 +98,8 @@ td {
   gap: 10px;
   align-items: center;
   justify-self: center;
+}
+
+.btn-selected {
+  border: 2px solid var(--main);
 }
