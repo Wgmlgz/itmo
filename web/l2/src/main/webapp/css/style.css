@@ -1,13 +1,13 @@
 @charset "UTF-8";
 :root {
   --primary-border-radius: 10px;
-  --primary-text-color: #bac3cb;
-  --secondary-text-color: #a3abb1;
+  --primary-text-color: #000;
+  --secondary-text-color: #000;
   --error-color: #f54c45;
-  --primary-background-color: #0c1116;
-  --secondary-background-color: #161a23;
-  --tertiary-background-color: #202330;
-  --soft-borders-color: #1e232f;
+  --primary-background-color: #fff;
+  --secondary-background-color: #fff;
+  --tertiary-background-color: #fff;
+  --soft-borders-color: #fff;
   --default-borders-radius: 10px;
 
   background-color: var(--primary-background-color);
@@ -88,12 +88,12 @@ body {
 .rbox-label {
   color: var(--primary-text-color);
 }
-
+/* 
 #x-textinput {
   width: 75%;
   height: 20px;
   margin: 2% 0;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 255);
   background: var(--primary-background-color);
   border-radius: 5px;
   border-width: 2px;
@@ -101,7 +101,7 @@ body {
   outline: none;
   color: var(--primary-text-color);
 
-}
+} */
 
 #x-textinput.text-error {
   color: var(--error-color);
@@ -162,30 +162,30 @@ body {
   left: 7px;
 }
 
-.buttons {
+/* .buttons {
   margin-top: 3%;
 }
 
 .buttons::before {
   content: "";
-  display: block;
+  display: block; 
   height: 2px;
   width: 60px;
   margin: 0 auto 4%;
-  background-color: #6c43af;
-}
+  background-color: #55ff55;
+} */
 
 .button {
   height: 27px;
   width: 70px;
   font-family: "Open Sans", "Arial", "cursive";
   color: var(--primary-text-color);
-  background-color: #6c43af;
+  background-color: #55ff55;
   border: none;
 }
 
 .button:hover {
-  background-color: #513284;
+  background-color: #55ff55;
 }
 
 #table-plate {
@@ -213,7 +213,7 @@ body {
 }
 
 #result-table tr:nth-child(2n-1) {
-  background-color: #2A2C3D;
+  background-color: #fff;
 }
 
 .coords-col {

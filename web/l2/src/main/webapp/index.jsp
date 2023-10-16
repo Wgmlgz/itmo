@@ -18,7 +18,7 @@
     <tr>
         <!-- Header -->
         <td id="header-plate" colspan="2">
-            <span class="left-aligned">Владимир Мацюк | P3215</span>
+            <span class="left-aligned">Владимир Мацюк, P3215</span>
             <span class="right-aligned">№666</span>
         </td>
         <td>
@@ -29,7 +29,7 @@
         <!-- Graph -->
         <td class="content-plate" id="graph-plate" rowspan="2">
             <div class="plate-top">
-                <h2 class="plate-top-title">Graph</h2>
+                <h2 class="plate-top-title">Граф</h2>
             </div>
 
             <div class="image-container">
@@ -42,9 +42,9 @@
             <div class="plate-top">
                 <%=(request.getAttribute("errorMessage") != null)
                         ?
-                        ("<h2 id =\"error-Table\" class=\"miss-text plate-top\">Table -> "+request.getAttribute("errorMessage")+"</h2>")
+                        ("<h2 id =\"error-Table\" class=\"miss-text plate-top\">Таблица -> "+request.getAttribute("errorMessage")+"</h2>")
                         :
-                        "<h2 id =\"error-Table\" class=\"plate-top-title\">Table</h2>"
+                        "<h2 id =\"error-Table\" class=\"plate-top-title\">Таблица</h2>"
                 %>
             </div>
 
@@ -55,9 +55,9 @@
                         <th class="coords-col">X</th>
                         <th class="coords-col">Y</th>
                         <th class="coords-col">R</th>
-                        <th class="time-col">Current time</th>
-                        <th class="time-col">Execution time</th>
-                        <th class="hitres-col">Hit result</th>
+                        <th class="time-col">Время</th>
+                        <th class="time-col">Время исполнения</th>
+                        <th class="hitres-col">Результат</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -77,7 +77,8 @@
                         <td class="table-text"><%=result.getR()%></td>
                         <td class="table-text"><%=result.getCurrTime()%></td>
                         <td class="table-text"><%=result.getExecTime()%></td>
-                        <%=result.isHitResult() ? "<td class='hit-text'>true</span>" : "<td class='miss-text'>false</td>"%>
+                        <td class="table-text"><%=result.isHitResult() ? "✅" : "❌"%></td>
+                        
                     </tr>
                     <% } %>
                     </tbody>
@@ -93,7 +94,7 @@
                 <h2 class="plate-top-title">Values</h2>
             </div>
 
-            <form id="input-form" method="get" action="${pageContext.request.contextPath}/process">
+            <form id="input-form">
                 <table id="input-grid">
                     <!-- X Values -->
                     <tr>
@@ -103,7 +104,7 @@
 
                         <td class="input-grid-value">
                             <input id="x-textinput" type="text" name="x" maxlength="10" autocomplete="off"
-                                   placeholder="Number in range (-2 ... 2)" value="<%=(resultList.getSize() <= 0) ? "" : resultList.getResult(resultList.getSize() - 1).getX()%>">
+                                   placeholder="-3 ... 3" value="<%=(resultList.getSize() <= 0) ? "" : resultList.getResult(resultList.getSize() - 1).getX()%>">
                         </td>
                     </tr>
 
@@ -158,8 +159,8 @@
                     <tr>
                         <td colspan="2">
                             <div class="buttons">
-                                <input id="submitBtn" class="button" type="submit" value="Submit">
-                                <input id="resetBtn" class="button" type="reset" value="Reset">
+                                <input id="submitBtn" class="button" type="submit" value="Ввести">
+                                <input id="resetBtn" class="button" type="reset" value="Сброс">
                             </div>
                         </td>
                     </tr>

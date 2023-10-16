@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.io.PrintWriter;
+import com.google.gson.Gson;
 
 @WebServlet("/checkArea")
 public class AreaCheckServlet extends HttpServlet {
@@ -21,10 +23,12 @@ public class AreaCheckServlet extends HttpServlet {
         try {
             long startTime = System.nanoTime();
             ResultList results;
-            if(req.getSession().getAttribute("results") == null) results = new ResultList();
-            else results = (ResultList) req.getSession().getAttribute("results");
+            if (req.getSession().getAttribute("results") == null)
+                results = new ResultList();
+            else
+                results = (ResultList) req.getSession().getAttribute("results");
 
-            if(isValid(req.getParameter("x"),req.getParameter("y"),req.getParameter("r"))) {
+            if (isValid(req.getParameter("x"), req.getParameter("y"), req.getParameter("r"))) {
                 Result newResult = getResult(
                         req.getParameter("x"),
                         req.getParameter("y"),
@@ -35,13 +39,22 @@ public class AreaCheckServlet extends HttpServlet {
                 throw new IllegalArgumentException("Illegal Arguments!");
             }
 
-            req.getSession().setAttribute("results",results);
-
-        } catch (IllegalArgumentException e){
+            req.getSession().setAttribute("results", results);
+            PrintWriter out = resp.getWriter();
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            Gson gson = new Gson();
+            String jsonInString = gson.toJson(results);
+            out.print(jsonInString);
+            out.flush();
+        } catch (RuntimeException e) {
             resp.setStatus(400);
-            req.setAttribute("errorMessage", "Error: " + e.getMessage());
+            PrintWriter out = resp.getWriter();
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            out.print(e.getMessage());
+            out.flush();
         } finally {
-            req.getRequestDispatcher("/index.jsp").forward(req, resp); //TODO go back to lab2/
         }
     }
 
@@ -50,7 +63,7 @@ public class AreaCheckServlet extends HttpServlet {
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
-    private boolean validateX (String xVal) {
+    private boolean validateX(String xVal) {
         try {
             double x = Double.parseDouble(xVal);
             return true;
@@ -59,7 +72,7 @@ public class AreaCheckServlet extends HttpServlet {
         }
     }
 
-    private boolean validateY (String yVal) {
+    private boolean validateY(String yVal) {
         try {
             double y = Double.parseDouble(yVal);
             return true;
@@ -68,29 +81,27 @@ public class AreaCheckServlet extends HttpServlet {
         }
     }
 
-    private boolean validateR (String rVal) {
+    private boolean validateR(String rVal) {
         try {
             double r = Double.parseDouble(rVal);
-            List<Double> rRange = Arrays.asList(1.0,1.5,2.0,2.5,3.0);
+            List<Double> rRange = Arrays.asList(1.0, 1.5, 2.0, 2.5, 3.0);
             return rRange.contains(r);
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
-    private boolean isValid(String xVal, String yVal, String rVal){
+    private boolean isValid(String xVal, String yVal, String rVal) {
         return validateX(xVal) && validateY(yVal) && validateR(rVal);
     }
 
+    private boolean checkHit(double x, double y, double r) {
+        var res =
 
-    private boolean checkHit(double x, double y, double r){
-       var res = 
-       
-       (((x > 0 && y > 0) && (x <= r/2 && y<=r)) ||
-    ((x <= 0 && y > 0) && false) ||
-    ((x <= 0 && y <= 0) && (-y + (- x) <= r)) ||
-    ((x >= 0 && y <= 0) && (x*x + y*y <= (r / 2)*(r / 2))))
-    ;
+                (((x > 0 && y > 0) && (x <= r / 2 && y <= r)) ||
+                        ((x <= 0 && y > 0) && false) ||
+                        ((x <= 0 && y <= 0) && (-y + (-x) <= r)) ||
+                        ((x >= 0 && y <= 0) && (x * x + y * y <= (r / 2) * (r / 2))));
         return res;
     }
 
@@ -103,7 +114,7 @@ public class AreaCheckServlet extends HttpServlet {
         Calendar calendar = Calendar.getInstance();
         String currTime = dateFormat.format(calendar.getTime());
         String execTime = String.valueOf(System.nanoTime() - startTime);
-        return new Result(x,y,r,currTime,execTime,checkHit(x,y,r));
+        return new Result(x, y, r, currTime, execTime, checkHit(x, y, r));
     }
 
 }
