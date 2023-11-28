@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+  <persistence-unit name="default">
+    <class>model.Result</class>
+
+    <properties>
+      <!-- database configurations for EclipseLink -->
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://your-database-host:5432/your-database-name"/>
+      <property name="javax.persistence.jdbc.user" value="your-database-username"/>
+      <property name="javax.persistence.jdbc.password" value="your-database-password"/>
+      
+      <!-- EclipseLink specific properties -->
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.ddl-generation" value="validate"/>
+    </properties>
+  </persistence-unit>
+</persistence>
