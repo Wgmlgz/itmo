@@ -7,16 +7,12 @@ import jakarta.persistence.Persistence;
 import java.sql.SQLException;
 import java.util.Collection;
 import jakarta.persistence.Query;
-import org.eclipse.persistence.sessions.Session;
-import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
-
+import java.util.ArrayList;
 
 public class ResultDAOImpl implements ResultDAO {
-
-    private static final String PERSISTENCE_UNIT_NAME = "your_persistence_unit_name"; // Replace with your persistence
-                                                                                      // unit name
+    private static final String PERSISTENCE_UNIT_NAME = "default"; // Replace with your persistence
+                                                                   // unit name
 
     @Override
     public void save(Result result) throws SQLException {
@@ -138,18 +134,20 @@ public class ResultDAOImpl implements ResultDAO {
     @Override
     public Collection<Result> getAllResults() throws SQLException {
         EntityManager entityManager = null;
-        List<Result> results;
-        try {
-            entityManager = getEntityManager();
-            results = entityManager.createQuery("SELECT r FROM Result r", Result.class).getResultList();
-        } catch (Throwable e) {
-            System.err.println("Something went wrong in DAO: " + e);
-            throw new SQLException(e);
-        } finally {
-            if (entityManager != null && entityManager.isOpen()) {
-                entityManager.close();
-            }
-        }
+        List<Result> results = new ArrayList();
+        ;
+        // try {
+        // entityManager = getEntityManager();
+        // results = entityManager.createQuery("SELECT r FROM Result r",
+        // Result.class).getResultList();
+        // } catch (Throwable e) {
+        // System.err.println("Something went wrong in DAO: " + e);
+        // throw new SQLException(e);
+        // } finally {
+        // if (entityManager != null && entityManager.isOpen()) {
+        // entityManager.close();
+        // }
+        // }
         return results;
     }
 

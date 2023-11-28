@@ -20,9 +20,9 @@ window.onload = function () {
 
 function updateR() {
   console.log('Function updateR called!');
-  let rValue = parseFloat(document.getElementById('form:slider_input').value);
-  document.getElementById('form:slider_input').value = rValue;
-  console.log('Updated R value:', rValue);
+  // let rValue = parseFloat(document.getElementById('form:slider_input').value);
+  // document.getElementById('form:slider_input').value = rValue;
+  // console.log('Updated R value:', rValue);
   drawGraph();
 }
 

@@ -16,14 +16,22 @@
   </h:head>
   <h:body>
     <div id="header">
-      <p>ФИО студента: Мацюк Владимир николаевич</p>
+      <p>ФИО студента: Мацюк Владимир Николаевич</p>
       <p>Номер группы: P3215</p>
       <p>Номер варианта: 2</p>
     </div>
     <div id="clock-time">
       <h:form>
-        <div id="clock-container">
-          <p:clock mode="server" autoSync="true" syncInterval="9000" />
+        <div id="clock-time">
+          <h:form>
+            <p:clock
+              displayMode="digital"
+              pattern="dd.MM.yyyy HH:mm:ss"
+              mode="server"
+              autoSync="true"
+              syncInterval="9000"
+            />
+          </h:form>
         </div>
       </h:form>
     </div>

@@ -9,9 +9,9 @@
     <properties>
       <!-- database configurations for EclipseLink -->
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://your-database-host:5432/your-database-name"/>
-      <property name="javax.persistence.jdbc.user" value="your-database-username"/>
-      <property name="javax.persistence.jdbc.password" value="your-database-password"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+      <property name="javax.persistence.jdbc.user" value="wgmlgz"/>
+      <property name="javax.persistence.jdbc.password" value="cat "/>
       
       <!-- EclipseLink specific properties -->
       <property name="eclipselink.logging.level" value="FINE"/>

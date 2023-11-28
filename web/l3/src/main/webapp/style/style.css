@@ -97,9 +97,14 @@ select {
 .shadow-graph{
     filter: drop-shadow(5px 5px 5px rgba(34, 16, 38, 0.25));
 }
-.result-table {
-    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.25);
+
+.results-table {
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
+
+
 .logo {
     border-radius: 50rem;
     margin: 25px;

@@ -1,16 +1,17 @@
 package model;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
 @Named("bean")
-@ApplicationScoped
-public class PointBean {
+@SessionScoped
+public class PointBean implements Serializable {
 
     @PostConstruct
     public void init() {

@@ -13,7 +13,10 @@ const drawGraph = function () {
   const y = Number.parseFloat(y_element.value);
 
   const r_element = document.getElementById('form:slider_input');
-  const r = Number.parseFloat(r_element.value);
+  let r = Number.parseFloat(r_element.value);
+
+  if (r > 3) r = 3;
+  if (r < 1) r = 1;
 
   console.log(x, y, r);
 
@@ -162,8 +165,8 @@ function getCursorPosition(e) {
   console.log(plot_canvas.getBoundingClientRect());
 
   // if (e.pageX !== undefined && e.pageY !== undefined) {
-  x = e.screenX;
-  y = e.screenY;
+  x = e.pageX;
+  y = e.pageY;
   // } else {
   // x =
   //   e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;

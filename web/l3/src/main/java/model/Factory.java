@@ -11,7 +11,7 @@ public class Factory {
     public static EntityManagerFactory getEntityManagerFactory() {
         if (entityManagerFactory == null) {
             try {
-                entityManagerFactory = Persistence.createEntityManagerFactory("your_persistence_unit_name"); // Replace with your persistence unit name
+                entityManagerFactory = Persistence.createEntityManagerFactory("default"); // Replace with your persistence unit name
             } catch (Exception e) {
                 System.out.println("error:: " + e);
             }
