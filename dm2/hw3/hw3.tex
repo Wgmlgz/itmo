@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{import}
+\import{../../lib/latex/}{wgmlgz}
+
+
+\begin{document}
+
+\itmo[
+  variant=161,
+  labn=3,
+  worktype=Домашняя работа,
+  discipline=Дискретная математика,
+  group=P3115,
+  student=Владимир Мацюк,
+  teacher=Поляков Владимир Иванович,
+  logo=../../lib/img/itmo.png
+]
+
+
+
+Исходная таблица соединений R:
+$$\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|} \hline v/v & e1 & e2 & e3 & e4 & e5 & e6 & e7 & e8 & e9 & e10 & e11 & e12 \nl e1 & 0 & 3 &  &  & 4 & 4 & 4 & 4 &  & 3 & 4 &  \nl e2 & 3 & 0 & 1 &  &  &  &  & 4 &  & 2 &  &  \nl e3 &  & 1 & 0 & 5 &  &  &  &  & 3 & 1 &  &  \nl e4 &  &  & 5 & 0 & 1 & 4 & 1 &  & 4 & 5 & 4 &  \nl e5 & 4 &  &  & 1 & 0 & 1 &  &  &  & 3 &  &  \nl e6 & 4 &  &  & 4 & 1 & 0 & 2 &  &  &  & 4 &  \nl e7 & 4 &  &  & 1 &  & 2 & 0 &  &  & 4 &  & 1 \nl e8 & 4 & 4 &  &  &  &  &  & 0 & 3 & 3 &  & 5 \nl e9 &  &  & 3 & 4 &  &  &  & 3 & 0 &  & 5 &  \nl e10 & 3 & 2 & 1 & 5 & 3 &  & 4 & 3 &  & 0 & 2 &  \nl e11 & 4 &  &  & 4 &  & 4 &  &  & 8 & 2 & 0 & 4 \nl e12 &  &  &  &  &  &  & 1 & 5 &  &  & 4 & 0\nl \end{tabular}$$
+
+\begin{center}
+  \includegraphics*{1.png}
+\end{center}
+\begin{itemize}
+  \item Проводим разрез K1
+
+        $Q1 = max[q_{ij}] = 4$
+
+        Закорачиваем все ребра графа $q_{ij} \ge$ Q1
+
+        (1, 5) (1, 6) (1, 7) (1, 8) (1, 11) (2, 8) (3, 4) (4, 6) (4, 9) (4, 10) (4, 11) (6, 11) (7, 10) (8, 12) (9, 11) (11, 12)
+
+        Получаем граф G1
+        \begin{center}
+          \includegraphics*{2.png}
+        \end{center}
+  \item Вершины s-t объединены. Пропускная способность искомого пути Q(P) = 4
+
+        Строим граф, вершины которого – вершины исходного графа G, а рёбра – рёбра с пропускной способностью $q_{ij} \ge Q(P) = 4$.
+
+        \begin{center}
+          \includegraphics*{3.png}
+        \end{center}
+\end{itemize}
+\end{document}

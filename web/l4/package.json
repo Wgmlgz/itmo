@@ -1,0 +1,26 @@
+{
+  "name": "l4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently npm:dev-*",
+    "dev-web": "cd web && npm run dev",
+    "dev-server": "cd server && npm run start:dev",
+    "build": "concurrently npm:build-*",
+    "build-web": "cd web && npm run build",
+    "build-server": "cd server && npm run build",
+    "start": "concurrently npm:start-*",
+    "start-web": "cd web && npm run preview",
+    "start-server": "cd server && npm run start",
+    "install": "concurrently npm:install-*",
+    "install-web": "cd web && npm install",
+    "install-server": "cd server && npm install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

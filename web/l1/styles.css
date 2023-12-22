@@ -1,0 +1,105 @@
+:root {
+  --back: #282c34;
+  --main: #c778dd;
+}
+
+html,
+body {
+  /* background-color: var(--back); */
+  /* color: #fff; */
+
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 10px 100px 10px 100px;
+}
+
+button {
+  background-color: #fff;
+  border: none;
+  font-family: 'IBM Plex Sans', sans-serif;
+  border: 2px solid var(--back);
+  padding: 5px 20px 5px 20px;
+  font-weight: bold;
+  /* font-size: 20px; */
+  /* color: var(--back); */
+}
+
+input {
+  background-color: #fff;
+  border: none;
+  font-family: 'IBM Plex Sans', sans-serif;
+  border: 2px solid var(--main);
+  padding: 5px 5px 5px 5px;
+  font-weight: bold;
+  /* font-size: 20px; */
+  /* color: var(--back); */
+}
+
+input[type='number'] {
+  width: 100px;
+  padding: 4%;
+}
+
+input::placeholder {
+  opacity: 0.5;
+}
+
+/* #canvas {
+  width: 100px;
+  height: 100px;
+} */
+.content {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+.content .header {
+  font-family: sans-serif;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+table,
+th,
+td {
+  border: 2px solid var(--back);
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 5px 10px 5px 10px;
+}
+
+.dotted-spaced {
+  background-image: linear-gradient(
+    to right,
+    #333 10%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: top;
+  background-size: 10px 1px;
+  background-repeat: repeat-x;
+  width: 100%;
+}
+
+.ig {
+  display: grid;
+  gap: 10px;
+  align-items: center;
+  justify-self: center;
+}
+
+.ct {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-self: center;
+}
+
+.btn-selected {
+  border: 2px solid var(--main);
+}

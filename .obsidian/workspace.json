@@ -1,0 +1,159 @@
+{
+  "main": {
+    "id": "c65a7477b7d05d32",
+    "type": "split",
+    "children": [
+      {
+        "id": "ebe9eebd6eea892b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b8441029a40cd70f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "deutch/lection3.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6aae6c57fbe1db46",
+    "type": "split",
+    "children": [
+      {
+        "id": "37a085e4cfc8d948",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bc73bbcd3ac9cd6d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "d42a4277389fd939",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "962d303d37e0bc0c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "96c6cd7e44b706e4",
+    "type": "split",
+    "children": [
+      {
+        "id": "e01f43fc781c5c0e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a2723320b2bc1d6a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "deutch/lection3.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "41f6f2982363ef35",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "deutch/lection3.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "7f8cd0519c31a3b8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "8e977228521b2937",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "deutch/lection3.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "b8441029a40cd70f",
+  "lastOpenFiles": [
+    "deutch/lection3.md",
+    "prog-langs",
+    "deutch/A1_1_kursbuch.pdf",
+    "A1_1_kursbuch 1.pdf",
+    "dm1/courcework/p1/zhig.png",
+    "dm1/courcework/p1/lim.png",
+    "dm1/courcework/p1/andnot.png"
+  ]
+}

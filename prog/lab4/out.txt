@@ -1,0 +1,14 @@
+Lamps are on!
+Moving theater to -> DeepWater
+Performing Moominpappa's play repetition with:
+  Beaver 1,
+  Beaver 2,
+  Beaver 666
+by Moominpappa at DeepWater!
+Stage is rotating by 10.0 °...  but it's comfortable!
+Curtain is red and mysterious
+The sun is rising
+com.wgmlgz.ReadyError: Moominpappa is rewriting the play
+com.wgmlgz.ConfidenceError: Beaver 1 is uncertain
+com.wgmlgz.ConfidenceError: Beaver 2 is uncertain
+com.wgmlgz.ConfidenceError: Beaver 666 is uncertain

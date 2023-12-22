@@ -1,0 +1,7 @@
+SELECT DISTINCT 
+  arrive_date
+FROM
+  victim
+  INNER JOIN report ON report.incedent_id = victim.incedent_id
+WHERE
+  victim_type = 'missing';

@@ -20,8 +20,9 @@
 \usepackage{array,multirow}
 \usepackage{amssymb}
 \usepackage{spreadtab}
+\usepackage{unicode-math}
 
-\setmonofont{JetBrains Mono}[Contextuals=Alternate,Ligatures = TeX,]
+% \setmonofont{JetBrains Mono}[Contextuals=Alternate,Ligatures = TeX,]
 \setmainfont[
   Ligatures=TeX,
   Extension=.otf,
@@ -39,9 +40,9 @@
 % \geometry{
 %   a4paper,
 %   top=25mm,
-%   right=30mm,
+%   right=0mm,
 %   bottom=25mm,
-%   left=30mm
+%   left=0mm
 % }
 
 \hypersetup{
@@ -87,7 +88,11 @@
 }
 
 \newcommand{\MM}[1]{\mathchoice{\hbox{#1}}{\hbox{#1}}{\hbox{\scriptsize{#1}}}{\hbox{\tiny{#1}}}}
-
+\newcommand*\BitAnd{\mathbin{\&}}
+\newcommand*\BitOr{\mathbin{|}}
+\newcommand*\ShiftLeft{\ll}
+\newcommand*\ShiftRight{\gg}
+\newcommand*\BitNeg{\ensuremath{\mathord{\sim}}}
 \def\nl{\\\hline}
 
 \newkeycommand{\itmo}[
@@ -98,7 +103,7 @@
   group=aboba,
   student=aboba,
   teacher=aboba,
-  year=2022,
+  year=2023,
   logo=../../lib/img/itmo.png
 ]{
   \begin{titlepage}
@@ -132,7 +137,7 @@
     \vspace{1cm}
     
     \begin{center}
-      г. Санкт-Петербург\\
+      Санкт-Петербург\\
       \commandkey{year}г.
     \end{center}
     

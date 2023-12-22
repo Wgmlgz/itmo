@@ -1,0 +1,48 @@
+ORG 0x3DD
+START:
+  CLA             
+  ST r   
+  LD z   
+  INC             
+  PUSH            
+  CALL $f
+  POP             
+  SUB r   
+  ST r    
+  LD y    
+  PUSH            
+  CALL $f
+  POP             
+  DEC             
+  ADD r    
+  ST r    
+  LD x     
+  PUSH            
+  CALL $f
+  POP             
+  INC             
+  SUB r    
+  ST  r    
+  HLT     
+
+z: WORD 40
+y: WORD 40
+x: WORD 40     
+r: WORD 0xFF08    
+
+ORG 0x6D4
+f:
+  LD &1       
+  BPL aa
+  CMP A   
+  BMI aa    
+  BR bb     
+  aa: ASL          
+  ADD &1     
+  ADD B  
+  BR cc     
+  bb: LD A 
+  cc: ST &1
+  RET             
+  A: WORD 0xFB2A
+  B: WORD 0x00F7

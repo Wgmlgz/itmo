@@ -1,0 +1,14 @@
+-- Trigger function to update the arrive_date column
+CREATE OR REPLACE FUNCTION update_arrive_date()
+  RETURNS TRIGGER AS $$
+BEGIN
+  NEW.arrive_date := CURRENT_DATE;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger to automatically update the arrive_date column
+CREATE TRIGGER update_arrive_date_trigger
+  BEFORE INSERT ON report
+  FOR EACH ROW
+  EXECUTE FUNCTION update_arrive_date();

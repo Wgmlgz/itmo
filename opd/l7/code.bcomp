@@ -1,0 +1,65 @@
+ORG  0x221
+
+RESULT: WORD 0x0000
+ANS1: WORD 0x0000
+ANS2: WORD 0x0000
+ANS3: WORD 0x0000
+
+CHECK1: WORD 0x0
+CHECK2: WORD 0x0
+CHECK3: WORD 0x0
+
+ARG1: WORD 0x0
+RES1: WORD 0x0
+
+ARG2: WORD 0x0030
+RES2: WORD 0x0003
+
+ARG3: WORD 0xF000
+RES3: WORD 0x00F0
+
+START:  CALL TEST1
+        CALL TEST2
+        CALL TEST3
+        LD #0x1
+        AND CHECK1
+        AND CHECK2
+        AND CHECK3
+        ST RESULT
+STOP:   HLT 
+
+TEST1:  LD ARG1
+        WORD 0x0F81
+        ST ANS1
+        CMP RES1
+        BEQ DONE1
+ERROR1: CLA
+        RET
+DONE1:  LD #0x1
+        ST CHECK1
+        CLA 
+        RET 
+TEST2:  LD ARG2
+        WORD 0x0F84
+        ST ANS2
+        CMP RES2
+        BEQ DONE2
+        RET
+ERROR2: CLA
+        RET
+DONE2:  LD #0x1
+        ST CHECK2
+        CLA 
+        RET 
+TEST3:  LD ARG3
+        WORD 0x0F88
+        ST ANS3
+        CMP RES3
+        BEQ DONE3
+        RET
+ERROR3: CLA
+        RET
+DONE3:  LD #0x1
+        ST CHECK3
+        CLA 
+        RET 
