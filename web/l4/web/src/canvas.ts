@@ -36,6 +36,9 @@ export const drawGraph = (
     ctx.stroke() // Render the path
   }
 
+  ctx.fillStyle = '#fff'
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
+
   ctx.fillStyle = 'rgb(50, 150, 255)'
   ctx.fillRect(fix(0), fixY(0), fixS(1), fixS(-1))
 
@@ -148,16 +151,23 @@ export const getCursorPosition = (e: any) => {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement
   console.log(canvas?.getBoundingClientRect())
 
+  // const canvas = document.getElementById("canvas");
+  const rect = canvas.getBoundingClientRect()
+  const x = e.clientX - rect.left
+  const y = e.clientY - rect.top
+
+  return { x, y }
+
   // if (e.pageX !== undefined && e.pageY !== undefined) {
-  const x = e.pageX
-  const y = e.pageY
+  // let x = e.pageX
+  // let y = e.pageY
   // } else {
-  // x =
+  // const x =
   //   e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-  // y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+  // const y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
   // }
-  return {
-    x: x - canvas?.getBoundingClientRect()?.left || 0,
-    y: y - canvas?.getBoundingClientRect()?.top || 0
-  }
+  // return {
+  // x: x - canvas?.getBoundingClientRect()?.left || 0,
+  // y: y - canvas?.getBoundingClientRect()?.top || 0
+  // }
 }
