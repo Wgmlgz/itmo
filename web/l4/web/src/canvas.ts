@@ -4,7 +4,6 @@ export const drawGraph = (
   r: number,
   results: { x: number; y: number; r: number; hit: boolean }[]
 ) => {
-  console.log('drawing')
   const canvas = document.getElementById('canvas') as HTMLCanvasElement
 
   if (!canvas) throw new Error('No canvas?')
@@ -13,8 +12,6 @@ export const drawGraph = (
 
   if (r > 3) r = 3
   if (r < 1) r = 1
-
-  console.log(x, y, r)
 
   if (!ctx) return
 
@@ -93,9 +90,6 @@ export const drawGraph = (
   ctx.fillText(`-${r / 2}`, fix(-0.5), fixY(0.1))
   ctx.fillText(`-${r}`, fix(-1), fixY(0.1))
 
-  // .firstChild()?.firstChild();
-  // console.log(table);
-  // console.log([...table.rows]);
   const drawHit = (x: number, y: number, hit: boolean) => {
     if (hit) {
       ctx.fillStyle = '#55ff55'
@@ -105,69 +99,18 @@ export const drawGraph = (
 
     ctx.fillRect(fix(x / r), fixY(y / r), 5, 5)
   }
-  // drawHit(x, y, true);
 
   results.forEach(({ x, y, r, hit }) => {
     drawHit(x, y, hit)
   })
 }
 
-// async function drawPoint(e) {
-//   const r = $('input[name="r"]:checked').val();
-//   if (r === undefined) {
-//   } else {
-//     const point = getCursorPosition(e);
-//     point.x = ((point.x - 150) / 100) * r;
-//     point.y = ((-point.y + 150) / 100) * r;
-
-//     const params = { x: point.x.toFixed(2), y: point.y.toFixed(2), r: r };
-
-//     const res = await fetch(
-//       'checkArea?' + new URLSearchParams(params).toString()
-//     );
-//     const { results } = await res.json();
-
-//     console.log(table);
-//     for (var i = 1; i < table.rows.length; ) {
-//       table.deleteRow(i);
-//     }
-//     results.forEach(({ x, y, r, currTime, execTime, hitResult }) => {
-//       const row = table.insertRow(-1);
-//       console.log(hitResult);
-//       row.insertCell(-1).innerHTML = String(x);
-//       row.insertCell(-1).innerHTML = String(y);
-//       row.insertCell(-1).innerHTML = String(r);
-//       row.insertCell(-1).innerHTML = String(currTime);
-//       row.insertCell(-1).innerHTML = String(execTime);
-//       row.insertCell(-1).innerHTML = hitResult ? '✅' : '❌';
-//     });
-
-//     drawGraph();
-//   }
-// }
-
 export const getCursorPosition = (e: any) => {
-  console.log(e)
   const canvas = document.getElementById('canvas') as HTMLCanvasElement
-  console.log(canvas?.getBoundingClientRect())
 
-  // const canvas = document.getElementById("canvas");
   const rect = canvas.getBoundingClientRect()
   const x = e.clientX - rect.left
   const y = e.clientY - rect.top
 
   return { x, y }
-
-  // if (e.pageX !== undefined && e.pageY !== undefined) {
-  // let x = e.pageX
-  // let y = e.pageY
-  // } else {
-  // const x =
-  //   e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-  // const y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-  // }
-  // return {
-  // x: x - canvas?.getBoundingClientRect()?.left || 0,
-  // y: y - canvas?.getBoundingClientRect()?.top || 0
-  // }
 }
