@@ -129,12 +129,10 @@ export default {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         })
-        console.log(response)
         results.value.push({ x, y, r, hit: response.data.hit })
       } catch (error: any) {
         const msg = error?.response?.data?.message
         if (msg) {
-          console.log(msg)
           notification.notify({
             title: 'Error',
             text: msg,
@@ -160,7 +158,6 @@ export default {
       } catch (error: any) {
         const msg = error?.response?.data?.message
         if (msg) {
-          console.log(msg)
           notification.notify({
             title: 'Error',
             text: msg,
