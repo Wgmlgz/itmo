@@ -36,8 +36,9 @@
           </div>
         </div>
 
-        <div>
+        <div class="flex items-center justify-center gap-2 m-0 gridder">
           <button @click="handleButtonClick">Check</button>
+          <button @click="handleRemove">Remove all</button>
         </div>
       </div>
 
@@ -123,14 +124,15 @@ export default {
     const handleCheck = async (x: number, y: number, r: number) => {
       try {
         const response = await api.get('/check-point', {
-          params: { x, y, r }
+          params: { x, y, r },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
         })
-        console.log(response)
         results.value.push({ x, y, r, hit: response.data.hit })
       } catch (error: any) {
         const msg = error?.response?.data?.message
         if (msg) {
-          console.log(msg)
           notification.notify({
             title: 'Error',
             text: msg,
@@ -144,15 +146,50 @@ export default {
       redrawCoordinatePlane()
     }
 
+    const handleRemove = async () => {
+      try {
+        const { data } = await api.delete('/results', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        results.value = []
+        results.value.pop()
+      } catch (error: any) {
+        const msg = error?.response?.data?.message
+        if (msg) {
+          notification.notify({
+            title: 'Error',
+            text: msg,
+            type: 'error'
+          })
+        }
+
+        console.error('There was an error removing the points:', error)
+      }
+
+      redrawCoordinatePlane()
+    }
+
     const redrawCoordinatePlane = () => {
       drawGraph(x.value, y.value, r.value, results.value)
+    }
+
+    const initTable = async () => {
+      const { data } = await api.get('results', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      results.value = data
     }
 
     const logout = () => {
       window.location.href = '../'
     }
 
-    onMounted(() => {
+    onMounted(async () => {
+      await initTable()
       redrawCoordinatePlane()
     })
 
@@ -166,6 +203,7 @@ export default {
       handleCoordinateClick,
       redrawCoordinatePlane,
       handleButtonClick,
+      handleRemove,
       logout
     }
   }

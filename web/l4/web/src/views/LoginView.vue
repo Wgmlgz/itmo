@@ -63,14 +63,25 @@ export default {
             password: password.value
           })
           console.log('Registration successful:', response.data)
+          const msg = response?.data?.message
+          notification.notify({
+            title: 'Registration successful',
+            text: msg,
+            type: 'success'
+          })
         } else {
           // Login logic
           const response = await api.post('/auth/login', {
             username: username.value,
             password: password.value
           })
+          localStorage.setItem('token', response.data)
           console.log('Login successful:', response.data)
-
+          notification.notify({
+            title: 'Login successful',
+            text: '',
+            type: 'success'
+          })
           // Redirect to the main page upon successful login
           router.push('/main')
         }
@@ -111,7 +122,6 @@ export default {
 </script>
 
 <style scoped>
-
 div {
   text-align: center;
   margin: 20px;

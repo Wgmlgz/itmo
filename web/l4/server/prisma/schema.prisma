@@ -1,0 +1,28 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Users {
+  id           Int           @id @default(autoincrement())
+  username     String        @unique
+  passwordHash String
+  CheckResult  CheckResult[]
+}
+
+model CheckResult {
+  id     Int     @id @default(autoincrement())
+  userId Int
+  x      Float
+  y      Float
+  r      Float
+  hit    Boolean
+
+  user Users @relation(fields: [userId], references: [id])
+}
