@@ -1,8 +1,8 @@
-use anyhow::{anyhow, Ok, Result};
+use anyhow::{anyhow, Result};
 use clap::Parser;
 use std::fs::File;
+use std::io;
 use std::io::{BufRead, BufReader};
-use std::{env, io};
 
 fn read_matrix_from_file(path: &str) -> Result<(Vec<Vec<f64>>, Vec<f64>, f64)> {
     let file = File::open(path)?;
@@ -17,10 +17,11 @@ fn read_matrix_from_file(path: &str) -> Result<(Vec<Vec<f64>>, Vec<f64>, f64)> {
     let mut b = vec![0.0; n];
 
     for (i, line) in lines.by_ref().take(n).enumerate() {
-        let row: Vec<f64> = line?
+        let row: Result<Vec<f64>> = line?
             .split_whitespace()
-            .map(|x| x.parse().unwrap())
+            .map(|x| x.parse().map_err(|_| anyhow!("Неверный формат числа")))
             .collect();
+        let row = row?;
         for (j, &val) in row.iter().enumerate().take(n) {
             a[i][j] = val;
         }
@@ -55,10 +56,12 @@ fn read_matrix_from_input() -> Result<(Vec<Vec<f64>>, Vec<f64>, f64)> {
         );
         input.clear();
         io::stdin().read_line(&mut input)?;
-        let row: Vec<f64> = input
+        let row: Result<Vec<f64>> = input
             .split_whitespace()
-            .map(|x| x.parse().unwrap())
+            .map(|x| x.parse().map_err(|_| anyhow!("Неверный формат числа")))
             .collect();
+        let row = row?;
+
         a[i] = row;
     }
 
@@ -78,27 +81,24 @@ fn read_matrix_from_input() -> Result<(Vec<Vec<f64>>, Vec<f64>, f64)> {
 }
 
 fn check_and_swap_for_diagonal_dominance(a: &mut Vec<Vec<f64>>, b: &mut Vec<f64>) -> bool {
+    let is_diagonally_dominant = |row: &Vec<f64>, index: usize| -> bool {
+        row[index].abs()
+            > row
+                .iter()
+                .enumerate()
+                .map(|(j, val)| if j != index { val.abs() } else { 0.0 })
+                .sum::<f64>()
+    };
+
     let n = a.len();
     let mut swapped;
     for i in 0..n {
         swapped = false;
-        if a[i][i].abs()
-            < a[i]
-                .iter()
-                .enumerate()
-                .map(|(j, &val)| if j != i { val.abs() } else { 0.0 })
-                .sum::<f64>()
-        {
-            for k in i + 1..n {
-                if a[k][k].abs()
-                    > a[k]
-                        .iter()
-                        .enumerate()
-                        .map(|(j, &val)| if j != k { val.abs() } else { 0.0 })
-                        .sum::<f64>()
-                {
-                    a.swap(i, k);
-                    b.swap(i, k);
+        if !is_diagonally_dominant(&a[i], i) {
+            for j in i + 1..n {
+                if is_diagonally_dominant(&a[j], i) {
+                    a.swap(i, j);
+                    b.swap(i, j);
                     swapped = true;
                     break;
                 }
@@ -111,14 +111,19 @@ fn check_and_swap_for_diagonal_dominance(a: &mut Vec<Vec<f64>>, b: &mut Vec<f64>
     true
 }
 
-fn gauss_seidel(a: Vec<Vec<f64>>, b: Vec<f64>, tolerance: f64, m: usize) -> (Vec<f64>, usize, Vec<Vec<f64>>) {
+fn gauss_seidel(
+    a: Vec<Vec<f64>>,
+    b: Vec<f64>,
+    tolerance: f64,
+    m: usize,
+) -> (Vec<f64>, usize, Vec<Vec<f64>>) {
     let n = a.len();
     let mut x = vec![0.0; n];
-    let mut x_prev = x.clone(); 
+    let mut x_prev = x.clone();
     let mut num_iterations = 0;
     let mut errors = vec![vec![0.0; n]];
 
-    for _ in 0..m {  
+    for _ in 0..m {
         let mut max_error: f64 = 0.0;
         errors.push(vec![0.0; n]);
         for i in 0..n {
@@ -132,6 +137,7 @@ fn gauss_seidel(a: Vec<Vec<f64>>, b: Vec<f64>, tolerance: f64, m: usize) -> (Vec
         num_iterations += 1;
 
         if max_error < tolerance {
+            errors.pop();
             break;
         }
     }
@@ -139,13 +145,36 @@ fn gauss_seidel(a: Vec<Vec<f64>>, b: Vec<f64>, tolerance: f64, m: usize) -> (Vec
     (x, num_iterations, errors)
 }
 
+// fn matrix_norm(
+//     a: Vec<Vec<f64>>,
+//     b: Vec<f64>,
+// ) -> (Vec<f64>, usize, Vec<Vec<f64>>) {
+//     let n = a.len();
+//     let c = a.clone();
+//     for i in 0..n {
+//     }
+// }
+
 fn print_errors(errors: Vec<Vec<f64>>) {
     println!("История погрешностей по итерациям:");
     for (iteration, errs) in errors.iter().enumerate() {
-        println!("Итерация {}: {:?}", iteration + 1, errs);
+        print!("Итерация {}: ", iteration + 1);
+        print_v(errs);
     }
 }
 
+fn print_v(a: &Vec<f64>) {
+    for item in a {
+        print!("{:5.2} ", item);
+    }
+    println!();
+}
+
+fn print_matrix(a: &Vec<Vec<f64>>) {
+    for row in a {
+        print_v(row);
+    }
+}
 
 #[derive(Parser)]
 #[clap(author = "Wgmlgz", version = "1.0", about = "Gauss-Seidel Solver")]
@@ -159,7 +188,8 @@ fn solve() -> Result<()> {
     let args = Args::parse();
 
     let (mut a, mut b, tolerance) = if let Some(file) = args.input {
-        let res = read_matrix_from_file(file.as_str())?;
+        let res =
+            read_matrix_from_file(file.as_str()).map_err(|_| anyhow!("Неверный формат ввода"))?;
         println!("Read data from file: {}", file);
         res
     } else {
@@ -169,22 +199,26 @@ fn solve() -> Result<()> {
     };
 
     if !check_and_swap_for_diagonal_dominance(&mut a, &mut b) {
-        println!("Диагональное преобладание не достигнуто. Попробуйте другую матрицу.");
-        return Ok(());
+        println!("Диагональное преобладание не достигнуто.");
+        // return Ok(());
     }
+
+    println!("Решение на матрице:");
+    print_matrix(&a);
 
     let m = 100;
     let (x, num_iterations, errors) = gauss_seidel(a, b, tolerance, m);
 
-    println!("Решение: {:?}", x);
+    print!("Решение: ");
+    print_v(&x);
     println!("Количество итераций: {}", num_iterations);
     print_errors(errors);
 
     Ok(())
 }
 fn main() {
-    env::set_var("RUST_BACKTRACE", "1");
+    // env::set_var("RUST_BACKTRACE", "1");
     if let Err(e) = solve() {
-        println!("{}\n{}", e.to_string(), e.backtrace().to_string());
+        println!("{}", e.to_string());
     }
 }
