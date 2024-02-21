@@ -81,7 +81,7 @@ fn read_matrix_from_input() -> Result<(Vec<Vec<f64>>, Vec<f64>, f64)> {
 }
 
 fn check_and_swap_for_diagonal_dominance(a: &mut Vec<Vec<f64>>, b: &mut Vec<f64>) -> bool {
-    let is_diagonally_dominant = |row: &Vec<f64>, index: usize| -> bool {
+    let check = |row: &Vec<f64>, index: usize| -> bool {
         row[index].abs()
             > row
                 .iter()
@@ -94,9 +94,9 @@ fn check_and_swap_for_diagonal_dominance(a: &mut Vec<Vec<f64>>, b: &mut Vec<f64>
     let mut swapped;
     for i in 0..n {
         swapped = false;
-        if !is_diagonally_dominant(&a[i], i) {
+        if !check(&a[i], i) {
             for j in i + 1..n {
-                if is_diagonally_dominant(&a[j], i) {
+                if check(&a[j], i) {
                     a.swap(i, j);
                     b.swap(i, j);
                     swapped = true;
@@ -165,7 +165,7 @@ fn print_errors(errors: Vec<Vec<f64>>) {
 
 fn print_v(a: &Vec<f64>) {
     for item in a {
-        print!("{:5.2} ", item);
+        print!("{:10.7} ", item);
     }
     println!();
 }
@@ -198,6 +198,8 @@ fn solve() -> Result<()> {
         res
     };
 
+    println!("Исходная матрица:");
+    print_matrix(&a);
     if !check_and_swap_for_diagonal_dominance(&mut a, &mut b) {
         println!("Диагональное преобладание не достигнуто.");
         // return Ok(());
@@ -209,6 +211,14 @@ fn solve() -> Result<()> {
     let m = 100;
     let (x, num_iterations, errors) = gauss_seidel(a, b, tolerance, m);
 
+    if num_iterations >= 99 {
+        println!("Решение не найдено");
+        println!("Последнее решение:");
+        print_v(&x);
+        println!("Последняя погрешность:");
+        print_v(&errors[m - 1]);
+        return Ok(());
+    }    
     print!("Решение: ");
     print_v(&x);
     println!("Количество итераций: {}", num_iterations);
