@@ -13,7 +13,7 @@
   } from 'carbon-components-svelte';
   import { fromZodError } from 'zod-validation-error';
 
-  import { equations, InputSchema, type F, methods, type Solution, download } from './utils';
+  import { equations, InputSchema, type F, methods, type Solution, download, type Equation } from './utils';
   import Katex from './katex.svelte';
   import Plotly from 'plotly.js-dist-min';
   import type { z } from 'zod';
@@ -26,7 +26,7 @@
     tolerance: 0.001
   };
 
-  let f: F | undefined = undefined;
+  let eq: Equation | undefined = undefined;
 
   const plotFunction = async (f: F) => {
     const a = -10;
@@ -50,15 +50,15 @@
 
     Plotly.newPlot('plot3', data, layout);
   };
-  $: if (input.equation) f = equations.filter(({ id }) => id === input.equation)[0].f;
-  $: if (f && plot) plotFunction(f);
+  $: if (input.equation) eq = equations.filter(({ id }) => id === input.equation)[0];
+  $: if (eq && plot) plotFunction(eq.f);
 
   const solve = () => {
     const { solver } = methods.filter(({ id }) => id === input.method)[0];
     const { a, b, tolerance } = input;
     try {
-      if (!f) return;
-      solution = solver(a, b, tolerance, f);
+      if (!eq) return;
+      solution = solver(a, b, tolerance, eq);
       err = null;
     } catch (e: any) {
       solution = null;
@@ -141,7 +141,7 @@
       {/if}
       {#if solution}
         <p>
-          x: {solution.root.toFixed(3)}, f(x): {solution.valueAtRoot.toFixed(3)}
+          x: {solution.root.toFixed(3)}, f(x): {solution.f_x}
         </p>
         <p>
           итераций: {solution.iterations}
