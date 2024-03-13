@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
-from main import left_rectangles, middle_rectangles, right_rectangles, simpson_rule, trapezoid_rule
+from extra import calc
+from utils import left_rectangles, middle_rectangles, right_rectangles, simpson_rule, trapezoid_rule
 
 
 class TestNumericalIntegrationMethods(unittest.TestCase):
@@ -62,7 +63,11 @@ class TestNumericalIntegrationMethods(unittest.TestCase):
             lambda x: x**3 + x**2, 0, 1, 400), 0.25 + 1/3, places=2)
         self.assertAlmostEqual(simpson_rule(
             lambda x: x**3 + x**2, 0, 1, 400), 0.25 + 1/3, places=2)
-
-
+    
+    def test_break(self):
+        self.assertAlmostEqual(calc(
+            ((lambda x: 1/x), [0]), -0.5, 1, 4, 'trapezoid', 0.001)[0], trapezoid_rule(
+            lambda x: 1/x, 0.5, 1, 400), places=2)
+        
 if __name__ == '__main__':
     unittest.main()
