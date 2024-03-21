@@ -56,7 +56,8 @@ def calculate_integral(func, a, b, n, method):
 def runge_rule(func, a, b, n, method, accuracy):
     integral_n = calculate_integral(func, a, b, n, method)
     integral_2n = calculate_integral(func, a, b, 2 * n, method)
-    while abs(integral_n - integral_2n) > accuracy:
+    
+    while abs(integral_n - integral_2n) > accuracy and n < 1000000:
         n *= 2
         integral_n = integral_2n
         integral_2n = calculate_integral(func, a, b, 2 * n, method)
