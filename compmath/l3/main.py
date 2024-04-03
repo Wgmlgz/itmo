@@ -8,6 +8,7 @@ functions = [
     lambda x: np.sin(x),
     lambda x: np.exp(x),
     lambda x: 1 / (1 + x ** 2),
+    lambda x: 1 / (1 + x),
 ]
 
 
@@ -17,6 +18,7 @@ def main():
         "sin(x)",
         "e^x",
         "1 / (1 + x^2)",
+        "1 / (1 + x)",
     ])
     result, final_n = runge_rule(functions[choice], a, b, n, method, accuracy)
     print(f"Значение интеграла: {result}\nЧисло разбиений: {final_n}")
