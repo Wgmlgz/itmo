@@ -16,28 +16,58 @@ def lagrange_polynomial(x, y, x_val):
 
 
 def newton_divided_difference(x, y):
-    """Построение таблицы разделенных разностей для многочлена Ньютона."""
-    n = len(x)
+    """ Compute the table of divided differences for the data points. """
+    n = len(y)
     coef = np.zeros([n, n])
     coef[:, 0] = y
     for j in range(1, n):
         for i in range(n - j):
             coef[i][j] = (coef[i + 1][j - 1] - coef[i][j - 1]) / (x[i + j] - x[i])
-    return coef[0, :]
+    return coef
 
-
-def newton_polynomial(x, y, x_val, coef):
-    """Вычисление значения многочлена Ньютона в точке x_val."""
+def newton_forward_interpolation(x, y, x_val, coef):
+    """ Perform Newton's forward interpolation. """
     n = len(x)
-    total = coef[0]
+    h = x[1] - x[0]  # assuming equidistant points
+    t = (x_val - x[0]) / h
+    result = coef[0]
+    factorial = 1
     product = 1
     for i in range(1, n):
-        product *= x_val - x[i - 1]
-        total += coef[i] * product
-    return total
+        product *= (t - (i - 1))
+        factorial *= i
+        result += (product / factorial) * coef[i]
+    return result
+
+def newton_backward_interpolation(x, y, x_val, coef):
+    """ Perform Newton's backward interpolation. """
+    n = len(x)
+    h = x[1] - x[0]  # assuming equidistant points
+    t = (x_val - x[-1]) / h
+    result = coef[n-1]
+    factorial = 1
+    product = 1
+    for i in range(1, n):
+        product *= (t + (i - 1))
+        factorial *= i
+        result += (product / factorial) * coef[n-i-1]
+    return result
+
+def newton_polynomial(x, y, x_val):
+    """ Choose the appropriate Newton interpolation method based on the position of x_val. """
+    coef = newton_divided_difference(x, y)[0, :]  # Extract only the first row of coefficients
+    if abs(x_val - x[0]) < abs(x_val - x[-1]):
+        return newton_forward_interpolation(x, y, x_val, coef)
+    else:
+        return newton_backward_interpolation(x, y, x_val, coef)
 
 
-def plot_interpolation(x, y, interp_funcs, title, x_val, y_lagrange, y_newton, y_stirling, y_bessel):
+
+
+
+def plot_interpolation(x, y, interp_funcs, title, x_val, y_lagrange, y_newton, 
+                    #    y_stirling, y_bessel
+                       ):
     """Отображение графика исходной функции и интерполяционных полиномов."""
     plt.figure()
     plt.scatter(x, y, color="red", label="Data Points")
@@ -69,19 +99,19 @@ def plot_interpolation(x, y, interp_funcs, title, x_val, y_lagrange, y_newton, y
         marker="x",
     )
     
-    plt.scatter(
-        [x_val],
-        [y_lagrange],
-        color="black",
-        label=f"Interpolated Point - Stirling (x={x_val}, y={y_stirling:.2f})",
-    )
-    plt.scatter(
-        [x_val],
-        [y_newton],
-        color="purple",
-        label=f"Interpolated Point - Bessel (x={x_val}, y={y_bessel:.2f})",
-        marker="x",
-    )
+    # plt.scatter(
+    #     [x_val],
+    #     [y_lagrange],
+    #     color="black",
+    #     label=f"Interpolated Point - Stirling (x={x_val}, y={y_stirling:.2f})",
+    # )
+    # plt.scatter(
+    #     [x_val],
+    #     [y_newton],
+    #     color="purple",
+    #     label=f"Interpolated Point - Bessel (x={x_val}, y={y_bessel:.2f})",
+    #     marker="x",
+    # )
 
 
     plt.title(title)
