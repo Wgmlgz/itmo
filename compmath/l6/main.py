@@ -11,7 +11,9 @@ class ODEMethods:
         self.t0 = t0
         self.tn = tn
         self.h = h
-        self.steps = int((tn - t0) / h) + 1
+        self.steps = int((tn - t0) / h)  + 1
+        # self.h = (tn - t0) / self.steps
+        print(self.h)
         self.exact_solution = exact_solution
         self.epsilon = epsilon
 
@@ -20,7 +22,10 @@ class ODEMethods:
         y = np.zeros((self.steps, len(self.y0)))
         y[0] = self.y0
         step = 0
-        while step < self.steps - 1:
+        
+        ii = 0
+        while step < self.steps - 1 and ii < 100000:
+            ii += 1
             t_current = t[step]
             y_current = y[step]
             h_half = self.h / 2
@@ -68,7 +73,11 @@ class ODEMethods:
         y = np.zeros((self.steps, len(self.y0)))
         y[0] = self.y0
         step = 0
-        while step < self.steps - 1:
+        ii = 0
+        
+        while step < self.steps - 1 and ii < 100000:
+            ii += 1
+            
             t_current = t[step]
             y_current = y[step]
             h_half = self.h / 2
@@ -136,13 +145,20 @@ class ODEMethods:
             )
 
             f_pred = self.func(t[i], y_pred)
-            while True:
+            ii = 0
+            print('begin')
+            while True and ii < 10000:
+                ii += 1
+                
                 y_corr = y[i - 2] + self.h / 3 * (
                     self.func(t[i - 2], y[i - 2])
                     + 4 * self.func(t[i - 1], y[i - 1])
                     + f_pred
                 )
-
+                print(y_pred, y_corr)
+                # if (y_pred > 1000 ):
+                #     # y[i] =  None
+                #     break
                 error = np.abs(y_corr - y_pred)
                 if np.max(error) < self.epsilon:
                     y[i] = y_corr
@@ -150,9 +166,38 @@ class ODEMethods:
                 else:
                     y_pred = y_corr
                     f_pred = self.func(t[i], y_pred)
+            print('end')
 
         return t, y[: i + 1]
 
+    def adams(self):
+        t = self.get_t()
+        y = np.zeros((self.steps, len(self.y0)))
+        self.exact_solution = [[x] for x in self.get_exact_solution(t)]
+        y[:4] = self.exact_solution[:4]
+        
+        
+        for i in range(3, self.steps - 1):
+            ii = 0
+            while True and ii < 100000:
+                ii += 1
+                f_i = self.func(t[i], y[i])
+                f_i_minus_1 = self.func(t[i - 1], y[i - 1])
+                f_i_minus_2 = self.func(t[i - 2], y[i - 2])
+                f_i_minus_3 = self.func(t[i - 3], y[i - 3])
+
+                delta_f_i = f_i - f_i_minus_1
+                delta_2_f_i = f_i - 2 * f_i_minus_1 + f_i_minus_2
+                delta_3_f_i = f_i - 3 * f_i_minus_1 + 3 * f_i_minus_2 - f_i_minus_3
+
+                y[i + 1] = y[i] + self.h * f_i + (self.h**2 / 2) * delta_f_i + (5 * self.h**3 / 12) * delta_2_f_i + (3 * self.h**4 / 8) * delta_3_f_i
+                err = np.max(y[i + 1] - self.exact_solution[i + 1])
+                if err < self.epsilon:
+                    break
+                # print()
+            # if self.exact_solution[i + i]
+            print(ii)
+        return t, y
     def check_error(self, t, y, i):
         if self.exact_solution is not None:
             y_exact = self.exact_solution[i - 1]
@@ -233,6 +278,11 @@ def main():
     t_milne, y_milne = ode_methods_milne.milne()
     ode_methods_milne.exact_solution = ode_methods_milne.get_exact_solution(t_milne)
 
+    # Create an instance of ODEMethods for Adams method
+    ode_methods_adams = ODEMethods(func, y0, t0, tn, h, None, epsilon)
+    t_adams, y_adams = ode_methods_adams.adams()
+    ode_methods_adams.exact_solution = ode_methods_adams.get_exact_solution(t_adams)
+  
     # Create tables
     data_euler = {
         "i": np.arange(len(t_euler)),
@@ -241,7 +291,7 @@ def main():
         "Exact": ode_methods_euler.exact_solution,
     }
     df_euler = pd.DataFrame(data_euler)
-    print("Таблица значений для метода Эйлера с пересчетом:")
+    print("Таблица значений для улучшенного метода Эйлера:")
     print(df_euler)
 
     # Create tables
@@ -264,21 +314,35 @@ def main():
     df_milne = pd.DataFrame(data_milne)
     print("Таблица значений для метода Милна:")
     print(df_milne)
+    
+    
+    data_adams = {
+        "i": np.arange(max(len(t_adams), len(t_adams))),
+        "t": t_adams,
+        "adams": y_adams[:, 0],
+        "Exact": ode_methods_adams.exact_solution,
+    }
+    df_adams = pd.DataFrame(data_adams)
+    print("Таблица значений для метода Адамса:")
+    print(df_adams)
 
     # Evaluate accuracy
     error_euler = np.max(np.abs(y_euler[:, 0] - ode_methods_euler.exact_solution))
     error_rk4 = np.max(np.abs(y_rk4[:, 0] - ode_methods_rk4.exact_solution))
     error_milne = np.max(np.abs(y_milne[:, 0] - ode_methods_milne.exact_solution))
+    error_adams = np.max(np.abs(y_adams[:, 0] - ode_methods_adams.exact_solution))
 
     print(f"Точность метода Эйлера с пересчетом: {error_euler}")
     print(f"Точность метода Рунге-Кутта 4-го порядка: {error_rk4}")
     print(f"Точность метода Милна: {error_milne}")
+    print(f"Точность метода Адамса: {error_adams}")
 
     # Plotting
     plt.figure(figsize=(12, 6))
     plt.plot(t_euler, y_euler[:, 0], label="Euler Improved", color="blue")
     plt.plot(t_rk4, y_rk4[:, 0], label="Runge-Kutta 4", color="green")
     plt.plot(t_milne, y_milne[:, 0], label="Milne", color="red")
+    plt.plot(t_adams, y_adams[:, 0], label="Adams", color="yellow")
     plt.plot(
         t_euler,
         ode_methods_euler.exact_solution,
