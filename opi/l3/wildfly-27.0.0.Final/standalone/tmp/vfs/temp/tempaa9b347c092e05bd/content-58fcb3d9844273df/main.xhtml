@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+  <h:head>
+    <title>Основная страница</title>
+    <script
+      type="text/javascript"
+      src="/jakarta.faces.resource/faces.js.xhtml?ln=jakarta.faces"
+    ></script>
+    <link rel="stylesheet" type="text/css" href="resources/css/styleMain.css" />
+  </h:head>
+
+  <h:body>
+    <h:form id="form">
+      <div class="content">
+        <h1>💀 💀 💀 💀 💀 💀 💀</h1>
+        <a href="/l3">Ссылка, позволяющая вернуться на стартовую страницу</a>
+        <div class="selection-box">
+          <div class="coordinates">
+            <canvas id="plot" width="300" height="300"></canvas>
+            <div>
+              <h:outputLabel value="Выберите X:" />
+              <h:inputText
+                id="hiddenX"
+                value="#{bean.x}"
+                style="display: none"
+                validatorMessage="X должен быть между -4 и 4"
+              >
+                <f:validateDoubleRange minimum="-4.0" maximum="4" />
+              </h:inputText>
+              <h:panelGrid columns="9">
+                <h:commandButton
+                  value="-4"
+                  action="#{bean.setX(-4.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+                <h:commandButton
+                  value="-3"
+                  action="#{bean.setX(-3.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+                <h:commandButton
+                  value="-2"
+                  action="#{bean.setX(-2.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+                <h:commandButton
+                  value="-1.0"
+                  action="#{bean.setX(-1.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+                <h:commandButton
+                  value="0"
+                  action="#{bean.setX(0.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+                <h:commandButton
+                  value="1"
+                  action="#{bean.setX(1.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+                <h:commandButton
+                  value="2"
+                  action="#{bean.setX(2.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+                <h:commandButton
+                  value="3"
+                  action="#{bean.setX(3.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+                <h:commandButton
+                  value="4"
+                  action="#{bean.setX(4.0)}"
+                  update="hiddenX"
+                  styleClass="commandButtonSquare"
+                >
+                  <f:ajax execute="@this" render="hiddenX" />
+                </h:commandButton>
+              </h:panelGrid>
+            </div>
+
+            <div class="elements">
+              <h:outputLabel value="Введите Y (-5...5):" for="yInput" />
+              <br />
+              <p:inputText
+                id="yInput"
+                value="#{bean.y}"
+                validatorMessage="Y должен быть между -5 и 5"
+              >
+                <f:validateDoubleRange minimum="-5" maximum="5" />
+                <p:ajax
+                  update="yMessage"
+                  event="input"
+                  process="@this"
+                  immediate="true"
+                />
+              </p:inputText>
+              <p:message id="yMessage" for="yInput" display="icon, text" />
+            </div>
+
+            <div class="elements">
+              <h:outputLabel for="slider">Введите R (1..3):</h:outputLabel>
+              <!-- <h:inputHidden
+              id="slider"
+              value="#{bean.r}"
+              validatorMessage="R должен быть между 1 и 3"
+            />
+            <p:inputText id="sliderDisplay" value="2.0" readonly="true" /> -->
+              <p:spinner
+                id="slider"
+                min="1"
+                max="3"
+                default="2.0"
+                value="#{bean.r}"
+                step="0.5"
+                class="slider-container"
+                onchange="updateR();"
+              >
+                <f:validateDoubleRange minimum="1" maximum="3" />
+              </p:spinner>
+              <p:message id="rMessage" for="slider" display="icon, text" />
+            </div>
+
+            <div class="elements">
+              <!-- Кнопка для проверки точки -->
+              <p:commandButton
+                id="submit"
+                widgetVar="submitButton"
+                value="Проверить точку"
+                action="#{bean.checkPoint}"
+                update="results xValue yValue insideValue"
+                oncomplete="drawPointOnDesmos();"
+              />
+              <p:remoteCommand
+                name="executeCheckPoint"
+                action="#{bean.checkPoint}"
+                update="results hiddenX yInput insideValue"
+                oncomplete="drawPointOnDesmos();"
+                widgetVar="widget"
+              />
+              <h:inputHidden id="xValue" value="#{bean.lastCheckedPoint.x}" />
+              <h:inputHidden id="yValue" value="#{bean.lastCheckedPoint.y}" />
+              <h:inputHidden
+                id="insideValue"
+                value="#{bean.lastCheckedPoint.inside}"
+              />
+            </div>
+          </div>
+          <div class="results-area">
+            <div class="results-table-container">
+              <p:dataTable
+                value="#{bean.results}"
+                var="result"
+                id="results"
+                class=""
+              >
+                <p:columnGroup type="header">
+                  <p:row>
+                    <p:column headerText="x" class="col" />
+                    <p:column headerText="y" class="col" />
+                    <p:column headerText="r" class="col" />
+                    <p:column headerText="hit" class="col" />
+                  </p:row>
+                </p:columnGroup>
+
+                <p:column>
+                  <h:outputText value="#{result.x}" />
+                </p:column>
+                <p:column>
+                  <h:outputText value="#{result.y}" />
+                </p:column>
+                <p:column>
+                  <h:outputText value="#{result.r}" />
+                </p:column>
+                <p:column>
+                  <h:outputText value="#{result.inside ? '✅' : '❌'}" />
+                </p:column>
+              </p:dataTable>
+            </div>
+          </div>
+        </div>
+      </div>
+    </h:form>
+
+    <!-- Подключаем Desmos API и наш JS файл -->
+    <script
+      src="https://www.desmos.com/api/v1.4/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"
+    ></script>
+
+    <h:outputScript library="js" name="graph.js" />
+    <h:outputScript library="js" name="canvas.js" />
+  </h:body>
+</html>

@@ -1,0 +1,134 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'application'
+    id 'jacoco'
+}
+
+group 'com.example'
+version '1.0.0'
+
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.smallrye:jandex:3.1.5'
+
+    // Jakarta Enterprise
+    providedCompile 'jakarta.enterprise:jakarta.enterprise.cdi-api:3.0.0'
+
+    // Jakarta Faces
+    providedCompile 'jakarta.faces:jakarta.faces-api:3.0.0'
+
+    // Jakarta Servlet
+    providedCompile 'jakarta.servlet:jakarta.servlet-api:5.0.0'
+
+    // EclipseLink
+    implementation 'org.eclipse.persistence:eclipselink:2.7.13'
+
+    // Jakarta Persistence
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.0.0'
+
+    // PostgreSQL JDBC Driver
+    implementation 'org.postgresql:postgresql:42.6.0'
+
+    // JAXB Runtime
+    implementation 'org.glassfish:jakarta.faces:4.0.4'
+
+    // PrimeFaces with Jakarta Namespace
+    implementation 'org.primefaces:primefaces:13.0.2:jakarta'
+
+    // Jakarta Inject
+    implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
+
+    // JUnit for testing
+    testImplementation 'junit:junit:4.13.2'
+
+    // JLayer for MP3 playback
+    implementation 'javazoom:jlayer:1.0.1'
+}
+
+application {
+    mainClass = 'org.example.Main' // Change this to your main class
+}
+
+war {
+    archiveFileName = 'l3.war'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': application.mainClass.get(),
+            'Implementation-Version': version
+        )
+    }
+}
+
+tasks.register('customClean', Delete) {
+    delete rootProject.buildDir
+}
+
+tasks.register('music') {
+    dependsOn 'build'
+    doLast {
+        ("afplay sound.mp3 -t 3").execute()
+    }
+}
+
+tasks.register('compile') {
+    dependsOn 'compileJava'
+}
+tasks.named('test') {
+    useJUnit()
+    dependsOn 'classes'
+}
+
+
+tasks.register('backupOriginalSources', Copy) {
+    from 'src/main/webapp'
+    into "backupSrc"
+    outputs.upToDateWhen { false }
+    doLast {
+        println 'Backup done.'
+    }
+}
+
+tasks.register('modifySources') {
+    dependsOn 'backupOriginalSources'
+    doLast {
+        fileTree('src/main/webapp').visit { FileVisitDetails details ->
+            if (details.file.isFile()) {
+                def text = details.file.text
+                text = text.replaceAll('P3215', 'AMOGUS')
+                details.file.text = text
+            }
+        }
+        println 'Sources modified for alternative build.'
+    }
+}
+
+tasks.register('restoreOriginalSources', Copy) {
+    from "backupSrc"
+    into 'src/main/webapp'
+    doLast {
+        println 'Original sources restored.'
+        delete "backupSrc"
+    }
+}
+
+tasks.register('alt') {
+    dependsOn 'clean', 'backupOriginalSources', 'modifySources'
+    finalizedBy 'build', 'restoreOriginalSources'
+    doLast {
+        println 'Building alternative version...'
+    }
+}
+
+tasks.named('build').configure {
+    mustRunAfter 'modifySources'
+    finalizedBy 'restoreOriginalSources'
+}
