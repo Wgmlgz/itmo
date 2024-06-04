@@ -1,0 +1,18 @@
+.clock-container {
+  position: relative;
+}
+
+.ui-analog-clock {
+  width: 200px;
+  margin-left: 43.5%;
+}
+
+body {
+  height: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+#clock-time {
+  opacity: 0.5;
+}
