@@ -31,6 +31,4 @@ kill -9
 ssh -L localhost:8080:127.0.0.1:8080 s371364@se.ifmo.ru -p 2222 -N
 ssh -L localhost:9990:127.0.0.1:9990 s371364@se.ifmo.ru -p 2222 -N
 
-
-
 service:jmx:remote+http://localhost:9990
