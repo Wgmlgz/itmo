@@ -14,7 +14,7 @@ scp -P 2222  s371364@helios.se.ifmo.ru:~/wildfly-29.0.1.Final/bin/client/jboss-c
 
 # run
 export _JAVA_OPTIONS="-XX:MaxHeapSize=1G -XX:MaxMetaspaceSize=256m"
-~/wildfly-29.0.1.Final/bin/standalone.sh
+~/wildfly-29.0.1.Final/bin/standalone.sh -Djboss.http.port=1234
 
 # deploy
 scp -P 2222 ./l3/build/libs/l3.war s371364@helios.se.ifmo.ru:~/wildfly-29.0.1.Final/standalone/deployments/l3.war
@@ -28,7 +28,10 @@ jconsole -J-Djava.class.path=jboss-cli-client.jar
 top 
 kill -9
 
-ssh -L localhost:8080:127.0.0.1:8080 s371364@se.ifmo.ru -p 2222 -N
+# helios 
+
+ssh -L localhost:1234:127.0.0.1:1234 s371364@se.ifmo.ru -p 2222 -N
 ssh -L localhost:9990:127.0.0.1:9990 s371364@se.ifmo.ru -p 2222 -N
+
 
 service:jmx:remote+http://localhost:9990

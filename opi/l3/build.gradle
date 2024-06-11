@@ -47,8 +47,14 @@ dependencies {
     // JUnit for testing
     testImplementation 'junit:junit:4.13.2'
 
+    testImplementation 'org.mockito:mockito-core:4.0.0' 
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+
+
     // JLayer for MP3 playback
     implementation 'javazoom:jlayer:1.0.1'
+
 }
 
 application {
@@ -82,9 +88,15 @@ tasks.register('music') {
 tasks.register('compile') {
     dependsOn 'compileJava'
 }
-tasks.named('test') {
-    useJUnit()
-    dependsOn 'classes'
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+
+    maxHeapSize = '1G'
+
+    testLogging {
+        events "passed"
+    }
 }
 
 

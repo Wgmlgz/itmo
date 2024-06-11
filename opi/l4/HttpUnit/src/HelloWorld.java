@@ -32,7 +32,7 @@ public class HelloWorld extends HttpServlet {
                 "<H1>Hello World</H1>\n");
         out.println("<script language=\"JavaScript\"type=\"text/javascript\">");
         out.println("<!--");
-        out.println("document.wr('Hello Document')");
+        out.println("document.write('Hello Document')");
         out.println("//-->");
         out.println("</script>");
         out.println("</BODY></HTML>");
