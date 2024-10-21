@@ -103,3 +103,7 @@ gradle-app.setting
 .DS_Store
 
 node_modules/
+/ai/.venv
+/ai/.venv
+/ai/l3/env
+/ai/l3/env
