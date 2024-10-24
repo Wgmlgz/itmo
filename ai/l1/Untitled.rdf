@@ -123,9 +123,55 @@
     
 
 
+    <!-- http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#ArasakaWorker -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#ArasakaWorker">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#worksFor"/>
+                        <owl:hasValue rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#arasaka"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Corporat -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Corporat">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#worksFor"/>
+                                <owl:hasValue rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#arasaka"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#worksFor"/>
+                                <owl:hasValue rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#militech"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
+    </owl:Class>
     
 
 
@@ -160,6 +206,44 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#TechWeapon">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#WeaponType"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#VEnemy -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#VEnemy">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#enemyOf"/>
+                        <owl:hasValue rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#v"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#VFriend -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#VFriend">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#friendOf"/>
+                        <owl:hasValue rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#v"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wgmlgz/ontologies/2024/9/cyberpunk2077-ontology#Character"/>
     </owl:Class>
     
 
