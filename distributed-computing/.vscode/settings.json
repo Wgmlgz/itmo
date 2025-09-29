@@ -1,0 +1,14 @@
+{
+  "files.associations": {
+    "stdarg.h": "c",
+    "stdlib.h": "c",
+    "types.h": "c",
+    "pa1.h": "c",
+    "nig.h": "c",
+    "err.h": "c",
+    "stdio.h": "c",
+    "ioctl.h": "c",
+    "ipc.h": "c",
+    "common.h": "c"
+  }
+}

@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  dc-dev:
+    build: .
+    platform: linux/amd64
+    volumes:
+      - .:/workspace
+    tty: true
