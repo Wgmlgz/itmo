@@ -27,13 +27,7 @@ Tracker new_tracker() {
 }
 
 void tracker_continue(Tracker* self, Nig* nig, Message* msg) {
-  if (receive_any(nig, msg) != 0) return;
-  if (msg->s_header.s_type == STARTED) {
-    ++self->started;
-  }
-  if (msg->s_header.s_type == DONE) {
-    ++self->done;
-  }
+  // unused when using blocking receive per sender
 }
 
 int main_worker(int num) {
@@ -53,19 +47,15 @@ int main_worker(int num) {
   }
 
   nig_set_self(&nig, PARENT_ID);
-  // wait for started
-  Tracker tracker = new_tracker();
+  // wait for started from all children
   Message msg;
-
-  while (1) {
-    tracker_continue(&tracker, &nig, &msg);
-    if (tracker.started == num) break;
+  for (local_id from = 1; from <= num; ++from) {
+    receive(&nig, from, &msg);
   }
   logger(log_received_all_started_fmt, PARENT_ID);
 
-  while (1) {
-    tracker_continue(&tracker, &nig, &msg);
-    if (tracker.done == num) break;
+  for (local_id from = 1; from <= num; ++from) {
+    receive(&nig, from, &msg);
   }
   logger(log_received_all_done_fmt, PARENT_ID);
 
@@ -81,7 +71,6 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid,
   // init
   nig_set_self(nig, id);
   Message msg;
-  Tracker tracker = new_tracker();
   char buff[255];
 
   // send start
@@ -90,9 +79,10 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid,
   send_multicast(nig, msg_new(STARTED, buff));
 
   // wait for others start
-  while (1) {
-    tracker_continue(&tracker, nig, &msg);
-    if (tracker.started == other) break;
+  for (local_id from = 1; from <= other + 1; ++from) {
+    if (from == id) continue;
+    if (from == PARENT_ID) continue;
+    receive(nig, from, &msg);
   }
   logger(log_received_all_started_fmt, id);
 
@@ -102,9 +92,10 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid,
   send_multicast(nig, msg_new(DONE, buff));
 
   // wait for others done
-  while (1) {
-    tracker_continue(&tracker, nig, &msg);
-    if (tracker.done == other) break;
+  for (local_id from = 1; from <= other + 1; ++from) {
+    if (from == id) continue;
+    if (from == PARENT_ID) continue;
+    receive(nig, from, &msg);
   }
   logger(log_received_all_done_fmt, id);
   return 0;
