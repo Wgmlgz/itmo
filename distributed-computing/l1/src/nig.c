@@ -3,7 +3,12 @@
 #include <err.h>
 #include <stdarg.h>
 #include <stdio.h>
+#define send sys_send
 #include <sys/ioctl.h>
+#undef send
+#include <poll.h>
+#include <errno.h>
+#include <fcntl.h>
 
 #include "./common.h"
 int log_fd = -1;
@@ -48,6 +53,16 @@ void nig_set_self(Nig* self, local_id self_id) {
         if (self_id != i) {
             close(self->pfd[i][j][1]);
         }
+    }
+  }
+
+  // make read fds for incoming pipes non-blocking to allow receive_any polling
+  for (int from = 0; from < self->processes; ++from) {
+    if (from == self_id) continue;
+    int fd = self->pfd[from][self_id][0];
+    int flags = fcntl(fd, F_GETFL, 0);
+    if (flags != -1) {
+      fcntl(fd, F_SETFL, flags | O_NONBLOCK);
     }
   }
 }
@@ -95,23 +110,43 @@ int nig_receive(Nig* self, local_id from, Message* msg) {
   }
 }
 int nig_receive_any(Nig* self, Message* msg) {
+  // Build pollfd array for all incoming read fds
+  int count = self->processes - 1;
+  struct pollfd pfds[MAX_PROCESS_ID];
+  int index = 0;
+  int id_map[MAX_PROCESS_ID];
   for (int i = 0; i < self->processes; ++i) {
     if (i == self->self_id) continue;
-    int fd = self->pfd[i][self->self_id][0];
-    int nbytes;
-    if (ioctl(fd, FIONREAD, &nbytes) == -1) {
-      return -1;
+    pfds[index].fd = self->pfd[i][self->self_id][0];
+    pfds[index].events = POLLIN;
+    id_map[index] = i;
+    index++;
+  }
+
+  int ready = poll(pfds, count, 10); // small timeout to avoid busy wait
+  if (ready <= 0) {
+    return -1;
+  }
+
+  for (int k = 0; k < count; ++k) {
+    if (pfds[k].revents & POLLIN) {
+      int from = id_map[k];
+      int fd = pfds[k].fd;
+      int available = 0;
+      if (ioctl(fd, FIONREAD, &available) == -1) {
+        continue;
+      }
+      if (available < (int)sizeof(Message)) {
+        continue;
+      }
+      return nig_receive(self, from, msg);
     }
-
-    if (nbytes < sizeof(Message)) continue;
-
-    return nig_receive(self, i, msg);
   }
   return -1;
 }
 
 void logger(const char* format, ...) {
-  char buffer[4096];
+  char buffer[255];
   va_list args;
   va_start(args, format);
   int len = vsnprintf(buffer, sizeof(buffer), format, args);
