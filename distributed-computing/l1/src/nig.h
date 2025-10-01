@@ -9,6 +9,9 @@
 
 #include "./ipc.h"
 
+int log_fd;
+
+
 typedef struct {
   // from, to
   int pfd[MAX_PROCESS_ID][MAX_PROCESS_ID][2];

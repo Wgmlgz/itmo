@@ -6,6 +6,8 @@
 #include <sys/ioctl.h>
 
 #include "./common.h"
+int log_fd = -1;
+
 
 Nig nig_new(int processes) {
   if (processes > MAX_PROCESS_ID) {
@@ -34,7 +36,21 @@ Nig nig_new(int processes) {
   return nig;
 }
 
-void nig_set_self(Nig* self, local_id self_id) { self->self_id = self_id; }
+void nig_set_self(Nig* self, local_id self_id) {
+  self->self_id = self_id;
+
+  for (int i = 0; i < self->processes; ++i) {
+    for (int j = 0; j < self->processes; ++j) {
+      if (i == j) continue;
+        if (self_id != j) {
+            close(self->pfd[i][j][0]);
+        }
+        if (self_id != i) {
+            close(self->pfd[i][j][1]);
+        }
+    }
+  }
+}
 
 Message* msg_new(MessageType type, const char* s_payload) {
   Message* msg = (Message*)(malloc(sizeof(Message)));
@@ -94,16 +110,21 @@ int nig_receive_any(Nig* self, Message* msg) {
   return -1;
 }
 
-void logger(const char* fmt, ...) {
-  FILE* events_fd = fopen(events_log, "a");
+void logger(const char* format, ...) {
+  char buffer[4096];
   va_list args;
-  va_start(args, fmt);
-  char buff[255];
-  vsnprintf(buff, 255, fmt, args);
-  printf("%s", buff);
-  fprintf(events_fd, "%s", buff);
-  // vprintf(fmt, args);
+  va_start(args, format);
+  int len = vsnprintf(buffer, sizeof(buffer), format, args);
+  va_end(args);
 
-  // vfprintf(events_fd, fmt, args);
-  fclose(events_fd);
+  if (len < 0 || len >= sizeof(buffer)) {
+      const char* err_msg = "Log message too long or error occurred\n";
+      write(STDOUT_FILENO, err_msg, strlen(err_msg));
+      write(log_fd, err_msg, strlen(err_msg));
+      return;
+  }
+
+  write(log_fd, buffer, len);
+  write(STDOUT_FILENO, buffer, len);
 }
+

@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #include "./nig.h"
 #include "./pa1.h"
@@ -35,8 +37,7 @@ void tracker_continue(Tracker* self, Nig* nig, Message* msg) {
 }
 
 int main_worker(int num) {
-  FILE* events_fd = fopen(events_log, "w");
-  fclose(events_fd);
+  log_fd = open("events.log", O_WRONLY | O_CREAT | O_APPEND, 0644);
 
   pid_t parent_pid = getpid();
 
@@ -51,6 +52,7 @@ int main_worker(int num) {
     }
   }
 
+  nig_set_self(&nig, PARENT_ID);
   // wait for started
   Tracker tracker = new_tracker();
   Message msg;
@@ -66,6 +68,11 @@ int main_worker(int num) {
     if (tracker.done == num) break;
   }
   logger(log_received_all_done_fmt, PARENT_ID);
+
+  // wait for all children
+  pid_t wpid;
+  int status = 0;
+  while ((wpid = wait(&status)) > 0);
   return 0;
 }
 
