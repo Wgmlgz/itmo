@@ -36,10 +36,5 @@ int main(int argc, char* argv[]) {
     S[i] = num;
   }
 
-  for (int i = 0; i < num; ++i) {
-    printf("%d ", S[i]);
-  }
-  printf("\n");
-
   return main_worker(num, S);
 }

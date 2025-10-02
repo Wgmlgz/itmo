@@ -65,7 +65,7 @@ Message* msg_set_sized(Message* msg, MessageType type, const void* s_payload,
   msg->s_header.s_magic = MESSAGE_MAGIC;
   msg->s_header.s_payload_len = size;
   msg->s_header.s_type = type;
-  msg->s_header.s_local_time = time(NULL);
+  msg->s_header.s_local_time = get_physical_time();
 
   memcpy(msg->s_payload, s_payload, size);
 
@@ -82,8 +82,10 @@ void msg_print(const Message* msg) {
 
 int nig_send(Nig* self, local_id dst, const Message* msg) {
   msg_print(msg);
-  if (write(self->pfd[self->self_id][dst][1], msg, sizeof(Message)) !=
-      sizeof(Message))
+
+  int send_size = sizeof(MessageHeader) + msg->s_header.s_payload_len;
+
+  if (write(self->pfd[self->self_id][dst][1], msg, send_size) != send_size)
     return 1;
   return 0;
 }
@@ -95,16 +97,23 @@ int nig_send_multicast(Nig* self, const Message* msg) {
   return 0;
 }
 int nig_receive(Nig* self, local_id from, Message* msg) {
-  int res = read(self->pfd[from][self->self_id][0], msg, sizeof(Message));
+  int read_fd = self->pfd[from][self->self_id][0];
+  int res = read(read_fd, msg, sizeof(MessageHeader));
 
-  if (res == sizeof(Message)) {
-    msg_print(msg);
-    return 0;
+  if (res == sizeof(MessageHeader)) {
+    int plen = msg->s_header.s_payload_len;
+    int res = read(read_fd, msg->s_payload, plen);
+    if (res == plen) {
+      msg_print(msg);
+      return 0;
+    } else {
+      err(EXIT_FAILURE, "read payload");
+    }
   } else if (errno == EAGAIN) {
     // printf("%d .\n", self->self_id);
     return 1;
   } else {
-    err(EXIT_FAILURE, "read");
+    err(EXIT_FAILURE, "read header");
   }
 }
 int nig_receive_any(Nig* self, Message* msg) {
