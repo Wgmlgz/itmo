@@ -38,7 +38,7 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
 // }
 
 void tracker_sync_history(Nig* self) {
-  int cur = get_physical_time();
+  int cur = get_lamport_time();
   for (int t = self->history.s_history_len; t <= cur; ++t) {
     memcpy(&self->history.s_history[t], &self->state, sizeof(BalanceState));
     self->history.s_history[t].s_time = t;
@@ -60,20 +60,48 @@ int tracker_continue(Nig* nig, Message* msg) {
       TransferOrder order;
       memcpy(&order, msg->s_payload, sizeof(TransferOrder));
       if (order.s_src == nig->self_id) {
-        logger(log_transfer_out_fmt, get_physical_time(), order.s_dst,
-               order.s_amount, order.s_dst);
-        tracker_sync_history(nig);
+        // Build outgoing message first: this advances Lamport once and stamps ts_send
+        Message fwd;
+        msg_set_sized(&fwd, TRANSFER, &order, sizeof(TransferOrder));
+        timestamp_t ts_send = fwd.s_header.s_local_time;
+
+        // Align history to ts_send, apply balance change at ts_send
+        for (int t = nig->history.s_history_len; t <= ts_send; ++t) {
+          memcpy(&nig->history.s_history[t], &nig->state, sizeof(BalanceState));
+          nig->history.s_history[t].s_time = t;
+        }
+        if (nig->history.s_history_len <= ts_send)
+          nig->history.s_history_len = ts_send + 1;
+
         nig->state.s_balance -= order.s_amount;
         tracker_sync_history(nig);
 
-        nig_send(nig, order.s_dst, msg);
+        logger(log_transfer_out_fmt, ts_send, order.s_src, order.s_amount, order.s_dst);
+        nig_send(nig, order.s_dst, &fwd);
       } else if (order.s_dst == nig->self_id) {
-        tracker_sync_history(nig);
-        logger(log_transfer_in_fmt, get_physical_time(), order.s_dst,
-               order.s_amount, order.s_dst);
-        tracker_sync_history(nig);
+        // On receive, we already merged Lamport with msg ts in receive()
+        // Backfill pending incoming between send ts and receive ts-1
+        timestamp_t ts_send = msg->s_header.s_local_time;
+        timestamp_t ts_recv = get_lamport_time();
+        if (ts_send < 0) ts_send = 0;
+        if (ts_recv < 0) ts_recv = 0;
+        // Ensure history up to ts_recv exists
+        for (int t = nig->history.s_history_len; t <= ts_recv; ++t) {
+          memcpy(&nig->history.s_history[t], &nig->state, sizeof(BalanceState));
+          nig->history.s_history[t].s_time = t;
+        }
+        if (nig->history.s_history_len <= ts_recv)
+          nig->history.s_history_len = ts_recv + 1;
+        for (int t = ts_send; t < ts_recv; ++t) {
+          if (t >= 0 && t <= MAX_T) {
+            nig->history.s_history[t].s_balance_pending_in += order.s_amount;
+          }
+        }
+        // Apply the incoming balance at ts_recv
         nig->state.s_balance += order.s_amount;
         tracker_sync_history(nig);
+
+        logger(log_transfer_in_fmt, ts_recv, order.s_dst, order.s_amount, order.s_src);
 
         Message ack_msg;
         msg_set_str(&ack_msg, ACK, "");
@@ -134,7 +162,7 @@ int main_worker(int num, int* S) {
     tracker_continue(&nig, &msg);
     if (nig.r_started == num) break;
   }
-  logger(log_received_all_started_fmt, get_physical_time(), PARENT_ID);
+  logger(log_received_all_started_fmt, get_lamport_time(), PARENT_ID);
 
   // main work
   bank_robbery(&nig, num);
@@ -146,7 +174,7 @@ int main_worker(int num, int* S) {
     tracker_continue(&nig, &msg);
     if (nig.r_done == num) break;
   }
-  logger(log_received_all_done_fmt, get_physical_time(), PARENT_ID);
+  logger(log_received_all_done_fmt, get_lamport_time(), PARENT_ID);
 
   while (1) {
     tracker_continue(&nig, &msg);
@@ -170,7 +198,7 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
   char buff[255];
 
   // send start
-  snprintf(buff, 255, log_started_fmt, get_physical_time(), id, pid, parent_pid,
+  snprintf(buff, 255, log_started_fmt, get_lamport_time(), id, pid, parent_pid,
            balance);
   logger("%s", buff);
   send_multicast(nig, msg_set_str(&msg, STARTED, buff));
@@ -180,7 +208,7 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
     tracker_continue(nig, &msg);
     if (nig->r_started == other) break;
   }
-  logger(log_received_all_started_fmt, get_physical_time(), id);
+  logger(log_received_all_started_fmt, get_lamport_time(), id);
 
   // actual work
   // printf("%d sratring work\n", id);
@@ -194,7 +222,7 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
   // printf("%d r_stop recieved\n", id);
 
   // send r_done
-  snprintf(buff, 255, log_done_fmt, get_physical_time(), id,
+  snprintf(buff, 255, log_done_fmt, get_lamport_time(), id,
            nig->state.s_balance);
   logger("%s", buff);
   send_multicast(nig, msg_set_str(&msg, DONE, buff));
@@ -204,7 +232,7 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
     tracker_continue(nig, &msg);
     if (nig->r_done == other) break;
   }
-  logger(log_received_all_done_fmt, get_physical_time(), id);
+  logger(log_received_all_done_fmt, get_lamport_time(), id);
 
   tracker_sync_history(nig);
   send(nig, PARENT_ID,

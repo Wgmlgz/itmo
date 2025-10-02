@@ -12,6 +12,24 @@
 #include "./common.h"
 int log_fd = -1;
 
+// Lamport clock implementation for PA3
+static timestamp_t lamport_time = 0;
+
+static inline void lamport_on_event() {
+  if (lamport_time < MAX_T) ++lamport_time;
+}
+
+static inline void lamport_on_send() {
+  lamport_on_event();
+}
+
+static inline void lamport_on_receive(timestamp_t msg_time) {
+  if (lamport_time < msg_time) lamport_time = msg_time;
+  lamport_on_event();
+}
+
+timestamp_t get_lamport_time() { return lamport_time; }
+
 Nig nig_new(int processes) {
   if (processes > MAX_PROCESS_ID) {
     err(EXIT_FAILURE, "requested more then max processes");
@@ -81,7 +99,9 @@ Message* msg_set_sized(Message* msg, MessageType type, const void* s_payload,
   msg->s_header.s_magic = MESSAGE_MAGIC;
   msg->s_header.s_payload_len = size;
   msg->s_header.s_type = type;
-  msg->s_header.s_local_time = get_physical_time();
+  // Per PA3, increment Lamport time before any send event
+  lamport_on_send();
+  msg->s_header.s_local_time = get_lamport_time();
 
   memcpy(msg->s_payload, s_payload, size);
 
@@ -117,6 +137,8 @@ int nig_receive(Nig* self, local_id from, Message* msg) {
   int res = read(read_fd, msg, sizeof(MessageHeader));
 
   if (res == sizeof(MessageHeader)) {
+    // Update Lamport time on receive as soon as header is available
+    lamport_on_receive(msg->s_header.s_local_time);
     int plen = msg->s_header.s_payload_len;
     int res = read(read_fd, msg->s_payload, plen);
     if (res == plen) {
