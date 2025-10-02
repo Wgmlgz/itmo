@@ -20,31 +20,72 @@ int main_worker(int num, int* S);
 int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
                  int balance);
 
-typedef struct {
-  int r_started;
-  int r_done;
-  int r_stop;
-  int ack;
-  BalanceState state;
-  BalanceHistory history;
-  AllHistory all_history;
-} Tracker;
+// Tracker new_tracker(local_id id, int balance) {
+//   Tracker tracker;
+//   tracker.r_started = 0;
+//   tracker.r_done = 0;
+//   tracker.r_stop = 0;
 
-Tracker new_tracker(local_id id, int balance) {
-  Tracker tracker;
-  tracker.r_started = 0;
-  tracker.r_done = 0;
-  tracker.r_stop = 0;
+//   tracker.state.s_balance = balance;
+//   tracker.state.s_balance_pending_in = 0;
+//   tracker.state.s_time = 0;
 
-  tracker.state.s_balance = balance;
-  tracker.state.s_balance_pending_in = 0;
-  tracker.state.s_time = 0;
+//   tracker.history.s_id = id;
+//   tracker.history.s_history_len = 0;
 
-  tracker.history.s_id = id;
-  tracker.history.s_history_len = 0;
+//   tracker.all_history.s_history_len = 0;
+//   return tracker;
+// }
 
-  tracker.all_history.s_history_len = 0;
-  return tracker;
+void tracker_sync_history(Nig* self) {
+  int cur = get_physical_time();
+  for (int t = self->history.s_history_len; t <= cur; ++t) {
+    memcpy(&self->history.s_history[t], &self->state, sizeof(BalanceState));
+    self->history.s_history[t].s_time = t;
+  }
+  self->history.s_history_len = cur + 1;
+  self->history.s_history[cur].s_balance = self->state.s_balance;
+}
+
+int tracker_continue(Nig* nig, Message* msg) {
+  int res = nig_receive_any(nig, msg);
+  if (res == 0) {
+    if (msg->s_header.s_type == STARTED) {
+      nig->r_started++;
+    } else if (msg->s_header.s_type == DONE) {
+      nig->r_done++;
+    } else if (msg->s_header.s_type == STOP) {
+      nig->r_stop++;
+    } else if (msg->s_header.s_type == TRANSFER) {
+      TransferOrder order;
+      memcpy(&order, msg->s_payload, sizeof(TransferOrder));
+      if (order.s_src == nig->self_id) {
+        logger(log_transfer_out_fmt, get_physical_time(), order.s_dst,
+               order.s_amount, order.s_dst);
+        tracker_sync_history(nig);
+        nig->state.s_balance -= order.s_amount;
+        tracker_sync_history(nig);
+
+        nig_send(nig, order.s_dst, msg);
+      } else if (order.s_dst == nig->self_id) {
+        tracker_sync_history(nig);
+        logger(log_transfer_in_fmt, get_physical_time(), order.s_dst,
+               order.s_amount, order.s_dst);
+        tracker_sync_history(nig);
+        nig->state.s_balance += order.s_amount;
+        tracker_sync_history(nig);
+
+        Message ack_msg;
+        msg_set_str(&ack_msg, ACK, "");
+        nig_send(nig, PARENT_ID, &ack_msg);
+      }
+    } else if (msg->s_header.s_type == BALANCE_HISTORY) {
+      memcpy(&nig->all_history.s_history[nig->all_history.s_history_len],
+             msg->s_payload, sizeof(BalanceHistory));
+      ++nig->all_history.s_history_len;
+    }
+  }
+  return res;
 }
 
 void transfer(void* parent_data, local_id src, local_id dst, balance_t amount) {
@@ -58,53 +99,14 @@ void transfer(void* parent_data, local_id src, local_id dst, balance_t amount) {
   Message msg;
   msg_set_sized(&msg, TRANSFER, &order, sizeof(TransferOrder));
   nig_send(self, src, &msg);
-}
-
-void tracker_sync_history(Tracker* self) {
-  int cur = get_physical_time();
-  for (int t = self->history.s_history_len; t <= cur; ++t) {
-    memcpy(&self->history.s_history[t], &self->state, sizeof(BalanceState));
-    self->history.s_history[t].s_time = t;
-  }
-  self->history.s_history_len = cur + 1;
-  self->history.s_history[cur].s_balance = self->state.s_balance;
-}
-
-int tracker_continue(Tracker* self, Nig* nig, Message* msg) {
-  int res = nig_receive_any(nig, msg);
-  if (res == 0) {
-    if (msg->s_header.s_type == STARTED) {
-      self->r_started++;
-    } else if (msg->s_header.s_type == DONE) {
-      self->r_done++;
-    } else if (msg->s_header.s_type == STOP) {
-      self->r_stop++;
-    } else if (msg->s_header.s_type == TRANSFER) {
-      TransferOrder order;
-      memcpy(&order, msg->s_payload, sizeof(TransferOrder));
-      if (order.s_src == nig->self_id) {
-        logger(log_transfer_out_fmt, get_physical_time(), order.s_dst,
-               order.s_amount, order.s_dst);
-        tracker_sync_history(self);
-        self->state.s_balance -= order.s_amount;
-        tracker_sync_history(self);
-
-        nig_send(nig, order.s_dst, msg);
-      } else if (order.s_dst == nig->self_id) {
-        tracker_sync_history(self);
-        logger(log_transfer_in_fmt, get_physical_time(), order.s_dst,
-               order.s_amount, order.s_dst);
-        tracker_sync_history(self);
-        self->state.s_balance += order.s_amount;
-        tracker_sync_history(self);
-      }
-    } else if (msg->s_header.s_type == BALANCE_HISTORY) {
-      memcpy(&self->all_history.s_history[self->all_history.s_history_len],
-             msg->s_payload, sizeof(BalanceHistory));
-      ++self->all_history.s_history_len;
+  while (1) {
+    int res = tracker_continue(self, &msg);
+    if (res != 0) continue;
+    if (msg.s_header.s_type == ACK) {
+      // printf("ack, recieved\n");
+      break;
     }
   }
-  return res;
 }
 
 int main_worker(int num, int* S) {
@@ -124,14 +126,13 @@ int main_worker(int num, int* S) {
   }
 
   // main settup
-  nig_set_self(&nig, PARENT_ID);
+  nig_set_self(&nig, 0, PARENT_ID);
   Message msg;
-  Tracker tracker = new_tracker(PARENT_ID, 0);
 
   // wait for r_started from all children
   while (1) {
-    tracker_continue(&tracker, &nig, &msg);
-    if (tracker.r_started == num) break;
+    tracker_continue(&nig, &msg);
+    if (nig.r_started == num) break;
   }
   logger(log_received_all_started_fmt, get_physical_time(), PARENT_ID);
 
@@ -142,14 +143,14 @@ int main_worker(int num, int* S) {
   // printf("robbery r_done\n");
 
   while (1) {
-    tracker_continue(&tracker, &nig, &msg);
-    if (tracker.r_done == num) break;
+    tracker_continue(&nig, &msg);
+    if (nig.r_done == num) break;
   }
   logger(log_received_all_done_fmt, get_physical_time(), PARENT_ID);
 
   while (1) {
-    tracker_continue(&tracker, &nig, &msg);
-    if (tracker.all_history.s_history_len == num) {
+    tracker_continue(&nig, &msg);
+    if (nig.all_history.s_history_len == num) {
       break;
     }
   }
@@ -157,16 +158,15 @@ int main_worker(int num, int* S) {
   pid_t wpid;
   int status = 0;
   while ((wpid = wait(&status)) > 0);
-  print_history(&tracker.all_history);
+  print_history(&nig.all_history);
   return 0;
 }
 
 int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
                  int balance) {
   // init
-  nig_set_self(nig, id);
+  nig_set_self(nig, balance, id);
   Message msg;
-  Tracker tracker = new_tracker(id, balance);
   char buff[255];
 
   // send start
@@ -177,8 +177,8 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
 
   // wait for others start
   while (1) {
-    tracker_continue(&tracker, nig, &msg);
-    if (tracker.r_started == other) break;
+    tracker_continue(nig, &msg);
+    if (nig->r_started == other) break;
   }
   logger(log_received_all_started_fmt, get_physical_time(), id);
 
@@ -186,28 +186,30 @@ int child_worker(Nig* nig, local_id id, pid_t pid, pid_t parent_pid, int other,
   // printf("%d sratring work\n", id);
 
   while (1) {
-    tracker_continue(&tracker, nig, &msg);
+    tracker_continue(nig, &msg);
     // printf("%d, %d, %d\n", tracker.r_started, tracker.r_done,
     // tracker.r_stop);
-    if (tracker.r_stop > 0) break;
+    if (nig->r_stop > 0) break;
   }
   // printf("%d r_stop recieved\n", id);
 
   // send r_done
   snprintf(buff, 255, log_done_fmt, get_physical_time(), id,
-           tracker.state.s_balance);
+           nig->state.s_balance);
   logger("%s", buff);
   send_multicast(nig, msg_set_str(&msg, DONE, buff));
 
-  send(nig, PARENT_ID,
-       msg_set_sized(&msg, BALANCE_HISTORY, &tracker.history,
-                     sizeof(BalanceHistory)));
   // wait for others r_done
   while (1) {
-    tracker_continue(&tracker, nig, &msg);
-    if (tracker.r_done == other) break;
+    tracker_continue(nig, &msg);
+    if (nig->r_done == other) break;
   }
   logger(log_received_all_done_fmt, get_physical_time(), id);
+
+  tracker_sync_history(nig);
+  send(nig, PARENT_ID,
+       msg_set_sized(&msg, BALANCE_HISTORY, &nig->history,
+                     sizeof(BalanceHistory)));
   return 0;
 }
 

@@ -21,6 +21,17 @@ Nig nig_new(int processes) {
   nig.self_id = PARENT_ID;
   nig.processes = processes;
 
+
+
+  nig.r_started = 0;
+  nig.r_done = 0;
+  nig.r_stop = 0;
+  nig.state.s_balance_pending_in = 0;
+  nig.state.s_time = 0;
+  nig.history.s_history_len = 0;
+  nig.all_history.s_history_len = 0;
+
+
   FILE* pipes_fd = fopen(pipes_log, "w");
 
   for (int i = 0; i < processes; ++i) {
@@ -44,8 +55,11 @@ Nig nig_new(int processes) {
   return nig;
 }
 
-void nig_set_self(Nig* self, local_id self_id) {
+void nig_set_self(Nig* self, balance_t balance, local_id self_id) {
   self->self_id = self_id;
+  self->history.s_id = self_id;
+  self->state.s_balance = balance;
+
 
   for (int i = 0; i < self->processes; ++i) {
     for (int j = 0; j < self->processes; ++j) {
