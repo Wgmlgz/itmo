@@ -1,6 +1,5 @@
 {
   "files.associations": {
-    "*.pl": "prolog",
     "stdarg.h": "c",
     "stdlib.h": "c",
     "types.h": "c",
@@ -11,6 +10,8 @@
     "ioctl.h": "c",
     "ipc.h": "c",
     "common.h": "c",
-    "fcntl.h": "c"
+    "banking.h": "c",
+    "cerrno": "c",
+    "pa2345.h": "c"
   }
 }
