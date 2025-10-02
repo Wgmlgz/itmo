@@ -35,6 +35,8 @@ Nig nig_new(int processes) {
 
       if (fcntl(nig.pfd[i][j][0], F_SETFL, O_NONBLOCK) < 0)
         err(EXIT_FAILURE, "failed to set nonblocking pipe");
+      if (fcntl(nig.pfd[i][j][1], F_SETFL, O_NONBLOCK) < 0)
+        err(EXIT_FAILURE, "failed to set nonblocking pipe");
     }
   }
   fclose(pipes_fd);
