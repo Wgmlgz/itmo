@@ -11,6 +11,7 @@
 #include "./banking.h"
 #include "./common.h"
 int log_fd = -1;
+int use_m = 0;
 
 // Lamport clock implementation for PA3
 static timestamp_t lamport_time = 0;
@@ -19,9 +20,7 @@ static inline void lamport_on_event() {
   if (lamport_time < MAX_T) ++lamport_time;
 }
 
-static inline void lamport_on_send() {
-  lamport_on_event();
-}
+static inline void lamport_on_send() { lamport_on_event(); }
 
 static inline void lamport_on_receive(timestamp_t msg_time) {
   if (lamport_time < msg_time) lamport_time = msg_time;
@@ -39,8 +38,6 @@ Nig nig_new(int processes) {
   nig.self_id = PARENT_ID;
   nig.processes = processes;
 
-
-
   nig.r_started = 0;
   nig.r_done = 0;
   nig.r_stop = 0;
@@ -49,7 +46,8 @@ Nig nig_new(int processes) {
   nig.history.s_history_len = 0;
   nig.all_history.s_history_len = 0;
 
-
+  nig.qeueue_len = 0;
+  nig.want_cs = 0;
   FILE* pipes_fd = fopen(pipes_log, "w");
 
   for (int i = 0; i < processes; ++i) {
@@ -77,7 +75,6 @@ void nig_set_self(Nig* self, balance_t balance, local_id self_id) {
   self->self_id = self_id;
   self->history.s_id = self_id;
   self->state.s_balance = balance;
-
 
   for (int i = 0; i < self->processes; ++i) {
     for (int j = 0; j < self->processes; ++j) {
@@ -113,10 +110,11 @@ Message* msg_set_str(Message* msg, MessageType type, const char* s_payload) {
 }
 
 void msg_print(const Message* msg) {
-  // printf("DBG msg: `%d`\n", msg->s_header.s_type);
+  // printf("msg: `%d` `%d`\n", msg->s_header.s_local_time, msg->s_header.s_type);
 }
 
 int nig_send(Nig* self, local_id dst, const Message* msg) {
+  // printf("sending - ");
   msg_print(msg);
 
   int send_size = sizeof(MessageHeader) + msg->s_header.s_payload_len;
@@ -142,6 +140,7 @@ int nig_receive(Nig* self, local_id from, Message* msg) {
     int plen = msg->s_header.s_payload_len;
     int res = read(read_fd, msg->s_payload, plen);
     if (res == plen) {
+      // printf("got - ");
       msg_print(msg);
       return 0;
     } else {
@@ -162,6 +161,60 @@ int nig_receive_any(Nig* self, Message* msg) {
     }
   }
   return -1;
+}
+
+int nig_receive_any_with_id(Nig* self, Message* msg, local_id* id) {
+  for (int i = 0; i < self->processes; ++i) {
+    if (i == self->self_id) continue;
+    if (nig_receive(self, i, msg) == 0) {
+      *id = i;
+      return 0;
+    }
+  }
+  return -1;
+}
+
+int compare_qe(const void* a, const void* b) {
+  QEntry arg1 = *(const QEntry*)a;
+  QEntry arg2 = *(const QEntry*)b;
+
+  if (arg1.t < arg2.t) return -1;
+  if (arg1.t > arg2.t) return 1;
+
+  if (arg1.id < arg2.id) return -1;
+  if (arg1.id > arg2.id) return 1;
+  return 0;
+}
+
+void nig_sort(Nig* self) {
+  qsort(self->m_queue, self->qeueue_len, sizeof(QEntry), compare_qe);
+  // printf("q (%d) ", self->self_id);
+  // for (int i = 0; i < self->qeueue_len; ++i) {
+  //   printf("%d %d, ", self->m_queue[i].t, self->m_queue[i].id);
+  //   }
+  // printf("\n");
+}
+
+void nig_enqueue(Nig* self, timestamp_t t, local_id id) {
+  self->m_queue[self->qeueue_len].t = t;
+  self->m_queue[self->qeueue_len].id = id;
+  self->qeueue_len++;
+  nig_sort(self);
+}
+
+void nig_erase(Nig* self, local_id id) {
+  int pos = -1;
+  for (int i = 0; i < self->qeueue_len; ++i) {
+    if (self->m_queue[i].id == id) {
+      pos = i;
+      break;
+    }
+  }
+  if (pos == -1) return;
+
+  memcpy(&self->m_queue[pos], &self->m_queue[pos + 1],
+         sizeof(QEntry) * (self->qeueue_len - pos - 1));
+  self->qeueue_len--;
 }
 
 void logger(const char* format, ...) {

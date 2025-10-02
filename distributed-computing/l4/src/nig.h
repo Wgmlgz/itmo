@@ -10,6 +10,12 @@
 #include "./ipc.h"
 #include "banking.h"
 int log_fd;
+int use_m;
+
+typedef struct {
+  timestamp_t t;
+  local_id id;
+} QEntry;
 
 typedef struct {
   // from, to
@@ -24,6 +30,14 @@ typedef struct {
   BalanceState state;
   BalanceHistory history;
   AllHistory all_history;
+
+
+  QEntry m_queue[MAX_PROCESS_ID * 4];
+
+  int want_cs;
+  int qeueue_len;
+  int m_got;
+
 } Nig;
 
 Nig nig_new(int processes);
@@ -36,6 +50,12 @@ int nig_send(Nig* self, local_id dst, const Message* msg);
 int nig_send_multicast(Nig* self, const Message* msg);
 int nig_receive(Nig* self, local_id from, Message* msg);
 int nig_receive_any(Nig* self, Message* msg);
+int nig_receive_any_with_id(Nig* self, Message* msg, local_id* id);
+int nig_request_cs(Nig* self);
+int nig_release_cs(Nig* self);
+void nig_erase(Nig* self, local_id id);
+void nig_enqueue(Nig* self, timestamp_t t, local_id id);
+
 
 void logger(const char* fmt, ...);
 

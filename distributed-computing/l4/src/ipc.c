@@ -17,3 +17,7 @@ int receive(void* self, local_id from, Message* msg) {
 int receive_any(void* self, Message* msg) {
   return nig_receive_any((Nig*)(self), msg);
 }
+
+int request_cs(const void* self) { return nig_request_cs((Nig*)(self)); }
+
+int release_cs(const void* self) { return nig_release_cs((Nig*)(self)); }

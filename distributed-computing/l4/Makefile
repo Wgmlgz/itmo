@@ -13,7 +13,7 @@ run:
 # 	cp -r ../pa2345_starter_code/. ./src/
 	cd src && \
 	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$(current_dir)/src/lib64" && clang -std=c99 -Wall -L. -pedantic *.c -lruntime -o pa4 && \
-	./pa4 -p 3 --mutexl
+	./pa4 --mutexl -p 3
 
 package:
 	rm -rf ./pa4
